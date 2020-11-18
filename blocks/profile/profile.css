@@ -1,0 +1,10 @@
+.profile {
+  margin-top: 42px;
+  padding: 0 19px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
