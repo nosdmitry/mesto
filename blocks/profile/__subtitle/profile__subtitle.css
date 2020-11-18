@@ -6,3 +6,9 @@
   line-height: calc(17 / 14);
   text-align: center;
 }
+
+@media (min-width: 768px) {
+  .profile__subtitle {
+    text-align: left;
+  }
+}

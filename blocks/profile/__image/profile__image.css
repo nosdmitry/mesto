@@ -3,3 +3,9 @@
   width: 120px;
   border-radius: 50%;
 }
+
+@media (min-width: 768px) {
+  .profile__image {
+    margin: 0;
+  }
+}

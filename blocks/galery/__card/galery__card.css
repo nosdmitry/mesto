@@ -1,0 +1,9 @@
+.galery__card {
+  border: 1px solid red;
+  box-sizing: border-box;
+  height: 361px;
+  width: 282px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}

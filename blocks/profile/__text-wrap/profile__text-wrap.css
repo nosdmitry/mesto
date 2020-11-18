@@ -1,4 +1,14 @@
 .profile__text-wrap {
   box-sizing: border-box;
+  height: 83px;
   margin-bottom: 36px;
+  border: 1px solid red;
+}
+
+@media (min-width: 768px) {
+  .profile__text-wrap {
+    margin: 0;
+    margin-left: 30px;
+    /* margin: 22px 0 0 30px; */
+  }
 }

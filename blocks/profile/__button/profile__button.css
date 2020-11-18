@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   width: 100%;
+  max-width: 350px;
   height: 50px;
   background-color: black;
   border: 2px solid #fff;
@@ -11,4 +12,11 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 16px;
+}
+
+@media (min-width: 768px) {
+  .profile__button {
+    width: 150px;
+    justify-content: flex-end;
+  }
 }
