@@ -1,0 +1,14 @@
+.header {
+  margin-top: 28px;
+  width: 100%;
+  height: 56px;
+  border-bottom: 1px solid #545454;
+  box-sizing: border-box;
+}
+
+@media (min-width: 880px) {
+  .header {
+    margin-top: 45px;
+    height: 74px;
+  }
+}
