@@ -1,0 +1,9 @@
+.galery__text {
+  margin: 0;  
+  padding: 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: calc(29 / 24);
+  color: #000;
+  flex-basis: 220px;
+}

@@ -1,5 +1,8 @@
 .galery__name-and-heart {
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 21px;
 }

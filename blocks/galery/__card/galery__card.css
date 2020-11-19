@@ -1,5 +1,7 @@
 .galery__card {
-  border: 1px solid red;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 20px;
   box-sizing: border-box;
   height: 361px;
   width: 282px;

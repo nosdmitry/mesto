@@ -1,8 +1,11 @@
 .galery__heart {
+  background-color: #fff;
+  display: inline-block;
   background-image: url(../../../images/heart.svg);
   width: 20px;
   height: 20px;
-  border: 1px solid red;
+  border: 0;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
