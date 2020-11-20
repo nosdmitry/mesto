@@ -1,4 +1,7 @@
 .galery__heart {
+  margin: 0;
+  padding: 0;
+  margin-right: 20px;
   background-color: #fff;
   display: inline-block;
   background-image: url(../../../images/heart.svg);

@@ -9,7 +9,6 @@
 
   row-gap: 20px; 
   column-gap: 16px;
-  /* grid-template-columns: auto auto auto; */
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
-  /* grid-template-rows: repeat(auto-fit, minmax(auto, 1fr)); */
+  grid-template-rows: repeat(auto-fit, minmax(282px, 1fr));
 }
