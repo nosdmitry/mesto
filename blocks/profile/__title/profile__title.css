@@ -8,8 +8,6 @@
   font-size: 42px;
   line-height: calc(48 / 42);
   font-weight: 500;
-
-  border: 1px solid red;
 }
 
 @media (max-width: 768px) {
