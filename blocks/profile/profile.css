@@ -1,25 +1,8 @@
 .profile {
-  margin-top: 42px;
-  padding: 0 19px;
+  border: 1px solid red;
   box-sizing: border-box;
   display: flex;
-  position: relative;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-}
-
-@media (min-width: 768px) {
-  .profile {
-    display: grid;
-    grid-template-columns: 120px minmax(300px, 1fr) auto;
-    align-items: center;
-  }
-}
-
-@media (min-width: 880px) {
-  .profile {
-    padding: 0;
-  }
+  max-width: 100%;
 }

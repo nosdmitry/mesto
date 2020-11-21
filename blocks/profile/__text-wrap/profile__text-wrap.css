@@ -1,14 +1,8 @@
 .profile__text-wrap {
-  box-sizing: border-box;
-  border: 1px solid red;
-  height: 83px;
-  margin-bottom: 36px;
-}
-
-@media (min-width: 768px) {
-  .profile__text-wrap {
-    margin: 0;
-    margin-left: 30px;
-    /* margin: 22px 0 0 30px; */
-  }
+  border: 1px solid green;
+  display: flex;
+  flex-basis: 500px;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
 }
