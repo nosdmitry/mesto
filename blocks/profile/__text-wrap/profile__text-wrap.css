@@ -1,8 +1,9 @@
 .profile__text-wrap {
-  border: 1px solid green;
+  margin-left: 30px;
+  width: 100%;
+  min-width: 200px;
   display: flex;
-  flex-basis: 500px;
   flex-direction: column;
   justify-content: flex-start;
-  flex-wrap: nowrap;
+  align-items: flex-start;
 }

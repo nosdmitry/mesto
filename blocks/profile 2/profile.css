@@ -1,6 +1,8 @@
 .profile {
-  max-width: 880px;
+  border: 1px solid red;
   box-sizing: border-box;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  max-width: 100%;
 }
