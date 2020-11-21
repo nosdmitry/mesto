@@ -8,6 +8,12 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+  transition: opacity linear .1s;
+}
+
+.profile__edit:hover {
+  opacity: .6;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

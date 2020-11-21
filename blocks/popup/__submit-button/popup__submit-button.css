@@ -8,6 +8,12 @@
   color: #fff;
   font-size: 18px;
   line-height: calc(22 / 18);
+  transition: opacity linear .1s;
+}
+
+.popup__submit-button:hover {
+  cursor: pointer;
+  opacity: .8;
 }
 
 @media (max-width: 768px) {
