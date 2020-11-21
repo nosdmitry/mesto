@@ -1,13 +1,17 @@
 .profile__text-wrap {
-  box-sizing: border-box;
-  height: 83px;
-  margin-bottom: 36px;
+  margin-left: 30px;
+  width: 100%;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .profile__text-wrap {
-    margin: 0;
-    margin-left: 30px;
-    /* margin: 22px 0 0 30px; */
+    margin-left: 0;
+    margin-top: 26px;
+    align-items: center;
   }
 }

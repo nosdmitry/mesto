@@ -1,0 +1,20 @@
+.popup__container {
+  width: 430px;
+  height: 330px;
+  margin-top: 195px;
+  background-color: #fff;
+  position: relative;
+  z-index: 100;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+@media (max-width: 768px) {
+  .popup__container {
+    margin-top: 123px;
+    width: 282px;
+    height: 322px;
+  }
+}
