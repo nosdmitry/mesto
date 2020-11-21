@@ -5,7 +5,7 @@
   font-weight: 900;
   line-height: calc(29 / 24);
   color: #000;
-  flex-basis: 200px;
+  min-width: 200px;
   display: block;
   text-overflow: ellipsis;
   white-space: nowrap;

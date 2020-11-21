@@ -5,7 +5,7 @@
   background-color: #fff;
   display: inline-block;
   background-image: url(../../../images/heart.svg);
-  width: 20px;
+  min-width: 20px;
   height: 20px;
   border: 0;
   background-repeat: no-repeat;
