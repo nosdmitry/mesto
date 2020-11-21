@@ -1,6 +1,19 @@
 .profile {
+  margin-top: 39px;
   max-width: 880px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 879px) {
+  .profile {
+    margin: 39px 27px 0 27px;
+  } 
+}
+
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+  }
 }
