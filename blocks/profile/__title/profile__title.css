@@ -1,21 +1,19 @@
 .profile__title {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 7px;
   color: #fff;
-  font-size: 27px;
-  font-weight: normal;
-  line-height: calc(33 / 27);
-  text-align: center;
-  letter-spacing: 0.2px;
+  padding: 0;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 42px;
+  line-height: calc(48 / 42);
+  font-weight: 500;
 }
 
-@media (min-width: 768px) { 
+@media (max-width: 768px) {
   .profile__title {
-    font-size: 42px;
-    font-weight: 500;
-    line-height: calc(48 / 42);
-    text-align: left;
-    margin-bottom: 16px;
+    font-size: 27px;
+    line-height: calc(33 / 27);
+    margin-left: 34px;
   }
 }

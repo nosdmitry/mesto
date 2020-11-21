@@ -11,4 +11,15 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  transition: opacity linear .1s;
+}
+
+.galery__heart:hover {
+  opacity: .5;
+  cursor: pointer;
+}
+
+.galery__heart:focus {
+  background-image: url(../../../images/heart_active.svg);
+  border: 0;
 }

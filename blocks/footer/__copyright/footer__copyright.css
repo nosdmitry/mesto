@@ -5,3 +5,10 @@
   font-size: 18px;
   line-height: calc(22 / 18);
 }
+
+@media (max-width: 768px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: calc(17 / 14);
+  }
+}
