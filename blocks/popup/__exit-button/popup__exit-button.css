@@ -7,9 +7,18 @@
   background-image: url(../../../images/popup_exit-button.svg);
   background-position: center;
   background-repeat: no-repeat;
-  transform: rotate(45deg);
+  background-origin: content-box;
   position: absolute;
-  top: -50px;
-  right: -50px;
+  top: -40px;
+  right: -40px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .popup__exit-button {
+    width: 20px;
+    height: 20px;
+    top: -42px;
+    right: 8px;
+  }
 }
