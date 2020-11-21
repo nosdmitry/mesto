@@ -22,10 +22,10 @@
       <section class="profile">
         <img src="./images/Kusto.jpg" alt="" class="profile__image">
         <div class="profile__text-wrap">
-          <h1 class="profile__title">
-            Жак-Ив Кусто
+          <div class="profile__title-wrap">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit"></button>
-          </h1>
+          </div>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
         <button class="profile__button"></button>
@@ -84,11 +84,26 @@
 
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-    </footer> 
-
+    </footer>
   </div>
 
+  <div class="popup">
+    <div class="popup__overlay"></div>
 
+    <div class="popup__container popup__container_paddings">
+      <button type="button" class="popup__exit-button"></button>
+      <h3 class="popup__form-title">Редактировать профиль</h3>
+
+      <form class="popup__form">
+        <input type="text" class="popup__input popup__input_type_name">
+        <input type="text" class="popup__input popup__input_type_description">
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
+
+    </div>
+
+  </div>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

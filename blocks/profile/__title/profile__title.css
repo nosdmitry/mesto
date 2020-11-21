@@ -8,6 +8,7 @@
   line-height: calc(33 / 27);
   text-align: center;
   letter-spacing: 0.2px;
+  display: inline;
 }
 
 @media (min-width: 768px) { 

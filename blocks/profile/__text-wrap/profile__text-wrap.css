@@ -1,5 +1,6 @@
 .profile__text-wrap {
   box-sizing: border-box;
+  border: 1px solid red;
   height: 83px;
   margin-bottom: 36px;
 }
