@@ -1,13 +1,14 @@
 .header {
-  padding-top: 28px;
+  padding: 28px 0;
+  box-sizing: border-box;
   width: 100%;
-  height: 56px;
+  /* height: 56px; */
   border-bottom: 1px solid #545454;
 }
 
 @media (min-width: 880px) {
   .header {
-    padding-top: 45px;
-    height: 74px;
+    padding: 45px 0;
+    
   }
 }
