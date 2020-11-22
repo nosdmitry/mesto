@@ -10,7 +10,7 @@
   /* grid-template-rows: repeat(auto-fit, minmax(282px, 1fr)); */
 }
 
-@media (max-width: 880px) {
+@media (max-width: 879px) {
   .galery__cards {
     padding: 0 27px;
   }

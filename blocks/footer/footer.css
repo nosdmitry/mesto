@@ -2,7 +2,13 @@
   margin: 68px 0 36px 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 880px) {
+  .footer {
+    margin-left: 27px;
+  }
+}
+
+@media (max-width: 880px) {
   .footer {
     margin: 50px 0 33px 19px;
   }
