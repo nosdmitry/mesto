@@ -1,8 +1,10 @@
-/******************************************
-/* This script works with popup window, 
-/* where you may change profile name and 
-/* description
-*******************************************/
+/********************************************/
+/*                                          */
+/* This script works with popup window,     */
+/* where you may change profile name and    */
+/* description                              */
+/*                                          */
+/********************************************/
 
 const popup = document.querySelector('.popup');
 const profileEditButton = document.querySelector('.profile__edit');
@@ -40,12 +42,12 @@ profileEditButton.addEventListener('click', addPersonData);
 function addPersonData() {
   popupName.value = personName.textContent;
   popupDescription.value = personDescription.textContent;
-  setErrorEmptyInput(popupName, error = false);
-  setErrorEmptyInput(popupDescription, error = false);
+  setErrorEmptyInput(popupName);
+  setErrorEmptyInput(popupDescription);
 }
 
 // adding texts from popup to main page
-// if there is no text - input decorates with red line
+// if there is no text - input tag decorates with red line
 popupForm.addEventListener('submit', editPersonData);
 function editPersonData(event) {
   event.preventDefault();
