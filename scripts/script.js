@@ -1,3 +1,9 @@
+/******************************************
+/* This script works with popup window, 
+/* where you may change profile name and 
+/* description
+*******************************************/
+
 const popup = document.querySelector('.popup');
 const profileEditButton = document.querySelector('.profile__edit');
 const popupExitButton = popup.querySelector('.popup__exit-button');
@@ -11,6 +17,7 @@ popupExitOverlay.addEventListener('click', handlePopup);
 
 function handlePopup() {
   popup.classList.toggle('popup_opened');
+
 }
 
 // Closing popup with Esqape button
@@ -35,11 +42,34 @@ function addPersonData() {
   popupDescription.value = personDescription.textContent;
 }
 
-// adding person data from popup to main page
+// adding texts from popup to main page
+// if there is no text - input decorates with red line
 popupForm.addEventListener('submit', editPersonData);
 function editPersonData(event) {
   event.preventDefault();
-  personName.textContent = popupName.value;
-  personDescription.textContent = popupDescription.value;
-  handlePopup();
+  let error = false;
+  if (popupName.value != '') {
+    personName.textContent = popupName.value;
+  } else {
+    setErrorEmptyInput(popupName, error = true);
+  }
+  if (popupDescription.value != '') {
+    personDescription.textContent = popupDescription.value;
+  } else {
+    setErrorEmptyInput(popupDescription, error = true);
+  }
+  if (error != true) {
+    setErrorEmptyInput(popupName, error);
+    setErrorEmptyInput(popupDescription, error);
+    handlePopup();   
+  }
+}
+
+// making red line if error
+function setErrorEmptyInput(inputName, error = false) {
+  if (error != false) {
+    inputName.classList.add('popup__input_error_empty');
+  } else {
+    inputName.classList.remove('popup__input_error_empty');
+  }
 }

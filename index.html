@@ -9,18 +9,17 @@
 </head>
 
 <body class="body">
-
   <div class="page">
+
     <header class="header">
-      <a href="#" class="header__logo-link">
+      <a href="./index.html" class="header__logo-link">
         <img src="./images/logo.svg" alt="Логотип" class="header__logo">
       </a>
     </header>
 
     <main>
-
       <section class="profile">
-        <img src="./images/Kusto.jpg" alt="" class="profile__image">
+        <img src="./images/Kusto.jpg" alt="Фотография профиля" class="profile__image">
         <div class="profile__text-wrap">
           <div class="profile__title-wrap">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -34,7 +33,8 @@
       <section class="galery">
         <ul class="galery__cards">
           <li class="galery__card">
-            <img src="./images/galery/galery_baikal.jpg" alt="Озеро Байкал" class="galery__img">
+            <img src="./images/galery/galery_baikal.jpg" 
+            alt="Озеро Байкал" class="galery__img">
             <div class="galery__name-and-heart">
               <p class="galery__text">Озеро Байкал</p>
               <button class="galery__heart"></button>
@@ -42,7 +42,8 @@
           </li>
 
           <li class="galery__card">
-            <img src="./images/galery/galery_dunes.jpg" alt="Дюны" class="galery__img">
+            <img src="./images/galery/galery_dunes.jpg" 
+            alt="Дюны" class="galery__img">
             <div class="galery__name-and-heart">
               <p class="galery__text">Балтийское море</p>
               <button class="galery__heart"></button>
@@ -93,21 +94,17 @@
 
   <div class="popup">
     <div class="popup__overlay"></div>
-
     <div class="popup__container popup__container_paddings">
       <button type="button" class="popup__exit-button"></button>
       <h3 class="popup__form-title">Редактировать профиль</h3>
-
       <form class="popup__form">
         <input type="text" class="popup__input popup__input_type_name">
         <input type="text" class="popup__input popup__input_type_description">
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
-
     </div>
-
   </div>
   <script src="./scripts/script.js"></script>
-</body>
 
+</body>
 </html>

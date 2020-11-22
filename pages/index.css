@@ -40,3 +40,4 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__input/_name/popup__input_type_name.css);
 @import url(../blocks/popup/__input/_description/popup__input_type_description.css);
+@import url(../blocks/popup/__input/_error_empty/popup__input_error_empty.css);

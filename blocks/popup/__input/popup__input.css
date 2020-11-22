@@ -10,6 +10,11 @@
   height: 34px;
   font-size: 14px;
   line-height: calc(17 / 14);
+  outline: none;
+}
+
+.popup__input:focus {
+  border-color: yellow;
 }
 
 .popup__input:last-of-type {
