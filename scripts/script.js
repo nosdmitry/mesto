@@ -13,12 +13,22 @@ function handlePopup() {
   popup.classList.toggle('popup_opened');
 }
 
+// Closing popup with Esqape button
+document.onkeydown = pressEsqape;
+function pressEsqape(pressedKey) {
+  if (popup.classList.contains('popup_opened')){
+    if (pressedKey.keyCode == 27) {
+      handlePopup();
+    }
+  }
+}
+
 const personName = document.querySelector('.profile__title');
 const personDescription = document.querySelector('.profile__subtitle');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
-// adding person data to "input's" tags
+// adding person data to "input's" tags in popup
 profileEditButton.addEventListener('click', addPersonData);
 function addPersonData() {
   popupName.value = personName.textContent;
