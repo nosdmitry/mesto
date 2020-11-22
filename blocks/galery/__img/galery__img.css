@@ -1,5 +1,5 @@
 .galery__img {
-  height: 282px;
+  max-height: 282px;
   object-fit: cover;
   object-position: center;
 }

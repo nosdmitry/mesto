@@ -5,4 +5,5 @@
   align-items: center;
   box-sizing: border-box;
   padding-left: 21px;
+  border: 1px solid red;
 }

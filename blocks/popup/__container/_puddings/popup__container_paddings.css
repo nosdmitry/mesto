@@ -1,10 +1,10 @@
 .popup__container_paddings {
-  padding: 0 36px;
+  padding: 34px 36px;
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .popup__container_paddings {
-    padding: 0 22px;
+    padding: 27px 22px;
   }
 }

@@ -1,19 +1,20 @@
 .popup__container {
   width: 430px;
-  height: 330px;
+  min-height: 330px;
   margin-top: 195px;
   background-color: #fff;
-  position: relative;
+  position: fixed;
   z-index: 100;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  padding-bottom: 30px;
 }
 
 @media (max-width: 768px) {
   .popup__container {
     margin-top: 123px;
     width: 282px;
-    height: 322px;
+    min-height: 322px;
   }
 }
