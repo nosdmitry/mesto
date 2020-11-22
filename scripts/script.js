@@ -40,6 +40,8 @@ profileEditButton.addEventListener('click', addPersonData);
 function addPersonData() {
   popupName.value = personName.textContent;
   popupDescription.value = personDescription.textContent;
+  setErrorEmptyInput(popupName, error = false);
+  setErrorEmptyInput(popupDescription, error = false);
 }
 
 // adding texts from popup to main page
