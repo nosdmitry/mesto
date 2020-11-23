@@ -1,6 +1,7 @@
 .popup__container {
+  padding: 34px 36px 38px 36px;
+  box-sizing: border-box;
   width: 430px;
-  min-height: 330px;
   margin-top: 195px;
   background-color: #fff;
   position: fixed;
@@ -8,13 +9,12 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 30px;
 }
 
 @media (max-width: 768px) {
   .popup__container {
     margin-top: 123px;
     width: 282px;
-    min-height: 322px;
+    padding: 27px 22px;
   }
 }

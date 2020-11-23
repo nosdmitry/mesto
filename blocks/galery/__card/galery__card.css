@@ -1,7 +1,7 @@
-.galery__card {
+/* .galery__card {
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 10px;
   box-sizing: border-box;
   height: 361px;
   width: 100%;
@@ -9,4 +9,18 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
+} */
+
+.galery__card {
+  min-width: 282px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(242px, 100%) 40px;
+  grid-template-rows: 282px 79px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid red;
+  overflow: hidden;
 }

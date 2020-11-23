@@ -1,5 +1,11 @@
 .galery__img {
-  max-height: 282px;
+  /* max-height: 282px;
   object-fit: cover;
+  object-position: center; */
+  grid-column: 1/3;
+  grid-row: span 1;
+  object-fit: contain;
   object-position: center;
+  overflow: hidden;
+  /* max-height: 282px; */
 }
