@@ -19,7 +19,6 @@
 
 @import url(../blocks/galery/galery.css);
 @import url(../blocks/galery/__text/galery__text.css);
-@import url(../blocks/galery/__name-and-heart/galery__name-and-heart.css);
 @import url(../blocks/galery/__img/galery__img.css);
 @import url(../blocks/galery/__heart/galery__heart.css);
 @import url(../blocks/galery/__cards/galery__cards.css);
