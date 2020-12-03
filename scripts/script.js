@@ -18,6 +18,61 @@ const personDescription = document.querySelector('.profile__subtitle');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
+const galery = document.querySelector('.galery');
+const cardsContainer = document.querySelector('.galery__cards');
+
+const initialCards = [
+  {
+    name: 'Озеро Байкал', 
+    link: './images/galery/galery_baikal.jpg'
+  },
+  {
+    name: 'Крымский полуостров', 
+    link: './images/galery/galery_krimeria-semiisland.jpg'
+  },
+  {
+    name: 'Балтийское море', 
+    link: './images/galery/galery_dunes.jpg'
+  },
+  {
+    name: 'Остров Гогланд', 
+    link: './images/galery/galery_gogland.jpg'
+  },
+  {
+    name: 'Рускеала',
+    link: './images/galery/galery_ruskeala.jpg'
+  },
+  {
+    name: 'Корякская Сопка',
+    link: './images/galery/galery_volcano.jpg'
+  }
+];
+
+function createCards(card) {
+  const cardContainer = document.createElement('article');
+  const cardImg = document.createElement('img');
+  const cardTitle = document.createElement('h2');
+  const cardButtonLike = document.createElement('button');
+
+  cardContainer.classList.add('galery__card');
+  cardImg.classList.add('galery__img');
+  cardTitle.classList.add('galery__text');
+  cardButtonLike.classList.add('galery__heart');
+  cardButtonLike.setAttribute('aria-label', 'Like');
+  cardButtonLike.setAttribute('type', 'button');
+
+  cardImg.setAttribute('src', card.link);
+  cardImg.setAttribute('alt', card.name);
+  cardTitle.textContent = card.name;
+  cardContainer.append(cardImg, cardTitle, cardButtonLike);
+  cardsContainer.append(cardContainer);
+  console.log(cardsContainer);
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  galery.append(createCards(initialCards[i]));
+}
+
 function openPopup() {
   popup.classList.add('popup_opened');
   popupName.value = personName.textContent;
