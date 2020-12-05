@@ -1,4 +1,5 @@
 .galery__img {
+  cursor: pointer;
   grid-column: 1/3;
   grid-row: 1;
   object-fit: cover;

@@ -1,0 +1,6 @@
+.galery__popup {
+  z-index: 300;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .9);
+}
