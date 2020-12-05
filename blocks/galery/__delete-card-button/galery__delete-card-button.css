@@ -9,6 +9,7 @@
   background-position: center;
   top: 18px;
   right: 15px;
+  transition: opacity linear .2s;
 }
 
 .galery__delete-card-button:hover {

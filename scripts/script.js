@@ -16,8 +16,8 @@ const formSubmitButton = popupForm.querySelector('.popup__submit-button');
 
 const personName = document.querySelector('.profile__title');
 const personDescription = document.querySelector('.profile__subtitle');
-const popupName = document.querySelector('.popup__input_type_name');
-const popupDescription = document.querySelector('.popup__input_type_description');
+const popupPersonName = document.querySelector('.popup__input_type_name');
+const popupPersonDescription = document.querySelector('.popup__input_type_description');
 
 const popupAddCard = document.querySelector('.popup__cards_add_form');
 const addNewCardButtonPopup = document.querySelector('.profile__add-card-button');
@@ -86,25 +86,33 @@ function formGaleryCard(data) {
   const cardImage = card.querySelector('.galery__img');
   const cardName = card.querySelector('.galery__text');
   const likeButton = card.querySelector('.galery__heart');
+  const deleteButton = card.querySelector('.galery__delete-card-button');
   cardImage.setAttribute('src', data.link);
   cardImage.setAttribute('title', data.name);
+  cardImage.setAttribute('alt', data.name);
   cardName.textContent = data.name;  
   likeButton.addEventListener('click', (evt) => {
     evt.target.classList.toggle('galery__heart_active');
+  });
+  deleteButton.addEventListener('click', (evt) => {
+    evt.target.closest('.galery__card').remove();
   });
   return card;
 }
 
 function addNewCard(evt) {
-  evt.preventDefault();
-  const inputCardText = document.querySelector('.popup__input_type_card-name').value;
-  const inputCardImageLink = document.querySelector('.popup__input_type_image-link').value; 
+  evt.preventDefault();   
+  const inputCardText = document.querySelector('.popup__input_type_card-name');
+  const inputCardImageLink = document.querySelector('.popup__input_type_image-link'); 
   const newCard = formGaleryCard({
-    name: inputCardText, 
-    link: inputCardImageLink
+    name: inputCardText.value, 
+    link: inputCardImageLink.value
   });
   galeryCards.prepend(newCard);
+  console.log(inputCardText);
   closePopup();
+  inputCardText.value = '';
+  inputCardImageLink.value = '';
 }
 
 renderGaleryCards(initialCards);
@@ -112,8 +120,8 @@ renderGaleryCards(initialCards);
 
 function openPopup() {
   popup.classList.add('popup_opened');
-  popupName.value = personName.textContent;
-  popupDescription.value = personDescription.textContent;
+  popupPersonName.value = personName.textContent;
+  popupPersonDescription.value = personDescription.textContent;
 }
 
 function closePopup() {
@@ -131,8 +139,8 @@ function openAddCardPopup() {
 
 function editPersonData(event) {
   event.preventDefault();
-  personName.textContent = popupName.value;
-  personDescription.textContent = popupDescription.value;
+  personName.textContent = popupPersonName.value;
+  personDescription.textContent = popupPersonDescription.value;
   closePopup();
 }
 
