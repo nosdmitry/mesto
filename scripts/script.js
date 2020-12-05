@@ -7,10 +7,10 @@
 /********************************************/
 
 const popup = document.querySelector('.popup');
+const popupEditProfile = document.querySelector('.popup_profile_edit_form')
 const popupProfileEdit = document.querySelector('.popup__profile_edit_form');
 const profileEditButton = document.querySelector('.profile__edit');
 const popupExitButton = popup.querySelector('.popup__exit-button');
-//const popupExitOverlay = popup.querySelector('.popup__overlay');
 const popupForm = popup.querySelector('.popup__form');
 const formSubmitButton = popupForm.querySelector('.popup__submit-button');
 
@@ -19,13 +19,13 @@ const personDescription = document.querySelector('.profile__subtitle');
 const popupPersonName = document.querySelector('.popup__input_type_name');
 const popupPersonDescription = document.querySelector('.popup__input_type_description');
 
-const popupAddCard = document.querySelector('.popup__cards_add_form');
+const popupAddCard = document.querySelector('.popup_cards_add_form');
 const addNewCardButtonPopup = document.querySelector('.profile__add-card-button');
 const popupClosePopupButton = popupAddCard.querySelector('.popup__exit-button');
 
 const galeryCards = document.querySelector('.galery__cards');
 const galeryCardTamplate = document.querySelector('#galery__card').content;
-//const popupAddNewCardForm = document.querySelector('.popup__form_add_new-card');
+const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
 
 const addCard = document.querySelector('.popup__submit-button_add-card');
 
@@ -55,26 +55,6 @@ const initialCards = [
     link: './images/galery/galery_volcano.jpg'
   }
 ];
-
-function createCards__BUCKUP(card) {
-  const cardContainer = document.createElement('article');
-  const cardImg = document.createElement('img');
-  const cardTitle = document.createElement('h2');
-  const cardButtonLike = document.createElement('button');
-
-  cardContainer.classList.add('galery__card');
-  cardImg.classList.add('galery__img');
-  cardTitle.classList.add('galery__text');
-  cardButtonLike.classList.add('galery__heart');
-  cardButtonLike.setAttribute('aria-label', 'Like');
-  cardButtonLike.setAttribute('type', 'button');
-
-  cardImg.setAttribute('src', card.link);
-  cardImg.setAttribute('alt', card.name);
-  cardTitle.textContent = card.name;
-  cardContainer.append(cardImg, cardTitle, cardButtonLike);
-  cardsContainer.append(cardContainer);
-}
 
 function renderGaleryCards() {
   const listItems = initialCards.map(formGaleryCard);
@@ -153,9 +133,9 @@ document.onkeydown = pressEsqape = (pressedKey) => {
   }
 };
 
+popupNewCardForm.addEventListener('submit', addNewCard);
 addNewCardButtonPopup.addEventListener('click', openAddCardPopup);
 popupClosePopupButton.addEventListener('click', closePopup);
-addCard.addEventListener('click', addNewCard);
 profileEditButton.addEventListener('click', openPopup);
 popupExitButton.addEventListener('click', closePopup);
 popupForm.addEventListener('submit', editPersonData);
