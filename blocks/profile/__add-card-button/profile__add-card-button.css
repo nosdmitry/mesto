@@ -1,4 +1,4 @@
-.profile__button {
+.profile__add-card-button {
   border: 2px solid #fff;
   border-radius: 2px;
   box-sizing: border-box;
@@ -11,13 +11,13 @@
   transition: opacity linear .1s;
 }
 
-.profile__button:hover {
+.profile__add-card-button:hover {
   opacity: .6;
   cursor: pointer;
 }
 
 @media (max-width: 768px) {
-  .profile__button {
+  .profile__add-card-button {
     width: 282px;
     margin-top: 33px;
   }
