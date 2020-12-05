@@ -131,7 +131,6 @@ function closePopup() {
     }
   }
 }
-console.log(popups);
 
 function openAddCardPopup() {
   popupAddCard.classList.add('popup_opened');
