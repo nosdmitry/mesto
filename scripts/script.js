@@ -18,9 +18,6 @@ const personDescription = document.querySelector('.profile__subtitle');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
-const galery = document.querySelector('.galery');
-const cardsContainer = document.querySelector('.galery__cards');
-
 const initialCards = [
   {
     name: 'Озеро Байкал', 
@@ -48,7 +45,7 @@ const initialCards = [
   }
 ];
 
-function createCards(card) {
+function createCards__BUCKUP(card) {
   const cardContainer = document.createElement('article');
   const cardImg = document.createElement('img');
   const cardTitle = document.createElement('h2');
@@ -66,12 +63,33 @@ function createCards(card) {
   cardTitle.textContent = card.name;
   cardContainer.append(cardImg, cardTitle, cardButtonLike);
   cardsContainer.append(cardContainer);
-  console.log(cardsContainer);
 }
 
-for (let i = 0; i < initialCards.length; i++) {
-  galery.append(createCards(initialCards[i]));
+const galeryCards = document.querySelector('.galery__cards');
+const galeryCardTamplate = document.querySelector('#galery__card').content;
+
+function formGaleryCard(data) {
+  const card = galeryCardTamplate.cloneNode(true);
+  const cardImage = card.querySelector('.galery__img');
+  const cardName = card.querySelector('.galery__text');
+  cardImage.setAttribute('src', data.link);
+  cardImage.setAttribute('title', data.name);
+  cardName.textContent = data.name;
+  return card;
 }
+
+function renderGaleryCards(data) {
+  data.forEach(element => {
+    galeryCards.append(formGaleryCard(element));
+  });
+}
+
+renderGaleryCards(initialCards);
+
+
+// for (let i = 0; i < initialCards.length; i++) {
+//   galery.append(createCards(initialCards[i]));
+// }
 
 function openPopup() {
   popup.classList.add('popup_opened');
@@ -81,6 +99,7 @@ function openPopup() {
 
 function closePopup() {
   popup.classList.remove('popup_opened');
+
 }
 
 function editPersonData(event) {
