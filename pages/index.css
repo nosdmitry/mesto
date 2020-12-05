@@ -24,6 +24,7 @@
 @import url(../blocks/galery/__heart/_active/galery__heart_active.css);
 @import url(../blocks/galery/__cards/galery__cards.css);
 @import url(../blocks/galery/__card/galery__card.css);
+@import url(../blocks/galery/__delete-card-button/galery__delete-card-button.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
