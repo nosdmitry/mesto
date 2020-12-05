@@ -69,6 +69,11 @@ function createCards__BUCKUP(card) {
 const galeryCards = document.querySelector('.galery__cards');
 const galeryCardTamplate = document.querySelector('#galery__card').content;
 
+function renderGaleryCards() {
+  const listItems = initialCards.map(formGaleryCard);
+  galeryCards.append(...listItems);
+}
+
 function formGaleryCard(data) {
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
@@ -79,11 +84,22 @@ function formGaleryCard(data) {
   return card;
 }
 
-function renderGaleryCards(data) {
-  data.forEach(element => {
-    galeryCards.append(formGaleryCard(element));
+
+//const popupAddNewCardForm = document.querySelector('.popup__form_add_new-card');
+function addNewCard(evt) {
+  evt.preventDefault();
+  const inputCardText = document.querySelector('.popup__input_type_card-name').value;
+  const inputCardImageLink = document.querySelector('.popup__input_type_image-link').value; 
+  const newCard = formGaleryCard({
+    name: inputCardText, 
+    link: inputCardImageLink
   });
+  galeryCards.prepend(newCard);
+  closePopup();
 }
+
+const addCard = document.querySelector('.popup__submit-button_add-card');
+addCard.addEventListener('click', addNewCard);
 
 renderGaleryCards(initialCards);
 
@@ -96,7 +112,6 @@ function openPopup() {
 
 function closePopup() {
   const popups = document.querySelectorAll('.popup');
-  console.log(popups);
   for (let i = 0; i < popups.length; i++) {
     if (popups[i].classList.contains('popup_opened')){
       popups[i].classList.remove('popup_opened');
@@ -114,8 +129,6 @@ function openAddCardPopup() {
 
 addNewCardButtonPopup.addEventListener('click', openAddCardPopup);
 popupClosePopupButton.addEventListener('click', closePopup);
-
-
 
 
 function editPersonData(event) {
