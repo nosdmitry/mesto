@@ -61,10 +61,6 @@ function renderGaleryCards() {
   galeryCards.append(...listItems);
 }
 
-function openFullSizeImg(evt) {
-  evt.target.closest('galery__popup').classList.add('HELLLLLOOOOOOO!!!!');
-}
-
 function formGaleryCard(data) {
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
@@ -74,9 +70,7 @@ function formGaleryCard(data) {
   const cardPopup = card.querySelector('.galery__popup');  
   const fullScreenImg = card.querySelector('.galery__fulsize-img');
   const fullScreenImgText = card.querySelector('.galery__popup-text');
-
   const galeryPopupExitButton = card.querySelector('.galery__popup-exit');
-
   galeryPopupExitButton.addEventListener('click', () => {
     cardPopup.classList.remove('popup_opened');
   });
