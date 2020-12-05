@@ -19,6 +19,16 @@ const personDescription = document.querySelector('.profile__subtitle');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
+const popupAddCard = document.querySelector('.popup__cards_add_form');
+const addNewCardButtonPopup = document.querySelector('.profile__add-card-button');
+const popupClosePopupButton = popupAddCard.querySelector('.popup__exit-button');
+
+const galeryCards = document.querySelector('.galery__cards');
+const galeryCardTamplate = document.querySelector('#galery__card').content;
+//const popupAddNewCardForm = document.querySelector('.popup__form_add_new-card');
+
+const addCard = document.querySelector('.popup__submit-button_add-card');
+
 const initialCards = [
   {
     name: 'Озеро Байкал', 
@@ -66,9 +76,6 @@ function createCards__BUCKUP(card) {
   cardsContainer.append(cardContainer);
 }
 
-const galeryCards = document.querySelector('.galery__cards');
-const galeryCardTamplate = document.querySelector('#galery__card').content;
-
 function renderGaleryCards() {
   const listItems = initialCards.map(formGaleryCard);
   galeryCards.append(...listItems);
@@ -78,14 +85,16 @@ function formGaleryCard(data) {
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
   const cardName = card.querySelector('.galery__text');
+  const likeButton = card.querySelector('.galery__heart');
   cardImage.setAttribute('src', data.link);
   cardImage.setAttribute('title', data.name);
-  cardName.textContent = data.name;
+  cardName.textContent = data.name;  
+  likeButton.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('galery__heart_active');
+  });
   return card;
 }
 
-
-//const popupAddNewCardForm = document.querySelector('.popup__form_add_new-card');
 function addNewCard(evt) {
   evt.preventDefault();
   const inputCardText = document.querySelector('.popup__input_type_card-name').value;
@@ -97,9 +106,6 @@ function addNewCard(evt) {
   galeryCards.prepend(newCard);
   closePopup();
 }
-
-const addCard = document.querySelector('.popup__submit-button_add-card');
-addCard.addEventListener('click', addNewCard);
 
 renderGaleryCards(initialCards);
 
@@ -119,17 +125,9 @@ function closePopup() {
   }
 }
 
-const popupAddCard = document.querySelector('.popup__cards_add_form');
-const addNewCardButtonPopup = document.querySelector('.profile__add-card-button');
-const popupClosePopupButton = popupAddCard.querySelector('.popup__exit-button');
-
 function openAddCardPopup() {
   popupAddCard.classList.add('popup_opened');
 }
-
-addNewCardButtonPopup.addEventListener('click', openAddCardPopup);
-popupClosePopupButton.addEventListener('click', closePopup);
-
 
 function editPersonData(event) {
   event.preventDefault();
@@ -147,7 +145,9 @@ document.onkeydown = pressEsqape = (pressedKey) => {
   }
 };
 
-
+addNewCardButtonPopup.addEventListener('click', openAddCardPopup);
+popupClosePopupButton.addEventListener('click', closePopup);
+addCard.addEventListener('click', addNewCard);
 profileEditButton.addEventListener('click', openPopup);
 popupExitButton.addEventListener('click', closePopup);
 popupForm.addEventListener('submit', editPersonData);

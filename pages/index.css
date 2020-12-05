@@ -21,6 +21,7 @@
 @import url(../blocks/galery/__text/galery__text.css);
 @import url(../blocks/galery/__img/galery__img.css);
 @import url(../blocks/galery/__heart/galery__heart.css);
+@import url(../blocks/galery/__heart/_active/galery__heart_active.css);
 @import url(../blocks/galery/__cards/galery__cards.css);
 @import url(../blocks/galery/__card/galery__card.css);
 
