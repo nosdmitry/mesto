@@ -87,10 +87,6 @@ function renderGaleryCards(data) {
 renderGaleryCards(initialCards);
 
 
-// for (let i = 0; i < initialCards.length; i++) {
-//   galery.append(createCards(initialCards[i]));
-// }
-
 function openPopup() {
   popup.classList.add('popup_opened');
   popupName.value = personName.textContent;
