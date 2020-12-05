@@ -1,0 +1,7 @@
+@media (max-width: 768px){
+  .popup__container_place_add-form {
+    margin-top: 155px;
+    width: 240px;
+    padding: 30px 22px;
+  }
+}

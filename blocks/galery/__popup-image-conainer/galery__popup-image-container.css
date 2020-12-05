@@ -1,3 +1,4 @@
 .galery__popup-image-container {
   position: relative;
+  max-width: 75vw;
 }

@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+  .popup__submit-button_add-card {
+    width: 200px;
+  }
+}
