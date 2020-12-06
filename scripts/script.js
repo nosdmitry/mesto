@@ -54,6 +54,7 @@ function renderGaleryCards() {
   galeryCards.append(...listItems);
 }
 
+// создает карточку из входящих данын
 function formGaleryCard(data) {
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
@@ -65,7 +66,7 @@ function formGaleryCard(data) {
   const fullScreenImgText = card.querySelector('.galery__popup-text');
   const galeryPopupExitButton = card.querySelector('.galery__popup-exit');
   galeryPopupExitButton.addEventListener('click', () => {
-    cardPopup.classList.remove('popup_opened');
+    closePopup();
   });
   fullScreenImg.setAttribute('src', data.link);
   fullScreenImgText.textContent = data.name;
@@ -94,31 +95,19 @@ function addNewCard(evt) {
     link: inputCardImageLink.value
   });
   galeryCards.prepend(newCard);
-  console.log(inputCardText);
   closePopup();
   inputCardText.value = '';
   inputCardImageLink.value = '';
-}
-
-renderGaleryCards(initialCards);
-
-function openPopup() {
-  popup.classList.add('popup_opened');
-  popupPersonName.value = personName.textContent;
-  popupPersonDescription.value = personDescription.textContent;
 }
 
 function openAddCardPopup() {
   popupAddCard.classList.add('popup_opened');
 }
 
-const popups = document.querySelectorAll('.popup');
-function closePopup() {
-  for (let i = 0; i < popups.length; i++) {
-    if (popups[i].classList.contains('popup_opened')){
-      popups[i].classList.remove('popup_opened');
-    }
-  }
+function openPopup() {
+  popup.classList.add('popup_opened');
+  popupPersonName.value = personName.textContent;
+  popupPersonDescription.value = personDescription.textContent;
 }
 
 function editPersonData(event) {
@@ -128,14 +117,19 @@ function editPersonData(event) {
   closePopup();
 }
 
-//  Closing popup with Esqape button
-document.onkeydown = pressEsqape = (pressedKey) => {
-  if (popup.classList.contains('popup_opened')){
-    if (pressedKey.keyCode == 27) {
-      closePopup();
+// Проверяет есть ли на странице открытые попапы
+// и если есть - закрывает
+function closePopup() {
+  const popups = document.querySelectorAll('.popup');
+  popups.forEach(element => {
+    if (element.classList.contains('popup_opened')){
+      element.classList.remove('popup_opened');
     }
-  }
-};
+  });
+}
+
+// Вызывает созданные карточки
+renderGaleryCards(initialCards);
 
 popupNewCardForm.addEventListener('submit', addNewCard);
 addNewCardButtonPopup.addEventListener('click', openAddCardPopup);
