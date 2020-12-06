@@ -1,0 +1,6 @@
+@media (max-width: 768px) {
+  .popup__exit-button_place_add-form {
+    top: -23px;
+    right: -22px;
+  }
+}

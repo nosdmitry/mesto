@@ -26,3 +26,51 @@
     margin-bottom: 47px;
   }
 }
+
+.popup__input::-webkit-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input::-moz-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input:-moz-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input:-ms-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input:focus::-webkit-input-placeholder {
+  opacity: 0;  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input:focus::-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input:focus:-moz-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}
+.popup__input:focus:-ms-input-placeholder {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #c4c4c4;
+  font-size: 12px;
+}

@@ -1,10 +1,3 @@
-/********************************************/
-/*                                          */
-/* This script works with popup window,     */
-/* where you may change profile name and    */
-/* description                              */
-/*                                          */
-/********************************************/
 
 const popup = document.querySelector('.popup');
 const popupEditProfile = document.querySelector('.popup_profile_edit_form')
@@ -74,7 +67,6 @@ function formGaleryCard(data) {
   galeryPopupExitButton.addEventListener('click', () => {
     cardPopup.classList.remove('popup_opened');
   });
-
   fullScreenImg.setAttribute('src', data.link);
   fullScreenImgText.textContent = data.name;
   cardImage.setAttribute('src', data.link);
@@ -110,11 +102,14 @@ function addNewCard(evt) {
 
 renderGaleryCards(initialCards);
 
-
 function openPopup() {
   popup.classList.add('popup_opened');
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
+}
+
+function openAddCardPopup() {
+  popupAddCard.classList.add('popup_opened');
 }
 
 const popups = document.querySelectorAll('.popup');
@@ -124,10 +119,6 @@ function closePopup() {
       popups[i].classList.remove('popup_opened');
     }
   }
-}
-
-function openAddCardPopup() {
-  popupAddCard.classList.add('popup_opened');
 }
 
 function editPersonData(event) {

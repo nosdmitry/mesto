@@ -16,6 +16,7 @@
 @import url(../blocks/popup/__form/_add/popup__form_add_new-card.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_card-name.css);
 @import url(../blocks/popup/__submit-button/_add/popup__submit-button_add-card.css);
+@import url(../blocks/popup/__exit-button/_place/popup__exit-button_place_add-form.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);

@@ -2,6 +2,7 @@
   margin: 0 auto;
   min-width: 320px;
   box-sizing: border-box;
+  width: 95%;
 }
 
 @media (min-width: 880px) {
