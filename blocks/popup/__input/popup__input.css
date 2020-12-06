@@ -52,7 +52,8 @@
   font-size: 12px;
 }
 .popup__input:focus::-webkit-input-placeholder {
-  opacity: 0;  transition: opacity 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.3s ease;
   color: #c4c4c4;
   font-size: 12px;
 }
