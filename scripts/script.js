@@ -3,7 +3,6 @@ const popupProfile = document.querySelector('.popup');
 const editProfileButton = document.querySelector('.profile__edit');
 const popupProfileEditForm = popupProfile.querySelector('.popup__form');
 const exitProfilePopupButton = popupProfile.querySelector('.exit_button_profile-popup');
-// const formSubmitButton = popupProfileEditForm.querySelector('.popup__submit-button');
 
 const personName = document.querySelector('.profile__title');
 const personDescription = document.querySelector('.profile__subtitle');
@@ -19,7 +18,6 @@ const galeryCardTamplate = document.querySelector('.galery__card-tamplate').cont
 const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
 
 const addCard = document.querySelector('.popup__submit-button_add-card');
-
 
 
 const initialCards = [
@@ -56,29 +54,26 @@ function renderGaleryCards() {
 
 // создает карточку из входящих данын
 function formGaleryCard(data) {
+  const popupFullScrinCard = document.querySelector('.galery__popup');  
+  const exitFullScreenImagePopup = popupFullScrinCard.querySelector('.galery__popup-exit');
+
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
   const cardName = card.querySelector('.galery__text');
   const likeButton = card.querySelector('.galery__heart');
   const deleteButton = card.querySelector('.galery__delete-card-button');
-  const cardPopup = card.querySelector('.galery__popup');  
-  const fullScreenImg = card.querySelector('.galery__fulsize-img');
-  const fullScreenImgText = card.querySelector('.galery__popup-text');
-  const galeryPopupExitButton = card.querySelector('.galery__popup-exit');
-
-  galeryPopupExitButton.addEventListener('click', () => {
-    closePopup(cardPopup);
+  
+  exitFullScreenImagePopup.addEventListener('click', () => {
+    closePopup(popupFullScrinCard);
   });
 
-  fullScreenImg.setAttribute('src', data.link);
-  fullScreenImgText.textContent = data.name;
   cardImage.setAttribute('src', data.link);
   cardImage.setAttribute('title', data.name);
   cardImage.setAttribute('alt', data.name);
   cardName.textContent = data.name;  
 
   cardImage.addEventListener('click', () => {
-    openPopup(cardPopup);
+    openPopup(popupFullScrinCard);
   });
 
   likeButton.addEventListener('click', (evt) => {
@@ -155,5 +150,4 @@ exitAddCardPopupButton.addEventListener('click', () => {
 });
 
 popupProfileEditForm.addEventListener('submit', editPersonData);
-
 popupNewCardForm.addEventListener('submit', addNewCard);
