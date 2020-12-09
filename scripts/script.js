@@ -94,8 +94,15 @@ function addNewCard(evt) {
   });
   galeryCards.prepend(newCard);
   closePopup();
-  inputCardText.value = '';
-  inputCardImageLink.value = '';
+  
+  cleareEveryFormInputs();
+}
+
+function cleareEveryFormInputs() {
+  const forms = document.getElementsByClassName('popup__form');
+  [...forms].forEach(element => {
+    element.reset();
+  });
 }
 
 function openAddCardPopup() {
