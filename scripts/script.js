@@ -19,6 +19,9 @@ const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
 
 const addCard = document.querySelector('.popup__submit-button_add-card');
 
+const popupFullSizeCard = document.querySelector('.galery__popup');
+const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
+
 
 const initialCards = [
   {
@@ -52,20 +55,24 @@ function renderGaleryCards() {
   galeryCards.append(...listItems);
 }
 
-// создает карточку из входящих данын
-function formGaleryCard(data) {
-  const popupFullScrinCard = document.querySelector('.galery__popup');  
-  const exitFullScreenImagePopup = popupFullScrinCard.querySelector('.galery__popup-exit');
 
+// формирует попап с картинкой и текстом и подставляет
+// значения из карточки
+function formFullSizeImagePopup(imageUrl, imageText) {
+  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
+  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
+  popupFullSizeImage.setAttribute('src', imageUrl);
+  popupFullSizeImageText.textContent = imageText;  
+}
+
+// формирует карточку галереи
+function formGaleryCard(data) {
+  
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
   const cardName = card.querySelector('.galery__text');
   const likeButton = card.querySelector('.galery__heart');
   const deleteButton = card.querySelector('.galery__delete-card-button');
-  
-  exitFullScreenImagePopup.addEventListener('click', () => {
-    closePopup(popupFullScrinCard);
-  });
 
   cardImage.setAttribute('src', data.link);
   cardImage.setAttribute('title', data.name);
@@ -73,7 +80,12 @@ function formGaleryCard(data) {
   cardName.textContent = data.name;  
 
   cardImage.addEventListener('click', () => {
-    openPopup(popupFullScrinCard);
+    formFullSizeImagePopup(data.link, data.name);  
+    openPopup(popupFullSizeCard);
+  });
+
+  exitFullScreenImagePopup.addEventListener('click', () => {
+    closePopup(popupFullSizeCard);
   });
 
   likeButton.addEventListener('click', (evt) => {
