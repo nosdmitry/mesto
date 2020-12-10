@@ -62,6 +62,7 @@ function formFullSizeImagePopup(imageUrl, imageText) {
   const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
   const popupFullSizeImageText = document.querySelector('.galery__popup-text');
   popupFullSizeImage.setAttribute('src', imageUrl);
+  popupFullSizeImage.setAttribute('alt', imageText);
   popupFullSizeImageText.textContent = imageText;  
 }
 
