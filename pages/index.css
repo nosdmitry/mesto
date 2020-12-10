@@ -31,7 +31,7 @@
 @import url(../blocks/profile/__edit/profile__edit.css);
 @import url(../blocks/profile/__title-wrap/profile__title-wrap.css);
 
-@import url(../blocks/galery/galery.css);
+@import url(../blocks/galery/_margins/galery_margins.css);
 @import url(../blocks/galery/__text/galery__text.css);
 @import url(../blocks/galery/__img/galery__img.css);
 @import url(../blocks/galery/__heart/galery__heart.css);
@@ -40,7 +40,7 @@
 @import url(../blocks/galery/__card/galery__card.css);
 @import url(../blocks/galery/__delete-card-button/galery__delete-card-button.css);
 
-@import url(../blocks/galery/__popup/galery__popup.css);
+@import url(../blocks/galery/_popup/galery_popup.css);
 @import url(../blocks/galery/__fullsize-img/galery__fulsize-img.css);
 @import url(../blocks/galery/__popup-text/galery__popup-text.css);
 @import url(../blocks/galery/__popup-exit/galery__popup-exit.css);
