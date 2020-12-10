@@ -30,12 +30,10 @@
         <button type="button" aria-label="Add_img" class="profile__add-card-button"></button>
       </section>
 
-      <section class="galery">
+      <section class="galery galery_margins" aria-label="Галерея">
         <div class="galery__cards">
-          
-          
 
-
+        </div>
       </section> 
     </main>
 
@@ -74,9 +72,8 @@
         </form>
     </div>
   </div>
-  
 
-  <div class="popup galery__popup">
+  <div class="popup galery galery_popup">
     <figure class="galery__popup-image-container">
       <button type="button" aria-label="Close_popup" 
       class="popup__exit-button galery__popup-exit"></button>
@@ -86,18 +83,17 @@
     </figure>
   </div>
 
-</div>
 
-<template class="galery__card-tamplate">
-  <article class="galery__card">
-    <button type="button" class="galery__delete-card-button" 
-    aria-label="Delete_card"></button>
-    <img src="./images/galery/galery_volcano.jpg" 
-    alt="Корякский вулкан" class="galery__img">
-    <h2 class="galery__text">Корякская Сопка</h2>
-    <button type="button" aria-label="Like" class="galery__heart"></button>
-  </article>
-</template>
+  <template class="galery galery_card-tamplate">
+    <article class="galery__card">
+      <button type="button" class="galery__delete-card-button" 
+      aria-label="Delete_card"></button>
+      <img src="./images/galery/galery_volcano.jpg" 
+      alt="Корякский вулкан" class="galery__img">
+      <h2 class="galery__text">Корякская Сопка</h2>
+      <button type="button" aria-label="Like" class="galery__heart"></button>
+    </article>
+  </template>
 
   <script src="./scripts/script.js"></script>
 </body>

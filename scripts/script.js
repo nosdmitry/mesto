@@ -14,12 +14,12 @@ const addNewCardButtonPopup = document.querySelector('.profile__add-card-button'
 const exitAddCardPopupButton = popupAddCard.querySelector('.popup__exit-button');
 
 const galeryCards = document.querySelector('.galery__cards');
-const galeryCardTamplate = document.querySelector('.galery__card-tamplate').content;
+const galeryCardTamplate = document.querySelector('.galery_card-tamplate').content;
 const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
 
 const addCard = document.querySelector('.popup__submit-button_add-card');
 
-const popupFullSizeCard = document.querySelector('.galery__popup');
+const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
 
