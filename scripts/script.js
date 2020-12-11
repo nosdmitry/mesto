@@ -85,10 +85,6 @@ function formGaleryCard(data) {
     openPopup(popupFullSizeCard);
   });
 
-  exitFullScreenImagePopup.addEventListener('click', () => {
-    closePopup(popupFullSizeCard);
-  });
-
   likeButton.addEventListener('click', (evt) => {
     evt.target.classList.toggle('galery__heart_active');
   });
@@ -160,6 +156,10 @@ addNewCardButtonPopup.addEventListener('click', () => {
 
 exitAddCardPopupButton.addEventListener('click', () => {
   closePopup(popupAddCard);
+});
+
+exitFullScreenImagePopup.addEventListener('click', () => {
+  closePopup(popupFullSizeCard);
 });
 
 popupProfileEditForm.addEventListener('submit', editPersonData);
