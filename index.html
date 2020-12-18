@@ -49,14 +49,28 @@
         <form name="popup_form" class="popup__form popup__form_edit_peronal-data" novalidate>
 
           <label class="popup__form-field">
-            <input id="user-name" type="text" name="popup_name" required minlength="2" maxlength="40"
-            placeholder="Имя" class="popup__input popup__input_type_name">
+            <input 
+              id="user-name" 
+              type="text" 
+              name="popup_name" 
+              minlength="2" 
+              maxlength="40"
+              placeholder="Имя" 
+              class="popup__input popup__input_type_name" 
+              required >
             <span class="user-name-error popup__error"></span>
           </label>
 
           <label class="popup__form-field">
-            <input id="user-description" type="text" name="popup_description" required minlength="2" maxlength="200"
-            placeholder="Род деятельности" class="popup__input popup__input_type_description">
+            <input 
+              id="user-description" 
+              type="text" 
+              name="popup_description" 
+              minlength="2" 
+              maxlength="200"
+              placeholder="Род деятельности" 
+              class="popup__input popup__input_type_description" 
+              required >
             <span class="user-description-error popup__error">sfsdfs</span>
           </label>
 
@@ -73,13 +87,25 @@
         <h3 class="popup__form-title">Новое место</h3>
         <form name="popup_form" class="popup__form popup__form_add_new-card" novalidate>
           <label class="popup__form-field">
-            <input id="place-name" type="text" name="popup_name" required minlength="2" maxlength="30"
-            placeholder="Название" class="popup__input popup__input_type_card-name">
+            <input 
+              id="place-name" 
+              type="text" 
+              name="popup_name" 
+              minlength="2" 
+              maxlength="30" 
+              placeholder="Название" 
+              class="popup__input popup__input_type_card-name"
+              required >
             <span class="place-name-error popup__error"></span>
           </label>
           <label class="popup__form-field">
-            <input id="place-url" type="url" name="popup_description" 
-            placeholder="Ссылка на картинку" required class="popup__input popup__input_type_image-link">
+            <input 
+              id="place-url" 
+              type="url" 
+              name="popup_description" 
+              placeholder="Ссылка на картинку" 
+              class="popup__input popup__input_type_image-link"
+              required >
             <span class="place-url-error popup__error"></span>
           </label>
           <button type="submit" name="submit-new-card" 
@@ -110,7 +136,7 @@
     </article>
   </template>
 
-  <script src="./scripts/script.js"></script>
   <script src="./scripts/validation.js"></script>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>

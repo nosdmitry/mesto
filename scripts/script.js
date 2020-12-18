@@ -143,6 +143,7 @@ editProfileButton.addEventListener('click', () => {
   openPopup(popupProfile);
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
+  enableValidation();
 });
 
 exitProfilePopupButton.addEventListener('click', () => {
