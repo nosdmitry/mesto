@@ -96,7 +96,6 @@ function formGaleryCard(data) {
   return card;
 }
 
-
 function addNewCard(evt) {
   evt.preventDefault();   
   const inputCardText = document.querySelector('.popup__input_type_card-name');
