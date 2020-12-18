@@ -5,4 +5,5 @@
   line-height: calc(15 / 12);
   color: #ff0000;
   box-sizing: border-box;
+  display: none;
 }
