@@ -46,21 +46,21 @@
     <div class="popup__container">
       <button type="button" aria-label="Close_popup" class="popup__exit-button exit exit_button_profile-popup"></button>
         <h3 class="popup__form-title">Редактировать профиль</h3>
-        <form name="popup_form" class="popup__form popup__form_edit_peronal-data">
+        <form name="popup_form" class="popup__form popup__form_edit_peronal-data" novalidate>
 
           <label class="popup__form-field">
-            <input type="text" name="popup_name" required 
-            placeholder="Имя" class="popup__input popup__input_type_name">
-            <span class="popup__input-error">testsdf</span>
+            <input type="text" name="popup_name" required minlength="2" maxlength="40"
+            placeholder="Имя" class="popup__input popup__input_type_name popup__input_type_error">
+            <span class="popup__error popup__error_visible">testsdf</span>
           </label>
 
           <label class="popup__form-field">
-            <input type="text" name="popup_description" required 
+            <input type="text" name="popup_description" required minlength="2" maxlength="200"
             placeholder="Род деятельности" class="popup__input popup__input_type_description">
-            <span class="popup__input-error">sfsdfs</span>
+            <span class="popup__error">sfsdfs</span>
           </label>
           <button type="submit" name="submit-edit-profile" 
-          class="popup__submit-button">Сохранить</button>
+          class="popup__submit-button popup__submit-button_type_disabled">Сохранить</button>
         </form>
     </div>
   </div>
@@ -70,16 +70,16 @@
       <button type="button" aria-label="Close_popup" 
       class="popup__exit-button popup__exit-button_place_add-form"></button>
         <h3 class="popup__form-title">Новое место</h3>
-        <form name="popup_form" class="popup__form popup__form_add_new-card">
+        <form name="popup_form" class="popup__form popup__form_add_new-card" novalidate>
           <label class="popup__form-field">
-            <input type="text" name="popup_name" 
-            placeholder="Название" required class="popup__input popup__input_type_card-name">
-            <span class="popup__input-error">sfsdfs</span>
+            <input type="text" name="popup_name" required minlength="2" maxlength="30"
+            placeholder="Название" class="popup__input popup__input_type_card-name">
+            <span class="popup__error">sfsdfs</span>
           </label>
           <label class="popup__form-field">
             <input type="url" name="popup_description" 
             placeholder="Ссылка на картинку" required class="popup__input popup__input_type_image-link">
-            <span class="popup__input-error">sfsdfs</span>
+            <span class="popup__error">sfsdfs</span>
           </label>
           <button type="submit" name="submit-new-card" 
           class="popup__submit-button popup__submit-button_add-card">Создать</button>
@@ -110,5 +110,6 @@
   </template>
 
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 </html>
