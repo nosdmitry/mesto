@@ -127,6 +127,12 @@ function editPersonData(event) {
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
+  document.addEventListener('keydown', (evt) => {
+    if(evt.code == 'Escape') {
+      closePopup(popupName);
+      console.log('presed');
+    }
+  });
 }
 
 function closePopup(popupName) {
