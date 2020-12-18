@@ -133,6 +133,14 @@ function openPopup(popupName) {
       console.log('presed');
     }
   });
+  const popupList = document.querySelectorAll('.popup');
+  [...popupList].forEach(element => {
+    element.addEventListener('click', (evt) => {
+      if(evt.target.classList.contains('popup')) {
+        closePopup(popupName);
+      }
+    });
+  });
 }
 
 function closePopup(popupName) {
