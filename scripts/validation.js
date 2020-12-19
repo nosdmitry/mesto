@@ -62,7 +62,13 @@ const enableValidation = () => {
   });
 };
 
-enableValidation();
+function findAllInputsErrors(popupName) {
+  const inputList = Array.from(popupName.querySelectorAll('.popup__input'));
+  inputList.forEach(inputElement => {
+    isValid(popupName, inputElement);
+  });
+}
+
 
 // enableValidation({
 //   formSelector: '.popup__form',

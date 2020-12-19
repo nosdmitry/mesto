@@ -125,6 +125,8 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
+// открывает любой попап и ожидает нажатие на Esc 
+// либо клик на оверлей
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
   document.addEventListener('keydown', (evt) => {
@@ -145,6 +147,7 @@ function openPopup(popupName) {
 
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
+  findAllInputsErrors(popupName);
 }
 
 
@@ -158,6 +161,7 @@ editProfileButton.addEventListener('click', () => {
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
   enableValidation();
+  findAllInputsErrors(popupProfile);
 });
 
 exitProfilePopupButton.addEventListener('click', () => {
