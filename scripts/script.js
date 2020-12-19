@@ -96,7 +96,6 @@ function formGaleryCard(data) {
   return card;
 }
 
-
 function addNewCard(evt) {
   evt.preventDefault();   
   const inputCardText = document.querySelector('.popup__input_type_card-name');
@@ -126,8 +125,26 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
+// открывает любой попап и ожидает нажатие на Esc 
+// либо клик на оверлей
 function openPopup(popupName) {
+  clearEveryFormInputs();
+  hideAllInputsErrors(popupName);
+
   popupName.classList.add('popup_opened');
+  document.addEventListener('keydown', (evt) => {
+    if(evt.code == 'Escape') {
+      closePopup(popupName);
+    }
+  });
+  const popupList = document.querySelectorAll('.popup');
+  [...popupList].forEach(element => {
+    element.addEventListener('click', (evt) => {
+      if(evt.target.classList.contains('popup')) {
+        closePopup(popupName);
+      }
+    });
+  });
 }
 
 function closePopup(popupName) {
@@ -144,6 +161,7 @@ editProfileButton.addEventListener('click', () => {
   openPopup(popupProfile);
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
+  enableValidation();
 });
 
 exitProfilePopupButton.addEventListener('click', () => {
@@ -151,6 +169,7 @@ exitProfilePopupButton.addEventListener('click', () => {
 });
 
 addNewCardButtonPopup.addEventListener('click', () => {
+  enableValidation();
   openPopup(popupAddCard);
 });
 
