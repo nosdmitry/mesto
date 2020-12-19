@@ -125,6 +125,20 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
+
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
+}
+
+// обрабатывает событие при нажатии на Esc и 
+// удаляет слушатель
+const getEsqHandler = (popupName) => (evt) => {
+  if(evt.code == 'Escape') {
+    closePopup(popupName);
+    document.removeEventListener('keydown', getEsqHandler(popupName));
+  }
+};
+
 // открывает любой попап и ожидает нажатие на Esc 
 // либо клик на оверлей
 function openPopup(popupName) {
@@ -132,11 +146,8 @@ function openPopup(popupName) {
   hideAllInputsErrors(popupName);
 
   popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', (evt) => {
-    if(evt.code == 'Escape') {
-      closePopup(popupName);
-    }
-  });
+  document.addEventListener('keydown', getEsqHandler(popupName));
+
   const popupList = document.querySelectorAll('.popup');
   [...popupList].forEach(element => {
     element.addEventListener('click', (evt) => {
@@ -146,11 +157,6 @@ function openPopup(popupName) {
     });
   });
 }
-
-function closePopup(popupName) {
-  popupName.classList.remove('popup_opened');
-}
-
 
 
 // Вызывает созданные карточки
