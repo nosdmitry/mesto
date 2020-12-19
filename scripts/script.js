@@ -135,7 +135,6 @@ function openPopup(popupName) {
   document.addEventListener('keydown', (evt) => {
     if(evt.code == 'Escape') {
       closePopup(popupName);
-      console.log('presed');
     }
   });
   const popupList = document.querySelectorAll('.popup');
