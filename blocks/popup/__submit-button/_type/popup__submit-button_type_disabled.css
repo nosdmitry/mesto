@@ -3,8 +3,5 @@
   color: black;
   border: 1px solid black;
   opacity: .2; 
-}
-
-.popup__submit-button_type_disabled:hover {
-  cursor: default;
+  pointer-events: none;
 }
