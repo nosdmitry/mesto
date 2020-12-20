@@ -23,51 +23,25 @@ const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
 
-const initialCards = [
-  {
-    name: 'Озеро Байкал', 
-    link: './images/galery/galery_baikal.jpg'
-  },
-  {
-    name: 'Крымский полуостров', 
-    link: './images/galery/galery_krimeria-semiisland.jpg'
-  },
-  {
-    name: 'Балтийское море', 
-    link: './images/galery/galery_dunes.jpg'
-  },
-  {
-    name: 'Остров Гогланд', 
-    link: './images/galery/galery_gogland.jpg'
-  },
-  {
-    name: 'Рускеала',
-    link: './images/galery/galery_ruskeala.jpg'
-  },
-  {
-    name: 'Корякская Сопка',
-    link: './images/galery/galery_volcano.jpg'
-  }
-];
-
 function renderGaleryCards() {
-  const listItems = initialCards.map(formGaleryCard);
+  const listItems = initialCards.map(createGaleryCard);
   galeryCards.append(...listItems);
 }
 
 
 // формирует попап с картинкой и текстом и подставляет
 // значения из карточки
-function formFullSizeImagePopup(imageUrl, imageText) {
+function createFullSizeImagePopup(imageUrl, imageText) {
   const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
   const popupFullSizeImageText = document.querySelector('.galery__popup-text');
   popupFullSizeImage.setAttribute('src', imageUrl);
   popupFullSizeImage.setAttribute('alt', imageText);
   popupFullSizeImageText.textContent = imageText;  
+  openPopup(popupFullSizeCard);
 }
 
 // формирует карточку галереи
-function formGaleryCard(data) {
+function createGaleryCard(data) {
   
   const card = galeryCardTamplate.cloneNode(true);
   const cardImage = card.querySelector('.galery__img');
@@ -81,8 +55,7 @@ function formGaleryCard(data) {
   cardName.textContent = data.name;  
 
   cardImage.addEventListener('click', () => {
-    formFullSizeImagePopup(data.link, data.name);  
-    openPopup(popupFullSizeCard);
+    createFullSizeImagePopup(data.link, data.name);  
   });
 
   likeButton.addEventListener('click', (evt) => {
@@ -100,7 +73,7 @@ function addNewCard(evt) {
   evt.preventDefault();   
   const inputCardText = document.querySelector('.popup__input_type_card-name');
   const inputCardImageLink = document.querySelector('.popup__input_type_image-link'); 
-  const newCard = formGaleryCard({
+  const newCard = createGaleryCard({
     name: inputCardText.value, 
     link: inputCardImageLink.value
   });
@@ -142,8 +115,6 @@ const getEsqHandler = (popupName) => (evt) => {
 // открывает любой попап и ожидает нажатие на Esc 
 // либо клик на оверлей
 function openPopup(popupName) {
-  clearEveryFormInputs();
-  hideAllInputsErrors(popupName);
 
   popupName.classList.add('popup_opened');
   document.addEventListener('keydown', getEsqHandler(popupName));
@@ -165,9 +136,11 @@ renderGaleryCards(initialCards);
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
   openPopup(popupProfile);
+  clearEveryFormInputs();
+  hideAllInputsErrors(popupProfile);
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
-  enableValidation();
+  checkValidity();
 });
 
 exitProfilePopupButton.addEventListener('click', () => {
@@ -175,7 +148,9 @@ exitProfilePopupButton.addEventListener('click', () => {
 });
 
 addNewCardButtonPopup.addEventListener('click', () => {
-  enableValidation();
+  clearEveryFormInputs();
+  hideAllInputsErrors(popupAddCard);
+  checkValidity();
   openPopup(popupAddCard);
 });
 
