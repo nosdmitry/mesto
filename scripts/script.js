@@ -98,6 +98,19 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
+// закрытие попапа при нажатии на тёмную область
+const handlePopupOverlayClick = (popupName) => {
+  const popupList = document.querySelectorAll('.popup');
+  console.log(popupName);
+  [...popupList].forEach(element => {
+    element.addEventListener('click', (evt) => {
+      if(evt.target.classList.contains('popup')) {
+        closePopup(popupName);
+      }
+    });
+  });
+};
+
 // обработчик собатия нажития на Esc
 const handlerEsqKey = (event) => {
   if(event.code == 'Escape') {
@@ -107,22 +120,14 @@ const handlerEsqKey = (event) => {
   }
 }
 
-// ссылка на функцию для обработки слушателя
+// ссылка на функцию для обработки слушателя 
+// закрытия попапа
 const escapeKey = handlerEsqKey;
 
-// открывает любой попап и ожидает нажатие на Esc 
-// либо клик на оверлей
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
+  handlePopupOverlayClick(popupName);
   document.addEventListener('keydown', escapeKey);
-  const popupList = document.querySelectorAll('.popup');
-  [...popupList].forEach(element => {
-    element.addEventListener('click', (evt) => {
-      if(evt.target.classList.contains('popup')) {
-        closePopup(popupName);
-      }
-    });
-  });
 }
 
 function closePopup(popupName) {
