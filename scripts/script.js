@@ -98,27 +98,23 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
-
-function closePopup(popupName) {
-  popupName.classList.remove('popup_opened');
+// обработчик собатия нажития на Esc
+const handlerEsqKey = (event) => {
+  if(event.code == 'Escape') {
+    const result = document.querySelector('.popup_opened');
+    console.log('presed');
+    return closePopup(result);
+  }
 }
 
-// обрабатывает событие при нажатии на Esc и 
-// удаляет слушатель
-const getEsqHandler = (popupName) => (evt) => {
-  if(evt.code == 'Escape') {
-    closePopup(popupName);
-    document.removeEventListener('keydown', getEsqHandler(popupName));
-  }
-};
+// ссылка на функцию для обработки слушателя
+const escapeKey = handlerEsqKey;
 
 // открывает любой попап и ожидает нажатие на Esc 
 // либо клик на оверлей
 function openPopup(popupName) {
-
   popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', getEsqHandler(popupName));
-
+  document.addEventListener('keydown', escapeKey);
   const popupList = document.querySelectorAll('.popup');
   [...popupList].forEach(element => {
     element.addEventListener('click', (evt) => {
@@ -129,6 +125,10 @@ function openPopup(popupName) {
   });
 }
 
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escapeKey);
+}
 
 // Вызывает созданные карточки
 renderGaleryCards(initialCards);
