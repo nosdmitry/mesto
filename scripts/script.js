@@ -100,14 +100,10 @@ function editPersonData(event) {
 
 // закрытие попапа при нажатии на тёмную область
 const handlePopupOverlayClick = (popupName) => {
-  const popupList = document.querySelectorAll('.popup');
-  console.log(popupName);
-  [...popupList].forEach(element => {
-    element.addEventListener('click', (evt) => {
+    popupName.addEventListener('click', (evt) => {
       if(evt.target.classList.contains('popup')) {
         closePopup(popupName);
       }
-    });
   });
 };
 
@@ -115,7 +111,6 @@ const handlePopupOverlayClick = (popupName) => {
 const handlerEsqKey = (event) => {
   if(event.code == 'Escape') {
     const result = document.querySelector('.popup_opened');
-    console.log('presed');
     return closePopup(result);
   }
 }
@@ -142,24 +137,25 @@ renderGaleryCards(initialCards);
 editProfileButton.addEventListener('click', () => {
   openPopup(popupProfile);
   clearEveryFormInputs();
-  hideAllInputsErrors(popupProfile);
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
-  checkValidity();
+  checkButtonState(config);
+  hideAllInputsErrors(config);
 });
 
-exitProfilePopupButton.addEventListener('click', () => {
+exitProfilePopupButton.addEventListener('click', () => {  
   closePopup(popupProfile);
 });
 
 addNewCardButtonPopup.addEventListener('click', () => {
-  clearEveryFormInputs();
-  hideAllInputsErrors(popupAddCard);
-  checkValidity();
+  clearEveryFormInputs();  
   openPopup(popupAddCard);
+  hideAllInputsErrors(config);
+  checkButtonState(config);
 });
 
 exitAddCardPopupButton.addEventListener('click', () => {
+  hideAllInputsErrors(config);
   closePopup(popupAddCard);
 });
 
