@@ -121,7 +121,6 @@ const escapeKey = handlerEsqKey;
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
-  hideAllInputsErrors(config);
   handlePopupOverlayClick(popupName);
   document.addEventListener('keydown', escapeKey);
 }
@@ -140,6 +139,7 @@ editProfileButton.addEventListener('click', () => {
   clearEveryFormInputs();
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
+  checkButtonState(config);
   hideAllInputsErrors(config);
 });
 
@@ -151,6 +151,7 @@ addNewCardButtonPopup.addEventListener('click', () => {
   clearEveryFormInputs();  
   openPopup(popupAddCard);
   hideAllInputsErrors(config);
+  checkButtonState(config);
 });
 
 exitAddCardPopupButton.addEventListener('click', () => {

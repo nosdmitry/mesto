@@ -22,14 +22,12 @@ const isValid = (formElement, inputElement, config) => {
 
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
-    console.log(!inputElement.validity.valid);
     return !inputElement.validity.valid;
   });
 };
 
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
-    console.log(buttonElement);
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = 'disabled';
   } else {
@@ -68,13 +66,13 @@ function hideAllInputsErrors(config) {
   });
 }
 
-// function checkButtonState(config) {
-//   const openedPopup = document.querySelector('.popup_opened');
-//   const inputList = Array.from(openedPopup.querySelectorAll(config.inputSelector));
-//   console.log(inputList);
-//   const submitButton = openedPopup.querySelectorAll(config.submitButtonSelector);
-//   toggleButtonState(inputList, submitButton, config);
-// }
+function checkButtonState(config) {
+  const openedPopup = document.querySelector('.popup_opened');
+  const inputList = Array.from(openedPopup.querySelectorAll(config.inputSelector));
+  console.log(inputList);
+  const submitButton = openedPopup.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, submitButton, config);
+}
 
 const config = {
   formSelector: '.popup__form',
