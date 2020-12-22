@@ -58,20 +58,33 @@ const enableValidation = (config) => {
   });
 };
 
+// ищет открытый попап и возвращает данные для обработки.
+// используется для обнуления ошибок валидации и проверки 
+// статуса кнопки при открыти попапов
+function findOpenedPopupItems(config) {
+  const popup = document.querySelector('.popup_opened');
+  const inputs = Array.from(popup.querySelectorAll(config.inputSelector));
+  const button = popup.querySelector(config.submitButtonSelector);
+  const result = {
+    popupName: popup, 
+    inputList: inputs,
+    submitButton: button,
+  }
+  return result;
+}
+
+// обнуляет ошибки
 function hideAllInputsErrors(config) {
-  const openedPopup = document.querySelector('.popup_opened');
-  const inputList = Array.from(openedPopup.querySelectorAll(config.inputSelector));
-  inputList.forEach(inputElement => {
-    hideInputError(openedPopup, inputElement, config);
+  const popup = findOpenedPopupItems(config);
+  popup.inputList.forEach(inputElement => {
+    hideInputError(popup.popupName, inputElement, config);
   });
 }
 
+// проверяет статус кнопки
 function checkButtonState(config) {
-  const openedPopup = document.querySelector('.popup_opened');
-  const inputList = Array.from(openedPopup.querySelectorAll(config.inputSelector));
-  console.log(inputList);
-  const submitButton = openedPopup.querySelector(config.submitButtonSelector);
-  toggleButtonState(inputList, submitButton, config);
+  const popup = findOpenedPopupItems(config);  
+  toggleButtonState(popup.inputList, popup.submitButton, config);
 }
 
 const config = {
