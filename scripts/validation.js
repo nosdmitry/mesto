@@ -1,22 +1,22 @@
-const showInputError = (formElement, inputElement, errorMessage, config) => {
+const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(config.inputErrorClass);
-  errorElement.classList.add(config.errorClass);
+  inputElement.classList.add(inputErrorClass);
+  errorElement.classList.add(errorClass);
   errorElement.textContent = errorMessage;
 };
 
-const hideInputError = (formElement, inputElement, config) => {
+const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(config.inputErrorClass);
-  errorElement.classList.remove(config.errorClass);
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 };
 
-const isValid = (formElement, inputElement, config) => {
+const isValid = (formElement, inputElement, {...rest}) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, config);
+    showInputError(formElement, inputElement, inputElement.validationMessage, rest);
   } else {
-    hideInputError(formElement, inputElement, config);
+    hideInputError(formElement, inputElement, rest);
   }
 };
 
@@ -26,45 +26,45 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonElement, config) => {
+const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.classList.add(inactiveButtonClass);
     buttonElement.disabled = 'disabled';
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.disabled = false;
   }
 };
 
-const setEventListener = (formElement, config) => {
-  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, config);
+const setEventListener = (formElement, {inputSelector, submitButtonSelector, ...rest}) => {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const buttonElement = formElement.querySelector(submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, rest);
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
+      isValid(formElement, inputElement, rest);
+      toggleButtonState(inputList, buttonElement, rest);
     });
   });
 };
 
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
+const enableValidation = ({formSelector, ...rest}) => {
+  const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListener(formElement, config);
+    setEventListener(formElement, rest);
   });
 };
 
 // ищет открытый попап и возвращает данные для обработки.
 // используется для обнуления ошибок валидации и проверки 
 // статуса кнопки при открыти попапов
-function findOpenedPopupItems(config) {
+function findOpenedPopupItems({inputSelector, submitButtonSelector}) {
   const popup = document.querySelector('.popup_opened');
-  const inputs = Array.from(popup.querySelectorAll(config.inputSelector));
-  const button = popup.querySelector(config.submitButtonSelector);
+  const inputs = Array.from(popup.querySelectorAll(inputSelector));
+  const button = popup.querySelector(submitButtonSelector);
   const result = {
     popupName: popup, 
     inputList: inputs,
@@ -74,17 +74,17 @@ function findOpenedPopupItems(config) {
 }
 
 // обнуляет ошибки
-function hideAllInputsErrors(config) {
-  const popup = findOpenedPopupItems(config);
+function hideAllInputsErrors({...rest}) {
+  const popup = findOpenedPopupItems(rest);
   popup.inputList.forEach(inputElement => {
-    hideInputError(popup.popupName, inputElement, config);
+    hideInputError(popup.popupName, inputElement, rest);
   });
 }
 
 // проверяет статус кнопки
-function checkButtonState(config) {
-  const popup = findOpenedPopupItems(config);  
-  toggleButtonState(popup.inputList, popup.submitButton, config);
+function checkButtonState({...rest}) {
+  const popup = findOpenedPopupItems(rest);  
+  toggleButtonState(popup.inputList, popup.submitButton, rest);
 }
 
 const config = {
