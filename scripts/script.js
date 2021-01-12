@@ -22,23 +22,78 @@ const addCard = document.querySelector('.popup__submit-button_add-card');
 const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
+class Card {
+  constructor(data, cardSelector) {
+    this._name = data.name;
+    this._image = data.link;
+    this._cardSelector = cardSelector;
+  }
 
-function renderGaleryCards() {
-  const listItems = initialCards.map(createGaleryCard);
-  galeryCards.append(...listItems);
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._cardSelector)
+      .content
+      .querySelector('.galery__card')
+      .cloneNode(true);
+    return cardElement;
+  }
+
+  _setEventListeners() {
+    this._element.querySelector('.galery__heart').addEventListener('click', () => {
+      this._handleLikeButton();
+    });
+    this._element.querySelector('.galery__img').addEventListener('click', () => {
+      this._openFullScreenImage();
+    });
+  }
+
+  _handleLikeButton() {
+    this._element.querySelector('.galery__heart').classList.toggle('galery__heart_active');
+  }
+
+  _openFullScreenImage() {
+    const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
+    const popupFullSizeImageText = document.querySelector('.galery__popup-text');
+    popupFullSizeImage.setAttribute('src', this._image);
+    popupFullSizeImage.setAttribute('alt', this._name);
+    popupFullSizeImageText.textContent = this._name;  
+    openPopup(popupFullSizeCard);
+  }
+
+  generateCard() {
+    this._element = this._getTemplate();
+    this._setEventListeners();
+    this._element.querySelector('.galery__img').src = this._image;
+    this._element.querySelector('.galery__img').alt = this._name;
+    this._element.querySelector('.galery__text').textContent = this._name;
+    return this._element;
+  }
 }
+
+initialCards.forEach((element) => {
+  const card = new Card(element, '.galery_card-tamplate');
+  const cardElement = card.generateCard(card);
+  galeryCards.append(cardElement);
+  console.log(cardElement);
+});
+
+
+// function renderGaleryCards() {
+//   const listItems = initialCards.map(createGaleryCard);
+//   galeryCards.append(...listItems);
+// }
 
 
 // формирует попап с картинкой и текстом и подставляет
 // значения из карточки
-function createFullSizeImagePopup(imageUrl, imageText) {
-  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
-  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
-  popupFullSizeImage.setAttribute('src', imageUrl);
-  popupFullSizeImage.setAttribute('alt', imageText);
-  popupFullSizeImageText.textContent = imageText;  
-  openPopup(popupFullSizeCard);
-}
+// function createFullSizeImagePopup(imageUrl, imageText) {
+//   const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
+//   const popupFullSizeImageText = document.querySelector('.galery__popup-text');
+//   popupFullSizeImage.setAttribute('src', imageUrl);
+//   popupFullSizeImage.setAttribute('alt', imageText);
+//   popupFullSizeImageText.textContent = imageText;  
+//   openPopup(popupFullSizeCard);
+// }
 
 // формирует карточку галереи
 function createGaleryCard(data) {
@@ -131,7 +186,7 @@ function closePopup(popupName) {
 }
 
 // Вызывает созданные карточки
-renderGaleryCards(initialCards);
+//renderGaleryCards(initialCards);
 
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
