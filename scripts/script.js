@@ -77,17 +77,16 @@ class Card {
   }
 }
 
-initialCards.forEach((element) => {
-  const cardElement = renderCards(element, '.galery_card-tamplate');  
-  galeryCards.append(cardElement);
-});
-
-
 function renderCards(cardData, cardStyleClass) {
   const card = new Card(cardData, cardStyleClass);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
+
+initialCards.forEach((element) => {
+  const cardElement = renderCards(element, '.galery_card-tamplate');  
+  galeryCards.append(cardElement);
+});
 
 function addNewCard(evt) {
   evt.preventDefault();   
@@ -97,10 +96,8 @@ function addNewCard(evt) {
     name: inputCardText.value, 
     link: inputCardImageLink.value
   }
-
   const cardElement = renderCards(newCard, '.galery_card-tamplate');
   galeryCards.prepend(cardElement);
-
   closePopup(popupAddCard);
   clearEveryFormInputs();
 }
@@ -112,6 +109,13 @@ function clearEveryFormInputs() {
     element.reset();
   });
 }
+
+
+
+
+
+
+
 
 function editPersonData(event) {
   event.preventDefault();
@@ -151,9 +155,6 @@ function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
   document.removeEventListener('keydown', escapeKey);
 }
-
-// Вызывает созданные карточки
-//renderGaleryCards(initialCards);
 
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
