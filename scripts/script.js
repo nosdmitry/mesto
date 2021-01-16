@@ -22,11 +22,32 @@ const addCard = document.querySelector('.popup__submit-button_add-card');
 const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
+
+// закрытие попапа при нажатии на тёмную область
+const handlePopupOverlayClick = (popupName) => {
+  popupName.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('popup')) {
+      closePopup(popupName);
+    }
+});
+};
+
+// обработчик собатия нажития на Esc
+const handlerEsqKey = (event) => {
+  if(event.code == 'Escape') {
+    const result = document.querySelector('.popup_opened');
+    return closePopup(result);
+  }
+}
+
+const escapeKey = handlerEsqKey;
+
 class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, openFullScreenImage) {
     this._name = data.name;
     this._image = data.link;
     this._cardSelector = cardSelector;
+    this._showPopupImage = () => openFullScreenImage(this._name, this._image);
   }
 
   _getTemplate() {
@@ -39,11 +60,12 @@ class Card {
   }
 
   _setEventListeners() {
+    console.log('event listeners');
     this._element.querySelector('.galery__heart').addEventListener('click', () => {
       this._handleLikeButton();
     });
     this._element.querySelector('.galery__img').addEventListener('click', () => {
-      this._openFullScreenImage();
+      this._showPopupImage();
     });
     this._element.querySelector('.galery__delete-card-button').addEventListener('click', () => {
       this._deleteCard();
@@ -58,15 +80,6 @@ class Card {
     this._element.remove();
   }
 
-  _openFullScreenImage() {
-    const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
-    const popupFullSizeImageText = document.querySelector('.galery__popup-text');
-    popupFullSizeImage.setAttribute('src', this._image);
-    popupFullSizeImage.setAttribute('alt', this._name);
-    popupFullSizeImageText.textContent = this._name;  
-    openPopup(popupFullSizeCard);
-  }
-
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
@@ -77,8 +90,17 @@ class Card {
   }
 }
 
+function openFullScreenImage(name, link) {
+  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
+  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
+  popupFullSizeImage.setAttribute('src', link);
+  popupFullSizeImage.setAttribute('alt', name);
+  popupFullSizeImageText.textContent = name;  
+  openPopup(popupFullSizeCard);
+};
+
 function renderCards(cardData, cardStyleClass) {
-  const card = new Card(cardData, cardStyleClass);
+  const card = new Card(cardData, cardStyleClass, openFullScreenImage);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
@@ -87,6 +109,7 @@ initialCards.forEach((element) => {
   const cardElement = renderCards(element, '.galery_card-tamplate');  
   galeryCards.append(cardElement);
 });
+
 
 function addNewCard(evt) {
   evt.preventDefault();   
@@ -117,6 +140,7 @@ function clearEveryFormInputs() {
 
 
 
+
 function editPersonData(event) {
   event.preventDefault();
   personName.textContent = popupPersonName.value;
@@ -124,26 +148,10 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
-// закрытие попапа при нажатии на тёмную область
-const handlePopupOverlayClick = (popupName) => {
-    popupName.addEventListener('click', (evt) => {
-      if(evt.target.classList.contains('popup')) {
-        closePopup(popupName);
-      }
-  });
-};
 
-// обработчик собатия нажития на Esc
-const handlerEsqKey = (event) => {
-  if(event.code == 'Escape') {
-    const result = document.querySelector('.popup_opened');
-    return closePopup(result);
-  }
-}
 
 // ссылка на функцию для обработки слушателя 
 // закрытия попапа
-const escapeKey = handlerEsqKey;
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');

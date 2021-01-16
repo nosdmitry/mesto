@@ -26,15 +26,15 @@
 //   });
 // };
 
-const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.disabled = 'disabled';
-  } else {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.disabled = false;
-  }
-};
+// const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
+//   if (hasInvalidInput(inputList)) {
+//     buttonElement.classList.add(inactiveButtonClass);
+//     buttonElement.disabled = 'disabled';
+//   } else {
+//     buttonElement.classList.remove(inactiveButtonClass);
+//     buttonElement.disabled = false;
+//   }
+// };
 
 // const setEventListener = (formElement, {inputSelector, submitButtonSelector, ...rest}) => {
 //   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
@@ -61,31 +61,32 @@ const toggleButtonState = (inputList, buttonElement, {inactiveButtonClass}) => {
 // ищет открытый попап и возвращает данные для обработки.
 // используется для обнуления ошибок валидации и проверки 
 // статуса кнопки при открыти попапов
-// function findOpenedPopupItems({inputSelector, submitButtonSelector}) {
-//   const popup = document.querySelector('.popup_opened');
-//   const inputs = Array.from(popup.querySelectorAll(inputSelector));
-//   const button = popup.querySelector(submitButtonSelector);
-//   const result = {
-//     popupName: popup, 
-//     inputList: inputs,
-//     submitButton: button,
-//   }
-//   return result;
-// }
 
-// // обнуляет ошибки
-// function hideAllInputsErrors({...rest}) {
-//   const popup = findOpenedPopupItems(rest);
-//   popup.inputList.forEach(inputElement => {
-//     hideInputError(popup.popupName, inputElement, rest);
-//   });
-// }
+function findOpenedPopupItems({inputSelector, submitButtonSelector}) {
+  const popup = document.querySelector('.popup_opened');
+  const inputs = Array.from(popup.querySelectorAll(inputSelector));
+  const button = popup.querySelector(submitButtonSelector);
+  const result = {
+    popupName: popup, 
+    inputList: inputs,
+    submitButton: button,
+  }
+  return result;
+}
 
-// // проверяет статус кнопки
-// function checkButtonState({...rest}) {
-//   const popup = findOpenedPopupItems(rest);  
-//   toggleButtonState(popup.inputList, popup.submitButton, rest);
-// }
+// обнуляет ошибки
+function hideAllInputsErrors({...rest}) {
+  const popup = findOpenedPopupItems(rest);
+  popup.inputList.forEach(inputElement => {
+    hideInputError(popup.popupName, inputElement, rest);
+  });
+}
+
+// проверяет статус кнопки
+function checkButtonState({...rest}) {
+  const popup = findOpenedPopupItems(rest);  
+  toggleButtonState(popup.inputList, popup.submitButton, rest);
+}
 
 const config = {
   formSelector: '.popup__form',
@@ -95,8 +96,6 @@ const config = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible',
 };
-
-//enableValidation(config);
 
 class FormValidator {
   constructor(config, validatedForm) {
@@ -115,6 +114,7 @@ class FormValidator {
     formList.forEach((formElement) => {
       this._setEventListeners(formElement);
     });
+    this._hideAllInputsErrors();
   }
 
   _setEventListeners(formElement) {
@@ -175,8 +175,8 @@ class FormValidator {
   /* ************ */
   _findOpenedPopupItems() {
     const popup = document.querySelector('.popup_opened');
-    const inputs = Array.from(popup.querySelectorAll(inputSelector));
-    const button = popup.querySelector(submitButtonSelector);
+    const inputs = Array.from(popup.querySelectorAll(this._inputSelector));
+    const button = popup.querySelector(this._submitButtonSelector);
     const result = {
       popupName: popup, 
       inputList: inputs,
