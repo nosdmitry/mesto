@@ -1,3 +1,6 @@
+import { initialCards } from './initial_cards.js';
+import { FormValidator, config } from './formvalidator.js';
+import { Card } from './card.js';
 
 const popupProfile = document.querySelector('.popup');
 const editProfileButton = document.querySelector('.profile__edit');
@@ -14,71 +17,34 @@ const addNewCardButtonPopup = document.querySelector('.profile__add-card-button'
 const exitAddCardPopupButton = popupAddCard.querySelector('.popup__exit-button');
 
 const galeryCards = document.querySelector('.galery__cards');
-const galeryCardTamplate = document.querySelector('.galery_card-tamplate').content;
 const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
-
-const addCard = document.querySelector('.popup__submit-button_add-card');
 
 const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
+const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
+const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 
-function renderGaleryCards() {
-  const listItems = initialCards.map(createGaleryCard);
-  galeryCards.append(...listItems);
-}
+// ссылка на функцию для обработки слушателя 
+// закрытия попапа
+const escapeKey = handlerEsqKey;
 
-
-// формирует попап с картинкой и текстом и подставляет
-// значения из карточки
-function createFullSizeImagePopup(imageUrl, imageText) {
-  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
-  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
-  popupFullSizeImage.setAttribute('src', imageUrl);
-  popupFullSizeImage.setAttribute('alt', imageText);
-  popupFullSizeImageText.textContent = imageText;  
-  openPopup(popupFullSizeCard);
-}
-
-// формирует карточку галереи
-function createGaleryCard(data) {
-  
-  const card = galeryCardTamplate.cloneNode(true);
-  const cardImage = card.querySelector('.galery__img');
-  const cardName = card.querySelector('.galery__text');
-  const likeButton = card.querySelector('.galery__heart');
-  const deleteButton = card.querySelector('.galery__delete-card-button');
-
-  cardImage.setAttribute('src', data.link);
-  cardImage.setAttribute('title', data.name);
-  cardImage.setAttribute('alt', data.name);
-  cardName.textContent = data.name;  
-
-  cardImage.addEventListener('click', () => {
-    createFullSizeImagePopup(data.link, data.name);  
-  });
-
-  likeButton.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('galery__heart_active');
-  });
-
-  deleteButton.addEventListener('click', (evt) => {
-    evt.target.closest('.galery__card').remove();
-  });
-
-  return card;
+function renderCards(cardData, cardStyleClass) {
+  const card = new Card(cardData, cardStyleClass, openFullScreenImage);
+  const cardElement = card.generateCard(card);
+  return cardElement;
 }
 
 function addNewCard(evt) {
   evt.preventDefault();   
   const inputCardText = document.querySelector('.popup__input_type_card-name');
   const inputCardImageLink = document.querySelector('.popup__input_type_image-link'); 
-  const newCard = createGaleryCard({
+  const newCard = {
     name: inputCardText.value, 
     link: inputCardImageLink.value
-  });
-
-  galeryCards.prepend(newCard);
+  }
+  const cardElement = renderCards(newCard, '.galery_card-tamplate');
+  galeryCards.prepend(cardElement);
   closePopup(popupAddCard);
   clearEveryFormInputs();
 }
@@ -98,26 +64,30 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
-// закрытие попапа при нажатии на тёмную область
-const handlePopupOverlayClick = (popupName) => {
-    popupName.addEventListener('click', (evt) => {
-      if(evt.target.classList.contains('popup')) {
-        closePopup(popupName);
-      }
+function handlePopupOverlayClick(popupName) {
+  popupName.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('popup')) {
+      closePopup(popupName);
+    }
   });
 };
 
-// обработчик собатия нажития на Esc
-const handlerEsqKey = (event) => {
+// обработчик события нажития на Esc
+function handlerEsqKey(event) {
   if(event.code == 'Escape') {
     const result = document.querySelector('.popup_opened');
     return closePopup(result);
   }
 }
 
-// ссылка на функцию для обработки слушателя 
-// закрытия попапа
-const escapeKey = handlerEsqKey;
+function openFullScreenImage(imageName, imageLink) {
+  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
+  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
+  popupFullSizeImage.setAttribute('src', imageLink);
+  popupFullSizeImage.setAttribute('alt', imageName);
+  popupFullSizeImageText.textContent = imageName;  
+  openPopup(popupFullSizeCard);
+};
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
@@ -130,8 +100,13 @@ function closePopup(popupName) {
   document.removeEventListener('keydown', escapeKey);
 }
 
-// Вызывает созданные карточки
-renderGaleryCards(initialCards);
+editProfileValidation.enableValidation();
+addNewCardValidation.enableValidation();
+
+initialCards.forEach((element) => {
+  const cardElement = renderCards(element, '.galery_card-tamplate');  
+  galeryCards.append(cardElement);
+});
 
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
@@ -139,8 +114,7 @@ editProfileButton.addEventListener('click', () => {
   clearEveryFormInputs();
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
-  checkButtonState(config);
-  hideAllInputsErrors(config);
+  editProfileValidation.resetValidation();
 });
 
 exitProfilePopupButton.addEventListener('click', () => {  
@@ -150,12 +124,10 @@ exitProfilePopupButton.addEventListener('click', () => {
 addNewCardButtonPopup.addEventListener('click', () => {
   clearEveryFormInputs();  
   openPopup(popupAddCard);
-  hideAllInputsErrors(config);
-  checkButtonState(config);
+  addNewCardValidation.resetValidation();
 });
 
 exitAddCardPopupButton.addEventListener('click', () => {
-  hideAllInputsErrors(config);
   closePopup(popupAddCard);
 });
 
