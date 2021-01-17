@@ -50,11 +50,9 @@ class FormValidator {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.disabled = 'disabled';
-      console.log('button disabled');
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass);
       buttonElement.disabled = false;
-      console.log('button enable');
     }
   }
 
@@ -88,7 +86,6 @@ class FormValidator {
 
   _findOpenedPopupItems() {
     const popup = document.querySelector('.popup_opened');
-    console.log(popup);
     const inputs = Array.from(popup.querySelectorAll('.popup__input'));
     const button = popup.querySelector(this._submitButtonSelector);
     const result = {

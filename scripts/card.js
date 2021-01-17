@@ -16,7 +16,6 @@ class Card {
   }
 
   _setEventListeners() {
-    console.log('event listeners');
     this._element.querySelector('.galery__heart').addEventListener('click', () => {
       this._handleLikeButton();
     });
@@ -34,6 +33,7 @@ class Card {
 
   _deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
   generateCard() {

@@ -17,62 +17,23 @@ const addNewCardButtonPopup = document.querySelector('.profile__add-card-button'
 const exitAddCardPopupButton = popupAddCard.querySelector('.popup__exit-button');
 
 const galeryCards = document.querySelector('.galery__cards');
-const galeryCardTamplate = document.querySelector('.galery_card-tamplate').content;
 const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
-
-const addCard = document.querySelector('.popup__submit-button_add-card');
 
 const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
-
-
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
-editProfileValidation.enableValidation();
-
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
-addNewCardValidation.enableValidation();
 
-
-// закрытие попапа при нажатии на тёмную область
-const handlePopupOverlayClick = (popupName) => {
-  popupName.addEventListener('click', (evt) => {
-    if(evt.target.classList.contains('popup')) {
-      closePopup(popupName);
-    }
-});
-};
-
-// обработчик собатия нажития на Esc
-const handlerEsqKey = (event) => {
-  if(event.code == 'Escape') {
-    const result = document.querySelector('.popup_opened');
-    return closePopup(result);
-  }
-}
-
+// ссылка на функцию для обработки слушателя 
+// закрытия попапа
 const escapeKey = handlerEsqKey;
-
-function openFullScreenImage(name, link) {
-  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
-  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
-  popupFullSizeImage.setAttribute('src', link);
-  popupFullSizeImage.setAttribute('alt', name);
-  popupFullSizeImageText.textContent = name;  
-  openPopup(popupFullSizeCard);
-};
 
 function renderCards(cardData, cardStyleClass) {
   const card = new Card(cardData, cardStyleClass, openFullScreenImage);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
-
-initialCards.forEach((element) => {
-  const cardElement = renderCards(element, '.galery_card-tamplate');  
-  galeryCards.append(cardElement);
-});
-
 
 function addNewCard(evt) {
   evt.preventDefault();   
@@ -96,14 +57,6 @@ function clearEveryFormInputs() {
   });
 }
 
-
-
-
-
-
-
-
-
 function editPersonData(event) {
   event.preventDefault();
   personName.textContent = popupPersonName.value;
@@ -111,10 +64,30 @@ function editPersonData(event) {
   closePopup(popupProfile);
 }
 
+function handlePopupOverlayClick(popupName) {
+  popupName.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('popup')) {
+      closePopup(popupName);
+    }
+  });
+};
 
+// обработчик события нажития на Esc
+function handlerEsqKey(event) {
+  if(event.code == 'Escape') {
+    const result = document.querySelector('.popup_opened');
+    return closePopup(result);
+  }
+}
 
-// ссылка на функцию для обработки слушателя 
-// закрытия попапа
+function openFullScreenImage(imageName, imageLink) {
+  const popupFullSizeImage = document.querySelector('.galery__fulsize-img');
+  const popupFullSizeImageText = document.querySelector('.galery__popup-text');
+  popupFullSizeImage.setAttribute('src', imageLink);
+  popupFullSizeImage.setAttribute('alt', imageName);
+  popupFullSizeImageText.textContent = imageName;  
+  openPopup(popupFullSizeCard);
+};
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
@@ -126,6 +99,14 @@ function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
   document.removeEventListener('keydown', escapeKey);
 }
+
+editProfileValidation.enableValidation();
+addNewCardValidation.enableValidation();
+
+initialCards.forEach((element) => {
+  const cardElement = renderCards(element, '.galery_card-tamplate');  
+  galeryCards.append(cardElement);
+});
 
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
@@ -147,7 +128,6 @@ addNewCardButtonPopup.addEventListener('click', () => {
 });
 
 exitAddCardPopupButton.addEventListener('click', () => {
-  hideAllInputsErrors(config);
   closePopup(popupAddCard);
 });
 
