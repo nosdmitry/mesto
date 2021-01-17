@@ -170,8 +170,7 @@ editProfileButton.addEventListener('click', () => {
   clearEveryFormInputs();
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
-  checkButtonState(config);
-  hideAllInputsErrors(config);
+  editProfileValidation.resetValidation();
 });
 
 exitProfilePopupButton.addEventListener('click', () => {  
@@ -181,8 +180,7 @@ exitProfilePopupButton.addEventListener('click', () => {
 addNewCardButtonPopup.addEventListener('click', () => {
   clearEveryFormInputs();  
   openPopup(popupAddCard);
-  hideAllInputsErrors(config);
-  checkButtonState(config);
+  addNewCardValidation.resetValidation();
 });
 
 exitAddCardPopupButton.addEventListener('click', () => {
