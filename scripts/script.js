@@ -1,3 +1,6 @@
+import { initialCards } from './initial_cards.js';
+import { FormValidator, config } from './formvalidator.js';
+import { Card } from './card.js';
 
 const popupProfile = document.querySelector('.popup');
 const editProfileButton = document.querySelector('.profile__edit');
@@ -23,6 +26,14 @@ const popupFullSizeCard = document.querySelector('.galery_popup');
 const exitFullScreenImagePopup = popupFullSizeCard.querySelector('.galery__popup-exit');
 
 
+
+const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
+editProfileValidation.enableValidation();
+
+const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
+addNewCardValidation.enableValidation();
+
+
 // закрытие попапа при нажатии на тёмную область
 const handlePopupOverlayClick = (popupName) => {
   popupName.addEventListener('click', (evt) => {
@@ -41,54 +52,6 @@ const handlerEsqKey = (event) => {
 }
 
 const escapeKey = handlerEsqKey;
-
-class Card {
-  constructor(data, cardSelector, openFullScreenImage) {
-    this._name = data.name;
-    this._image = data.link;
-    this._cardSelector = cardSelector;
-    this._showPopupImage = () => openFullScreenImage(this._name, this._image);
-  }
-
-  _getTemplate() {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.galery__card')
-      .cloneNode(true);
-    return cardElement;
-  }
-
-  _setEventListeners() {
-    console.log('event listeners');
-    this._element.querySelector('.galery__heart').addEventListener('click', () => {
-      this._handleLikeButton();
-    });
-    this._element.querySelector('.galery__img').addEventListener('click', () => {
-      this._showPopupImage();
-    });
-    this._element.querySelector('.galery__delete-card-button').addEventListener('click', () => {
-      this._deleteCard();
-    });
-  }
-
-  _handleLikeButton() {
-    this._element.querySelector('.galery__heart').classList.toggle('galery__heart_active');
-  }
-
-  _deleteCard() {
-    this._element.remove();
-  }
-
-  generateCard() {
-    this._element = this._getTemplate();
-    this._setEventListeners();
-    this._element.querySelector('.galery__img').src = this._image;
-    this._element.querySelector('.galery__img').alt = this._name;
-    this._element.querySelector('.galery__text').textContent = this._name;
-    return this._element;
-  }
-}
 
 function openFullScreenImage(name, link) {
   const popupFullSizeImage = document.querySelector('.galery__fulsize-img');

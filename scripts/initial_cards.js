@@ -24,3 +24,5 @@ const initialCards = [
     link: './images/galery/galery_volcano.jpg'
   }
 ];
+
+export { initialCards };

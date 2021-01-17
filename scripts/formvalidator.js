@@ -1,9 +1,3 @@
-
-// ищет открытый попап и возвращает данные для обработки.
-// используется для обнуления ошибок валидации и проверки 
-// статуса кнопки при открыти попапов
-
-
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -120,8 +114,4 @@ class FormValidator {
   }
 }
 
-const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
-editProfileValidation.enableValidation();
-
-const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
-addNewCardValidation.enableValidation();
+export { FormValidator, config };
