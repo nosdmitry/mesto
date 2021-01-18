@@ -1,7 +1,8 @@
 class Card {
-  constructor(data, openFullScreenImage) {
+  constructor(data, templateSelector, openFullScreenImage) {
     this._name = data.name;
     this._image = data.link;
+    this._templateSelector = templateSelector;
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.galery__img');
     this._likeButton = this._element.querySelector('.galery__heart');
@@ -19,7 +20,7 @@ class Card {
 
   _getTemplate() {
     const cardElement = document
-      .querySelector('.galery_card-tamplate')
+      .querySelector(this._templateSelector)
       .content
       .querySelector('.galery__card')
       .cloneNode(true);
