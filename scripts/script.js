@@ -31,7 +31,7 @@ const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const escapeKey = handlerEsqKey;
 
 function createCards(cardData) {
-  const card = new Card(cardData, openFullScreenImage);
+  const card = new Card(cardData, '.galery_card-tamplate', openFullScreenImage);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
