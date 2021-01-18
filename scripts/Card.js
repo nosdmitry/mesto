@@ -1,8 +1,8 @@
 class Card {
-  constructor(data, cardSelector, openFullScreenImage) {
+  constructor(data, cardTemplateSelector, openFullScreenImage) {
     this._name = data.name;
     this._image = data.link;
-    this._cardSelector = cardSelector;
+    this._cardSelector = cardTemplateSelector;
     this._showPopupImage = () => openFullScreenImage(this._name, this._image);
   }
 
