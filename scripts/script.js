@@ -3,13 +3,11 @@ import { FormValidator, config } from './Formvalidator.js';
 import { Card } from './Card.js';
 
 const galeryCards = document.querySelector('.galery__cards');
-
 const popups = document.querySelectorAll('.popup');
 
 const popupProfile = document.querySelector('.popup_profile_edit-form');
 const editProfileButton = document.querySelector('.profile__edit');
 const popupProfileEditForm = popupProfile.querySelector('.popup__form');
-
 const personName = document.querySelector('.profile__title');
 const personDescription = document.querySelector('.profile__subtitle');
 const popupPersonName = document.querySelector('.popup__input_type_name');
@@ -29,12 +27,11 @@ const inputCardImageLink = document.querySelector('.popup__input_type_image-link
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 
-// ссылка на функцию для обработки слушателя 
-// закрытия попапа
+// ссылка на функцию для обработки слушателя закрытия попапа
 const escapeKey = handlerEsqKey;
 
-function createCards(cardData, cardTemplateSelector) {
-  const card = new Card(cardData, cardTemplateSelector, openFullScreenImage);
+function createCards(cardData) {
+  const card = new Card(cardData, openFullScreenImage);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
@@ -90,7 +87,7 @@ editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
 
 initialCards.forEach((element) => {
-  const cardElement = createCards(element, '.galery_card-tamplate');  
+  const cardElement = createCards(element);  
   galeryCards.append(cardElement);
 });
 
