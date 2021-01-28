@@ -1,6 +1,7 @@
 import { initialCards } from './initial_cards.js';
 import { FormValidator, config } from './Formvalidator.js';
 import { Card } from './Card.js';
+import { Popup } from './Popup.js';
 
 const galeryCards = document.querySelector('.galery__cards');
 const popups = document.querySelectorAll('.popup');
@@ -27,8 +28,10 @@ const inputCardImageLink = document.querySelector('.popup__input_type_image-link
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 
+const popupTest = new Popup(popupFullSizeCard);
+
 // ссылка на функцию для обработки слушателя закрытия попапа
-const escapeKey = handlerEsqKey;
+//const escapeKey = handlerEsqKey;
 
 function createCards(cardData) {
   const card = new Card(cardData, '.galery_card-tamplate', openFullScreenImage);
@@ -56,29 +59,30 @@ function editPersonData(event) {
 }
 
 // обработчик события нажития на Esc
-function handlerEsqKey(event) {
-  if(event.code == 'Escape') {
-    const result = document.querySelector('.popup_opened');
-    return closePopup(result);
-  }
-}
+// function handlerEsqKey(event) {
+//   if(event.code == 'Escape') {
+//     const result = document.querySelector('.popup_opened');
+//     return closePopup(result);
+//   }
+// }
 
 function openFullScreenImage(imageName, imageLink) {
   popupFullSizeImage.setAttribute('src', imageLink);
   popupFullSizeImage.setAttribute('alt', imageName);
   popupFullSizeImageText.textContent = imageName;  
-  openPopup(popupFullSizeCard);
+  //openPopup(popupFullSizeCard);
+  popupTest.open(popupFullSizeCard);
 };
 
-function openPopup(popupName) {
-  popupName.classList.add('popup_opened');
-  document.addEventListener('keydown', escapeKey);
-}
+// function openPopup(popupName) {
+//   popupName.classList.add('popup_opened');
+//   document.addEventListener('keydown', escapeKey);
+// }
 
-function closePopup(popupName) {
-  popupName.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escapeKey);
-}
+// function closePopup(popupName) {
+//   popupName.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', escapeKey);
+// }
 
 
 
@@ -94,7 +98,7 @@ initialCards.forEach((element) => {
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
   popupProfileEditForm.reset();
-  openPopup(popupProfile);
+  //openPopup(popupProfile);
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
   editProfileValidation.resetValidation();
@@ -110,10 +114,12 @@ addNewCardButtonPopup.addEventListener('click', () => {
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if(evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
+      //closePopup(popup);
+      popupTest.close(popup);
     }
     if(evt.target.classList.contains('popup__exit-button')) {
-      closePopup(popup);
+      //closePopup(popup);
+      popupTest.close(popup);
     }
   })
 });
