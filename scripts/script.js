@@ -1,8 +1,8 @@
 import { initialCards } from './initial_cards.js';
 import { FormValidator, config } from './Formvalidator.js';
 import { Card } from './Card.js';
-import { Popup } from './Popup.js';
 import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
 
 const galeryCards = document.querySelector('.galery__cards');
 const popups = document.querySelectorAll('.popup');
@@ -20,8 +20,8 @@ const addNewCardButtonPopup = document.querySelector('.profile__add-card-button'
 const popupNewCardForm = document.querySelector('.popup__form_add_new-card');
 
 const popupFullSizeCard = document.querySelector('.galery_popup');
-const popupFullSizeImage = popupFullSizeCard.querySelector('.galery__fulsize-img');
-const popupFullSizeImageText = popupFullSizeCard.querySelector('.galery__popup-text');
+// const popupFullSizeImage = popupFullSizeCard.querySelector('.galery__fulsize-img');
+// const popupFullSizeImageText = popupFullSizeCard.querySelector('.galery__popup-text');
 
 const inputCardText = document.querySelector('.popup__input_type_card-name');
 const inputCardImageLink = document.querySelector('.popup__input_type_image-link'); 
@@ -29,12 +29,12 @@ const inputCardImageLink = document.querySelector('.popup__input_type_image-link
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 
-const popupTest = new Popup(popupFullSizeCard);
-
 // ссылка на функцию для обработки слушателя закрытия попапа
 //const escapeKey = handlerEsqKey;
 
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
+const popupEditProfileForm = new PopupWithForm(popupProfile);
+const popupAddCardForm = new PopupWithForm(popupAddCard);
 
 function createCards(cardData) {
   const card = new Card(cardData, '.galery_card-tamplate', popupWithImage.open);
@@ -50,7 +50,7 @@ function addNewCard(evt) {
   }
   const cardElement = createCards(newCard, '.galery_card-tamplate');
   galeryCards.prepend(cardElement);
-  closePopup(popupAddCard);
+  popupAddCardForm.close();
   popupNewCardForm.reset();
 }
 
@@ -58,7 +58,7 @@ function editPersonData(event) {
   event.preventDefault();
   personName.textContent = popupPersonName.value;
   personDescription.textContent = popupPersonDescription.value;
-  closePopup(popupProfile);
+  popupEditProfileForm.close();
 }
 
 // обработчик события нажития на Esc
@@ -100,32 +100,35 @@ initialCards.forEach((element) => {
 
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
-  popupProfileEditForm.reset();
-  //openPopup(popupProfile);
+  console.log(popupProfileEditForm);
+  //popupProfileEditForm.reset();
+  popupEditProfileForm.open();
+
   popupPersonName.value = personName.textContent;
   popupPersonDescription.value = personDescription.textContent;
   editProfileValidation.resetValidation();
 });
 
 addNewCardButtonPopup.addEventListener('click', () => {
-  popupNewCardForm.reset();
-  openPopup(popupAddCard);
+  //popupNewCardForm.reset();
+  popupAddCardForm.open();
+//  openPopup(popupAddCard);
   addNewCardValidation.resetValidation();
 });
 
 // закрытие всех попапов
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if(evt.target.classList.contains('popup_opened')) {
-      //closePopup(popup);
-      popupTest.close(popup);
-    }
-    if(evt.target.classList.contains('popup__exit-button')) {
-      //closePopup(popup);
-      popupTest.close(popup);
-    }
-  })
-});
+// popups.forEach((popup) => {
+//   popup.addEventListener('click', (evt) => {
+//     if(evt.target.classList.contains('popup_opened')) {
+//       //closePopup(popup);
+//       popupTest.close(popup);
+//     }
+//     if(evt.target.classList.contains('popup__exit-button')) {
+//       //closePopup(popup);
+//       popupTest.close(popup);
+//     }
+//   })
+// });
 
 popupProfileEditForm.addEventListener('submit', editPersonData);
 popupNewCardForm.addEventListener('submit', addNewCard);
