@@ -2,6 +2,7 @@ import { initialCards } from './initial_cards.js';
 import { FormValidator, config } from './Formvalidator.js';
 import { Card } from './Card.js';
 import { Popup } from './Popup.js';
+import { PopupWithImage } from './PopupWithImage.js';
 
 const galeryCards = document.querySelector('.galery__cards');
 const popups = document.querySelectorAll('.popup');
@@ -33,8 +34,10 @@ const popupTest = new Popup(popupFullSizeCard);
 // ссылка на функцию для обработки слушателя закрытия попапа
 //const escapeKey = handlerEsqKey;
 
+const popupWithImage = new PopupWithImage(popupFullSizeCard);
+
 function createCards(cardData) {
-  const card = new Card(cardData, '.galery_card-tamplate', openFullScreenImage);
+  const card = new Card(cardData, '.galery_card-tamplate', popupWithImage.open);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
@@ -66,13 +69,13 @@ function editPersonData(event) {
 //   }
 // }
 
-function openFullScreenImage(imageName, imageLink) {
-  popupFullSizeImage.setAttribute('src', imageLink);
-  popupFullSizeImage.setAttribute('alt', imageName);
-  popupFullSizeImageText.textContent = imageName;  
-  //openPopup(popupFullSizeCard);
-  popupTest.open(popupFullSizeCard);
-};
+// function openFullScreenImage(imageName, imageLink) {
+//   popupFullSizeImage.setAttribute('src', imageLink);
+//   popupFullSizeImage.setAttribute('alt', imageName);
+//   popupFullSizeImageText.textContent = imageName;  
+//   //openPopup(popupFullSizeCard);
+//   popupTest.open(popupFullSizeCard);
+// };
 
 // function openPopup(popupName) {
 //   popupName.classList.add('popup_opened');
