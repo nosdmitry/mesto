@@ -39,13 +39,17 @@ addNewCardValidation.enableValidation();
 
 
 
+function createNewCard(cardItem) {
+  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open);
+  const cardElement = card.generateCard(card);
+  return cardElement;
+}
+
 
 const cardList = new Section({
   data: initialCards,
   renderer: (cardItem) => {
-    const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open);
-    const cardElement = card.generateCard(card);
-    cardList.addItem(cardElement);
+    cardList.addItem(createNewCard(cardItem));
   }
 }, cardListSelector);
 cardList.renderItems();
@@ -54,33 +58,49 @@ cardList.renderItems();
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
-    console.log(formData);
     personName.textContent = popupPersonName.value;
     personDescription.textContent = popupPersonDescription.value;
     popupEditProfileForm.close();
   }
 });
-
 editProfileButton.addEventListener('click', () => {
-  //popupProfileEditForm.reset();
   popupEditProfileForm.open();
+  editProfileValidation.resetValidation();
 });
 
 
 
 
-
-function addNewCard(evt) {
-  evt.preventDefault();   
-  const newCard = {
-    name: inputCardText.value, 
-    link: inputCardImageLink.value
+const popupAddNewCard = new PopupWithForm({
+  popupSelector: popupAddCard,
+  handleFormSubmit: (formData) => {
+    cardListSelector.prepend(createNewCard({
+      name: formData.popup_name,
+      link: formData.popup_description
+    }));
+    popupAddNewCard.close();
   }
-  const cardElement = createCards(newCard, '.galery_card-tamplate');
-  cardListSelector.prepend(cardElement);
-  popupAddCardForm.close();
-  popupNewCardForm.reset();
-}
+})
+
+addNewCardButtonPopup.addEventListener('click', () => {
+  popupAddNewCard.open();
+  addNewCardValidation.resetValidation();
+});
+
+
+
+
+// function addNewCard(evt) {
+//   evt.preventDefault();   
+//   const newCard = {
+//     name: inputCardText.value, 
+//     link: inputCardImageLink.value
+//   }
+//   const cardElement = createCards(newCard, '.galery_card-tamplate');
+//   cardListSelector.prepend(cardElement);
+//   popupAddCardForm.close();
+//   popupNewCardForm.reset();
+// }
 
 // function editPersonData(event) {
 //   event.preventDefault();
@@ -96,11 +116,11 @@ function addNewCard(evt) {
 // открывает попап для редактирования профиля и подставляет данные
 
 
-addNewCardButtonPopup.addEventListener('click', () => {
-  //popupNewCardForm.reset();
-  popupAddCardForm.open();
-//  openPopup(popupAddCard);
-  addNewCardValidation.resetValidation();
-});
+// addNewCardButtonPopup.addEventListener('click', () => {
+//   //popupNewCardForm.reset();
+//   popupAddCardForm.open();
+// //  openPopup(popupAddCard);
+//   addNewCardValidation.resetValidation();
+// });
 
-popupNewCardForm.addEventListener('submit', addNewCard);
+//popupNewCardForm.addEventListener('submit', addNewCard);
