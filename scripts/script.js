@@ -29,12 +29,14 @@ const inputCardImageLink = document.querySelector('.popup__input_type_image-link
 
 
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
-
+//const popupEditProfileForm = new PopupWithForm(popupProfile);
+//const popupAddCardForm = new PopupWithForm(popupAddCard);
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 
-const popupEditProfileForm = new PopupWithForm(popupProfile);
-const popupAddCardForm = new PopupWithForm(popupAddCard);
+editProfileValidation.enableValidation();
+addNewCardValidation.enableValidation();
+
 
 
 
@@ -46,22 +48,25 @@ const cardList = new Section({
     cardList.addItem(cardElement);
   }
 }, cardListSelector);
-console.log(initialCards);
-
 cardList.renderItems();
 
 
+const popupEditProfileForm = new PopupWithForm({
+  popupSelector: popupProfile,
+  handleFormSubmit: (formData) => {
+    console.log(formData);
+    personName.textContent = popupPersonName.value;
+    personDescription.textContent = popupPersonDescription.value;
+    popupEditProfileForm.close();
+  }
+});
+
+editProfileButton.addEventListener('click', () => {
+  //popupProfileEditForm.reset();
+  popupEditProfileForm.open();
+});
 
 
-
-
-
-
-// function createCards(cardData) {
-//   const card = new Card(cardData, '.galery_card-tamplate', popupWithImage.open);
-//   const cardElement = card.generateCard(card);
-//   return cardElement;
-// }
 
 
 
@@ -77,30 +82,19 @@ function addNewCard(evt) {
   popupNewCardForm.reset();
 }
 
-function editPersonData(event) {
-  event.preventDefault();
-  personName.textContent = popupPersonName.value;
-  personDescription.textContent = popupPersonDescription.value;
-  popupEditProfileForm.close();
-}
+// function editPersonData(event) {
+//   event.preventDefault();
+//   personName.textContent = popupPersonName.value;
+//   personDescription.textContent = popupPersonDescription.value;
+//   popupEditProfileForm.close();
+// }
 
-editProfileValidation.enableValidation();
-addNewCardValidation.enableValidation();
 
-// initialCards.forEach((element) => {
-//   const cardElement = createCards(element);  
-//   cardListSelector.append(cardElement);
-// });
+
+
 
 // открывает попап для редактирования профиля и подставляет данные
-editProfileButton.addEventListener('click', () => {
-  //popupProfileEditForm.reset();
-  popupEditProfileForm.open();
 
-  popupPersonName.value = personName.textContent;
-  popupPersonDescription.value = personDescription.textContent;
-  editProfileValidation.resetValidation();
-});
 
 addNewCardButtonPopup.addEventListener('click', () => {
   //popupNewCardForm.reset();
@@ -109,5 +103,4 @@ addNewCardButtonPopup.addEventListener('click', () => {
   addNewCardValidation.resetValidation();
 });
 
-popupProfileEditForm.addEventListener('submit', editPersonData);
 popupNewCardForm.addEventListener('submit', addNewCard);

@@ -13,6 +13,7 @@ export class Popup {
   open() {
     this._popupSelector.classList.add('popup_opened');
     this.setEventListener();
+    console.log(this._popupSelector);
   }
 
   close = () => {
