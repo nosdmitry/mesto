@@ -8,10 +8,9 @@ export class PopupWithImage extends Popup {
   }
 
   open = (imageName, imageLink) => {    
+    super.open();
     this._popupFullSizeImage.setAttribute('src', imageLink);
     this._popupFullSizeImageText.setAttribute('alt', imageName);
     this._popupFullSizeImageText.textContent = imageName;  
-    this._popupSelector.classList.add('popup_opened');
-    this.setEventListener();
   }
 }

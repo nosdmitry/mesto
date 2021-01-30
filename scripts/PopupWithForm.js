@@ -6,31 +6,12 @@ export class PopupWithForm extends Popup {
     this._formSubmit = formSubmit;
   }
 
-  open() {
-    //this._popupSelector.reset();
-    this._popupSelector.classList.add('popup_opened');
-    this.setEventListener();
-  }
+  // open() {
+  //   super.open();
+  //   console.log('Popup With form opened')
+  // }
 
   _getInputValues() {
     // colects all form inputs    
   }
-
-  setEventListener() {
-    document.addEventListener('keydown', this._handleEscClose);
-
-    this._popups.forEach((popup) => {
-      popup.addEventListener('click', (evt) => {
-        if(evt.target.classList.contains('popup_opened')) {
-          this.close();
-        }
-        if(evt.target.classList.contains('popup__exit-button')) {
-          this.close();
-        }
-      })
-    });
-
-    
-  }
-
 }

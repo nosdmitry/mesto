@@ -100,7 +100,6 @@ initialCards.forEach((element) => {
 
 // открывает попап для редактирования профиля и подставляет данные
 editProfileButton.addEventListener('click', () => {
-  console.log(popupProfileEditForm);
   //popupProfileEditForm.reset();
   popupEditProfileForm.open();
 
