@@ -1,20 +1,21 @@
-import { initialCards } from './initial_cards.js';
-import { FormValidator, config } from './Formvalidator.js';
-import { Card } from './Card.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { Section } from './Section.js';
-import { UserInfo } from './UserInfo.js';
+import { Section }            from './components/Section.js';
+import { Card }               from './components/Card.js';
+import { PopupWithImage }     from './components/PopupWithImage.js';
+import { PopupWithForm }      from './components/PopupWithForm.js';
+import { UserInfo }           from './components/UserInfo.js';
+import { FormValidator }      from './components/Formvalidator.js';
+
+import { initialCards }       from './utils/initial_cards.js';
 import { cardListSelector, popupProfile, editProfileButton, personName, personDescription,
-   popupPersonName, popupPersonDescription, popupAddCard, addNewCardButtonPopup,
-   popupFullSizeCard } from './utils.js';
+  popupPersonName, popupPersonDescription, popupAddCard, addNewCardButtonPopup,
+  popupFullSizeCard, config } from './utils/constants.js';
+
+
 
 
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
-
-
 
 const cardList = new Section({
   data: initialCards,
@@ -38,7 +39,6 @@ const popupAddNewCard = new PopupWithForm({
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
-    console.log(formData);
     const user = new UserInfo( { name: formData.popup_name, description: formData.popup_description });
     user.setUserInfo();  
     popupEditProfileForm.close();
@@ -59,7 +59,6 @@ addNewCardValidation.enableValidation();
 popupWithImage.setEventListener();
 popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
-
 
 editProfileButton.addEventListener('click', () => {
   popupEditProfileForm.open();

@@ -8,10 +8,6 @@ export class Popup {
       this.close();
     }
   }
-
-  _handleClick = (event) => {
-    console.log(event.code);
-  }
   
   open() {
     this._popupSelector.classList.add('popup_opened');
@@ -21,7 +17,6 @@ export class Popup {
   close() {
     this._popupSelector.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
-    console.log('closed');
   }
 
   setEventListener() {

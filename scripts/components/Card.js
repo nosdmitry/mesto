@@ -1,4 +1,4 @@
-class Card {
+export class Card {
   constructor( {name, link}, templateSelector, openFullScreenImage) {
     this._name = name;
     this._image = link;
@@ -48,5 +48,3 @@ class Card {
     this._element = null;
   }
 }
-
-export { Card };
