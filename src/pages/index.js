@@ -1,3 +1,5 @@
+import './index.css';
+
 import { Section }            from '../scripts/components/Section.js';
 import { Card }               from '../scripts/components/Card.js';
 import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';

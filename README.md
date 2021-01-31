@@ -11,9 +11,11 @@
 * Плагин [PixelPerfect](https://chrome.google.com/webstore/detail/perfectpixel-by-welldonec/dkaagdgjmgdmbnecmcefdhjekcoceebi?hl=ru)
 * Flex и grid позиционирование
 * Адаптиваная верстка
-* Взаимодействие с DOM 
 * Modules
 * ООП
+* Webpack
+* Babel
+* Postcss
 
 **Структура проекта**
 
