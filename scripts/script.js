@@ -33,7 +33,6 @@ const popupWithImage = new PopupWithImage(popupFullSizeCard);
 popupWithImage.setEventListener();
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
-const user = new UserInfo( { name: personName.textContent, description: personDescription.textContent } );
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
@@ -57,17 +56,6 @@ const cardList = new Section({
 cardList.renderItems();
 
 
-const popupEditProfileForm = new PopupWithForm({
-  popupSelector: popupProfile,
-  handleFormSubmit: (formData) => {
-    console.log(formData);
-    personName.textContent = popupPersonName.value;
-    personDescription.textContent = popupPersonDescription.value;
-    popupEditProfileForm.close();
-  }
-});
-popupEditProfileForm.setEventListener();
-
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
@@ -81,9 +69,26 @@ const popupAddNewCard = new PopupWithForm({
 });
 popupAddNewCard.setEventListener();
 
+
+
+
+const popupEditProfileForm = new PopupWithForm({
+  popupSelector: popupProfile,
+  handleFormSubmit: (formData) => {
+    console.log(formData);
+    const user = new UserInfo( { name: formData.popup_name, description: formData.popup_description });
+    user.setUserInfo();  
+
+    popupEditProfileForm.close();
+  }
+});
+popupEditProfileForm.setEventListener();
+
 editProfileButton.addEventListener('click', () => {
   popupEditProfileForm.open();
+  const user = new UserInfo( { name: personName.textContent, description: personDescription.textContent } );
   const userData = user.getUserInfo();
+  console.log(userData);
   popupPersonName.value = userData.name;
   popupPersonDescription.value = userData.description;
   editProfileValidation.resetValidation();
@@ -93,39 +98,3 @@ addNewCardButtonPopup.addEventListener('click', () => {
   popupAddNewCard.open();
   addNewCardValidation.resetValidation();
 });
-
-
-// function addNewCard(evt) {
-//   evt.preventDefault();   
-//   const newCard = {
-//     name: inputCardText.value, 
-//     link: inputCardImageLink.value
-//   }
-//   const cardElement = createCards(newCard, '.galery_card-tamplate');
-//   cardListSelector.prepend(cardElement);
-//   popupAddCardForm.close();
-//   popupNewCardForm.reset();
-// }
-
-// function editPersonData(event) {
-//   event.preventDefault();
-//   personName.textContent = popupPersonName.value;
-//   personDescription.textContent = popupPersonDescription.value;
-//   popupEditProfileForm.close();
-// }
-
-
-
-
-
-// открывает попап для редактирования профиля и подставляет данные
-
-
-// addNewCardButtonPopup.addEventListener('click', () => {
-//   //popupNewCardForm.reset();
-//   popupAddCardForm.open();
-// //  openPopup(popupAddCard);
-//   addNewCardValidation.resetValidation();
-// });
-
-//popupNewCardForm.addEventListener('submit', addNewCard);
