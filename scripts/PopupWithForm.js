@@ -17,13 +17,11 @@ export class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    console.log('Hellow world!');
     this._form.reset();
   }
 
   setEventListener() {
     super.setEventListener();
-    console.log(this._form)
     this._form.addEventListener('submit', () => {
       this._handleFormSubmit(this._getInputValues());
     });

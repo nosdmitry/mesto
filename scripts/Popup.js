@@ -8,15 +8,19 @@ export class Popup {
       this.close();
     }
   }
+
+  _handleClick = (event) => {
+    console.log(event.code);
+  }
   
   open() {
     this._popupSelector.classList.add('popup_opened');
-    this.setEventListener();
   }
 
   close() {
     this._popupSelector.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
+    console.log('closed');
   }
 
   setEventListener() {
@@ -28,6 +32,6 @@ export class Popup {
       if(evt.target.classList.contains('popup__exit-button')) {
         this.close();
       }
-    })
+    });
   }
 }
