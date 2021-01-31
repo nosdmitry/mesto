@@ -1,7 +1,6 @@
 .popup__input {
   margin: 0;
   padding: 0;
-  /* margin-bottom: 20px; */
   border: 0;
   width: 100%;
   box-sizing: border-box;
@@ -15,16 +14,6 @@
 
 .popup__input:focus {
   border-color: yellow;
-}
-
-.popup__input:last-of-type {
-  /* margin-bottom: 52px; */
-}
-
-@media (max-width: 768px) {
-  .popup__input:last-of-type {
-    /* margin-bottom: 47px; */
-  }
 }
 
 .popup__input::-webkit-input-placeholder {

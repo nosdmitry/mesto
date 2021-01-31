@@ -1,14 +1,16 @@
-import { Section }            from './components/Section.js';
-import { Card }               from './components/Card.js';
-import { PopupWithImage }     from './components/PopupWithImage.js';
-import { PopupWithForm }      from './components/PopupWithForm.js';
-import { UserInfo }           from './components/UserInfo.js';
-import { FormValidator }      from './components/Formvalidator.js';
+import './index.css';
 
-import { initialCards }       from './utils/initial_cards.js';
+import { Section }            from '../scripts/components/Section.js';
+import { Card }               from '../scripts/components/Card.js';
+import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';
+import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
+import { UserInfo }           from '../scripts/components/UserInfo.js';
+import { FormValidator }      from '../scripts/components/Formvalidator.js';
+
+import { initialCards }       from '../scripts/utils/initial_cards.js';
 import { cardListSelector, popupProfile, editProfileButton, personName, personDescription,
   popupPersonName, popupPersonDescription, popupAddCard, addNewCardButtonPopup,
-  popupFullSizeCard, config } from './utils/constants.js';
+  popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
 
 
