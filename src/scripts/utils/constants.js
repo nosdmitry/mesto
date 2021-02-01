@@ -23,4 +23,4 @@ const config = {
 
 export { cardListSelector, popupProfile, editProfileButton, personName, 
   personDescription, popupPersonName, popupPersonDescription, popupAddCard, 
-  addNewCardButtonPopup, popupFullSizeCard, config }
+  addNewCardButtonPopup, popupFullSizeCard, config };

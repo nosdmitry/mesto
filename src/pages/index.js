@@ -15,9 +15,14 @@ import { cardListSelector, popupProfile, editProfileButton, personName, personDe
 
 
 
-const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
+const popupWithImage = new PopupWithImage(popupFullSizeCard);
+const user = new UserInfo({ 
+  name: personName, 
+  description: personDescription
+});
+
 
 const cardList = new Section({
   data: initialCards,
@@ -41,8 +46,9 @@ const popupAddNewCard = new PopupWithForm({
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
-    const user = new UserInfo( { name: formData.popup_name, description: formData.popup_description });
-    user.setUserInfo();  
+    console.log(formData);
+    user.setUserInfo(formData.popup_name, formData.popup_description);
+    console.log(user);
     popupEditProfileForm.close();
   }
 });
@@ -63,9 +69,8 @@ popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
 
 editProfileButton.addEventListener('click', () => {
-  popupEditProfileForm.open();
-  const user = new UserInfo( { name: personName.textContent, description: personDescription.textContent } );
   const userData = user.getUserInfo();
+  popupEditProfileForm.open();
   popupPersonName.value = userData.name;
   popupPersonDescription.value = userData.description;
   editProfileValidation.resetValidation();
