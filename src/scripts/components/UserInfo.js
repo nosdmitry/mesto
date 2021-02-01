@@ -1,22 +1,18 @@
-import { personName, personDescription } from '../utils/constants.js';
-
 export class UserInfo {
   constructor({ name, description }) {
-    this._name = name;
-    this._description = description;
-    this._userName = personName;
-    this._userDescrtiption = personDescription;
+    this._nameSelector = name;
+    this._descriptionSelector = description;;
   }
 
   getUserInfo() {
     const userInfo = {};
-    userInfo.name = this._name;
-    userInfo.description = this._description;
+    userInfo.name = this._nameSelector.textContent;
+    userInfo.description = this._descriptionSelector.textContent;
     return userInfo;
   }
   
-  setUserInfo() {
-    this._userName.textContent = this._name;
-    this._userDescrtiption.textContent = this._description;
+  setUserInfo(inputName, inputDescription) {
+    this._nameSelector.textContent = inputName;
+    this._descriptionSelector.textContent = inputDescription;
   }
 }
