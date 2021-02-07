@@ -7,10 +7,14 @@ import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
 import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 
-import { initialCards }       from '../scripts/utils/initial_cards.js';
-import { cardListSelector, popupProfile, editProfileButton, personName, personDescription,
-  popupPersonName, popupPersonDescription, popupAddCard, addNewCardButtonPopup,
+import { initialCards }       from '../scripts/utils/initialCards.js';
+import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
+
+const personName = document.querySelector('.profile__title');
+const personDescription = document.querySelector('.profile__subtitle');
+const popupPersonName = document.querySelector('.popup__input_type_name');
+const popupPersonDescription = document.querySelector('.popup__input_type_description');
 
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
