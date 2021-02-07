@@ -4,7 +4,7 @@ export class Popup {
   }
 
   _handleEscClose = (event) => {
-    if(event.code == 'Escape') {
+    if(event.code === 'Escape') {
       this.close();
     }
   }
@@ -21,10 +21,8 @@ export class Popup {
 
   setEventListener() {
     this._popupSelector.addEventListener('click', (evt) => {
-      if(evt.target.classList.contains('popup_opened')) {
-        this.close();
-      }
-      if(evt.target.classList.contains('popup__exit-button')) {
+      if(evt.target.classList.contains('popup_opened') || 
+      evt.target.classList.contains('popup__exit-button')) {
         this.close();
       }
     });
