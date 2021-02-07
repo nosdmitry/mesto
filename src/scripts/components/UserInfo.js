@@ -1,7 +1,7 @@
 export class UserInfo {
   constructor({ name, description }) {
     this._nameSelector = name;
-    this._descriptionSelector = description;;
+    this._descriptionSelector = description;
   }
 
   getUserInfo() {

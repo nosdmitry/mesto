@@ -20,7 +20,6 @@ const config = {
   errorClass: 'popup__error_visible',
 };
 
-
 export { cardListSelector, popupProfile, editProfileButton, personName, 
   personDescription, popupPersonName, popupPersonDescription, popupAddCard, 
   addNewCardButtonPopup, popupFullSizeCard, config };

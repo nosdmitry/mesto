@@ -12,9 +12,6 @@ import { cardListSelector, popupProfile, editProfileButton, personName, personDe
   popupPersonName, popupPersonDescription, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
-
-
-
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
@@ -22,7 +19,6 @@ const user = new UserInfo({
   name: personName, 
   description: personDescription
 });
-
 
 const cardList = new Section({
   data: initialCards,
@@ -38,7 +34,6 @@ const popupAddNewCard = new PopupWithForm({
       name: formData.popup_name,
       link: formData.popup_description
     }));
-    console.log('Add new card');
     popupAddNewCard.close();
   }
 });
@@ -46,9 +41,7 @@ const popupAddNewCard = new PopupWithForm({
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
-    console.log(formData);
     user.setUserInfo(formData.popup_name, formData.popup_description);
-    console.log(user);
     popupEditProfileForm.close();
   }
 });
@@ -58,8 +51,6 @@ function createNewCard(cardItem) {
   const cardElement = card.generateCard(card);
   return cardElement;
 }
-
-
 
 cardList.renderItems();
 editProfileValidation.enableValidation();
