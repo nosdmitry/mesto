@@ -34,7 +34,7 @@ const cardList = new Section({
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
-    cardListSelector.prepend(createNewCard({
+    cardList.addItem(createNewCard({
       name: formData.popup_name,
       link: formData.popup_description
     }));
