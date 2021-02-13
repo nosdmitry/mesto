@@ -20,12 +20,14 @@ import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNew
 
 const personName = document.querySelector('.profile__title');
 const personDescription = document.querySelector('.profile__subtitle');
+const personAvatar = document.querySelector('.profile__image');
 const popupPersonName = document.querySelector('.popup__input_type_name');
 const popupPersonDescription = document.querySelector('.popup__input_type_description');
 
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
+console.log(personAvatar);
 
 
 const api = new Api({
@@ -70,10 +72,11 @@ userApi.getUserInfo()
     console.log(res);
     return res;
   })
-  .then(data => {
-    personName.textContent = data.name;
-    personDescription.textContent = data.about;
-    return { name: data.name, description: data.about }
+  .then(userData => {
+    personName.textContent = userData.name;
+    personDescription.textContent = userData.about;
+    personAvatar.src = userData.avatar;
+    return { name: userData.name, description: userData.about }
   })
   .catch(err => console.log(err));
 
