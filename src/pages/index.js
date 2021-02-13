@@ -44,11 +44,21 @@ const api = new Api({
 });
 
 
-api.getInitianCards()
+api
+  .getInitianCards()
   .then(data => {
-    
-    console.log(data)
-
+    const cardList = new Section({
+      data: data.map(item => {
+        return {
+          name: item.name,
+          link: item.link
+        }
+      }),
+      renderer: (cardItem) => {
+        cardList.addItem(createNewCard(cardItem));
+      }
+    }, cardListSelector);
+    cardList.renderItems();
   });
 
 
@@ -58,12 +68,7 @@ api.getInitianCards()
 
 
 
-const cardList = new Section({
-  data: initialCards,
-  renderer: (cardItem) => {
-    cardList.addItem(createNewCard(cardItem));
-  }
-}, cardListSelector);
+
 
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
@@ -90,7 +95,6 @@ function createNewCard(cardItem) {
   return cardElement;
 }
 
-cardList.renderItems();
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
 popupWithImage.setEventListener();
