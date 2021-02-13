@@ -6,13 +6,11 @@ import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
 import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
-import { Api }                from '../scripts/components/Api.js';
+import { Api }                from '../scripts/components/Api';
 
-import { initialCards }       from '../scripts/utils/initialCards.js';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
-import { getUserApi, editUserApi, addNewCardApi, getAllCardsApi } from '../scripts/utils/serverRequests.js';
 
 
 
@@ -29,6 +27,13 @@ const editProfileValidation = new FormValidator(config, '.popup_profile_edit-for
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
+  headers: {
+    authorization: '036c4f02-47a4-4c62-a975-bbce507f165f'
+  }
+});
+
 
 const cardList = new Section({
   renderer: (cardItem) => {
@@ -36,7 +41,7 @@ const cardList = new Section({
   }
 }, cardListSelector);
 
-getAllCardsApi.getAllCards()
+api.getAllCards()
   .then(res => {
     cardList.renderItems(res);
   })
@@ -45,7 +50,7 @@ getAllCardsApi.getAllCards()
 
 
 
-getUserApi.getUserInfo()
+api.getUserInfo()
   .then(userData => {
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;
@@ -63,7 +68,7 @@ getUserApi.getUserInfo()
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
-    editUserApi.editUserInfo({
+    api.editUserInfo({
       name: formData.popup_name,
       about: formData.popup_description
     })
@@ -94,13 +99,14 @@ editProfileButton.addEventListener('click', () => {
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
-    addNewCardApi.addNewCard({
+    api.addNewCard({
       name: formData.popup_name,
       link: formData.popup_description
     })
     .then(data => cardList.addItem(createNewCard({
       name: data.name,
-      link: data.link
+      link: data.link,
+      likes: data.likes
     })))
     .catch(err => console.log(err));
     popupAddNewCard.close();
@@ -119,7 +125,6 @@ addNewCardValidation.enableValidation();
 popupWithImage.setEventListener();
 popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
-
 
 
 addNewCardButtonPopup.addEventListener('click', () => {

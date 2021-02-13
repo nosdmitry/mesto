@@ -6,7 +6,7 @@ export class Api {
   }
 
   getUserInfo() {
-    return fetch(this._url, {
+    return fetch(`${this._url}users/me`, {
       headers: this._headers
     })
     .then(res => {
@@ -18,9 +18,12 @@ export class Api {
   }
 
   editUserInfo(data) {
-    return fetch(this._url, {
+    return fetch(`${this._url}users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: this._headers.authorization,
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(data)
       })
       .then(res => {
@@ -32,9 +35,9 @@ export class Api {
   }
 
   getAllCards() {
-    return fetch(this._url, {
-      headers: this._headers
-    })
+    return fetch(`${this._url}cards/`, {
+        headers: this._headers
+      })
       .then(res => {
         if (res.ok) {
         return res.json();
@@ -44,9 +47,13 @@ export class Api {
   }
 
   addNewCard(data) {
-    return fetch(this._url, {
+    console.log(this._headers.authorization);
+    return fetch(`${this._url}cards/`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        authorization: this._headers.authorization,
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(data)
     })
     .then(res => {
