@@ -8,7 +8,7 @@ import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api.js';
 
-//import { initialCards }       from '../scripts/utils/initialCards.js';
+import { initialCards }       from '../scripts/utils/initialCards.js';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
@@ -37,25 +37,17 @@ const api = new Api({
   }
 });
 
-// Добавление всех карточек с сервера
-api
-  .getInitianCards()
-  .then(data => {
-    const cardList = new Section({
-      data: data.map(item => {
-        return {
-          name: item.name,
-          link: item.link,
-        }
-      }),
-      renderer: (cardItem) => {
-        cardList.addItem(createNewCard(cardItem));
-      }
-    }, cardListSelector);
-    cardList.renderItems();
-  })
-  .catch(err => console.log(err));
+const cardList = new Section({
+  renderer: (cardItem) => {
+    cardList.addItem(createNewCard(cardItem));
+  }
+}, cardListSelector);
 
+api.getInitianCards()
+  .then(res => {
+    cardList.renderItems(res);
+  })
+  .catch(err => console.log(err))
 
 
 //Получение данных о пользователе
@@ -132,7 +124,7 @@ editProfileButton.addEventListener('click', () => {
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
-    cardListSelector.prepend(createNewCard({
+    cardList.addItem(createNewCard({
       name: formData.popup_name,
       link: formData.popup_description  
     }));
