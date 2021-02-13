@@ -1,7 +1,9 @@
 export class Card {
-  constructor( {name, link}, templateSelector, openFullScreenImage) {
+  constructor( {name, link, _id, likes}, templateSelector, openFullScreenImage) {
     this._name = name;
     this._image = link;
+    this._id = _id;
+    this._likes = likes;
     this._templateSelector = templateSelector;
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.galery__img');
@@ -14,6 +16,7 @@ export class Card {
     this._cardImage.src = this._image;
     this._cardImage.alt = this._name;
     this._element.querySelector('.galery__text').textContent = this._name;
+    this._element.querySelector('.galery__likes-counter').textContent = this._likes.length;
     this._setEventListeners();
     return this._element;
   }
@@ -40,6 +43,8 @@ export class Card {
   }
 
   _handleLikeButton() {
+    console.log(this._id);
+    console.log(this._likes);
     this._likeButton.classList.toggle('galery__heart_active');
   }
 

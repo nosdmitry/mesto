@@ -44,6 +44,9 @@
 @import url(../blocks/galery/__cards/galery__cards.css);
 @import url(../blocks/galery/__card/galery__card.css);
 @import url(../blocks/galery/__delete-card-button/galery__delete-card-button.css);
+@import url(../blocks/galery/__likes-wrap/galery__likes-wrap.css);
+@import url(../blocks/galery/__likes-counter/galery__likes-counter.css);
+
 
 @import url(../blocks/galery/_popup/galery_popup.css);
 @import url(../blocks/galery/__fullsize-img/galery__fulsize-img.css);

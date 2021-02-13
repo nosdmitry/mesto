@@ -12,7 +12,7 @@ import { initialCards }       from '../scripts/utils/initialCards.js';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
-import { getAllCards, getUserApi, editUserApi, addNewCardApi } from '../scripts/utils/serverRequests.js';
+import { getUserApi, editUserApi, addNewCardApi, getAllCardsApi } from '../scripts/utils/serverRequests.js';
 
 
 
@@ -28,7 +28,6 @@ const popupPersonDescription = document.querySelector('.popup__input_type_descri
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
-console.log(personAvatar);
 
 
 const cardList = new Section({
@@ -37,7 +36,7 @@ const cardList = new Section({
   }
 }, cardListSelector);
 
-getAllCards.getInitianCards()
+getAllCardsApi.getAllCards()
   .then(res => {
     cardList.renderItems(res);
   })
@@ -47,10 +46,6 @@ getAllCards.getInitianCards()
 
 
 getUserApi.getUserInfo()
-  .then(res => {
-    console.log(res);
-    return res;
-  })
   .then(userData => {
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;

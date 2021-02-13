@@ -1,7 +1,7 @@
 import { Api } from '../components/Api.js';
 
 // Загрузка всех карточек
-const getAllCards = new Api({
+const getAllCardsApi = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/cards/',
   headers: {
     authorization: '036c4f02-47a4-4c62-a975-bbce507f165f',
@@ -34,4 +34,4 @@ const addNewCardApi = new Api({
   }
 })
 
-export { getAllCards, getUserApi, editUserApi, addNewCardApi }
+export { getAllCardsApi, getUserApi, editUserApi, addNewCardApi }

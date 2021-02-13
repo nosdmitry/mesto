@@ -11,7 +11,6 @@ export class Api {
     })
     .then(res => {
       if(res.ok) {
-        console.log('UserInfo  OK!');
         return res.json();
       }
       return Promise.reject('Ошибка при обработке данный пользователя: ' + res.status);
@@ -26,14 +25,13 @@ export class Api {
       })
       .then(res => {
         if(res.ok) {
-          console.log('It is ok');
           return res.json();
         }
         return Promise.reject('Ошибка при редактировании профиля: ' + res.status);
       })
   }
 
-  getInitianCards() {
+  getAllCards() {
     return fetch(this._url, {
       headers: this._headers
     })
@@ -53,7 +51,6 @@ export class Api {
     })
     .then(res => {
       if(res.ok) {
-        console.log('New card added! - ' + res.status);
         return res.json();
       }
       return Promise.reject('Ошибка при добавлении новой карточки: ' + res.status);
