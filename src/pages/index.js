@@ -92,10 +92,14 @@ const user = new UserInfo({
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
-    cardList.addItem(createNewCard({
+    cardListSelector.prepend(createNewCard({
       name: formData.popup_name,
-      link: formData.popup_description
+      link: formData.popup_description  
     }));
+    // cardList.addItem(createNewCard({
+    //   name: formData.popup_name,
+    //   link: formData.popup_description
+    // }));
     popupAddNewCard.close();
   }
 });
