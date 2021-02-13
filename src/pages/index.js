@@ -6,10 +6,17 @@ import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
 import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
+import { Api }                from '../scripts/components/Api.js';
 
 import { initialCards }       from '../scripts/utils/initialCards.js';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
+
+
+
+
+
+
 
 const personName = document.querySelector('.profile__title');
 const personDescription = document.querySelector('.profile__subtitle');
@@ -23,6 +30,33 @@ const user = new UserInfo({
   name: personName, 
   description: personDescription
 });
+
+
+
+
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-20/cards/',
+  headers: {
+    authorization: '036c4f02-47a4-4c62-a975-bbce507f165f',
+    "content-type": "aplication/json",
+  }
+});
+
+
+api.getInitianCards()
+  .then(data => {
+    
+    console.log(data)
+
+  });
+
+
+
+
+  
+
+
 
 const cardList = new Section({
   data: initialCards,
