@@ -12,6 +12,7 @@ import { initialCards }       from '../scripts/utils/initialCards.js';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
+import { getAllCards, getUserApi, editUserApi, addNewCardApi } from '../scripts/utils/serverRequests.js';
 
 
 
@@ -30,33 +31,20 @@ const popupWithImage = new PopupWithImage(popupFullSizeCard);
 console.log(personAvatar);
 
 
-const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-20/cards/',
-  headers: {
-    authorization: '036c4f02-47a4-4c62-a975-bbce507f165f',
-  }
-});
-
 const cardList = new Section({
   renderer: (cardItem) => {
     cardList.addItem(createNewCard(cardItem));
   }
 }, cardListSelector);
 
-api.getInitianCards()
+getAllCards.getInitianCards()
   .then(res => {
     cardList.renderItems(res);
   })
   .catch(err => console.log(err))
 
 
-//Получение данных о пользователе
-const getUserApi = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-20/users/me',
-  headers: {
-    authorization: '036c4f02-47a4-4c62-a975-bbce507f165f'
-  }
-})
+
 
 getUserApi.getUserInfo()
   .then(res => {
@@ -76,14 +64,6 @@ getUserApi.getUserInfo()
     description: personDescription
   });
 
-
-const editUserApi = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-20/users/me',
-  headers: {
-    "authorization": "036c4f02-47a4-4c62-a975-bbce507f165f",
-    "Content-Type": "application/json"
-  }
-});
 
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
@@ -116,22 +96,18 @@ editProfileButton.addEventListener('click', () => {
 });
 
 
-
-
-
-
-
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
-    cardList.addItem(createNewCard({
+    addNewCardApi.addNewCard({
       name: formData.popup_name,
-      link: formData.popup_description  
-    }));
-    // cardList.addItem(createNewCard({
-    //   name: formData.popup_name,
-    //   link: formData.popup_description
-    // }));
+      link: formData.popup_description
+    })
+    .then(data => cardList.addItem(createNewCard({
+      name: data.name,
+      link: data.link
+    })))
+    .catch(err => console.log(err));
     popupAddNewCard.close();
   }
 });

@@ -33,28 +33,6 @@ export class Api {
       })
   }
 
-
-
-
-
-
-
-
-
-  // editData() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: '036c4f02-47a4-4c62-a975-bbce507f165f',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: 'TestName888',
-  //       about: 'Physicist and Chemist'
-  //     })
-  //   });
-  // }
-
   getInitianCards() {
     return fetch(this._url, {
       headers: this._headers
@@ -67,6 +45,18 @@ export class Api {
     })
   }
 
-
-
+  addNewCard(data) {
+    return fetch(this._url, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if(res.ok) {
+        console.log('New card added! - ' + res.status);
+        return res.json();
+      }
+      return Promise.reject('Ошибка при добавлении новой карточки: ' + res.status);
+    })
+  }
 }
