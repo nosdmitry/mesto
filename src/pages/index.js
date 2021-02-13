@@ -8,7 +8,7 @@ import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api.js';
 
-import { initialCards }       from '../scripts/utils/initialCards.js';
+//import { initialCards }       from '../scripts/utils/initialCards.js';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
   popupFullSizeCard, config } from '../scripts/utils/constants.js';
 
@@ -26,13 +26,6 @@ const popupPersonDescription = document.querySelector('.popup__input_type_descri
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
-const user = new UserInfo({ 
-  name: personName, 
-  description: personDescription
-});
-
-
-
 
 
 const api = new Api({
@@ -43,7 +36,7 @@ const api = new Api({
   }
 });
 
-
+// Добавление всех карточек с сервера
 api
   .getInitianCards()
   .then(data => {
@@ -51,7 +44,7 @@ api
       data: data.map(item => {
         return {
           name: item.name,
-          link: item.link
+          link: item.link,
         }
       }),
       renderer: (cardItem) => {
@@ -59,12 +52,35 @@ api
       }
     }, cardListSelector);
     cardList.renderItems();
-  });
+  })
+  .catch(err => console.log(err));
 
 
 
+//Получение данных о пользователе
+const userApi = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-20/users/me',
+  headers: {
+    authorization: '036c4f02-47a4-4c62-a975-bbce507f165f'
+  }
+})
 
-  
+userApi.getUserInfo()
+  .then(res => {
+    console.log(res);
+    return res;
+  })
+  .then(data => {
+    personName.textContent = data.name;
+    personDescription.textContent = data.about;
+    return { name: data.name, description: data.about }
+  })
+  .catch(err => console.log(err));
+
+const user = new UserInfo({ 
+  name: personName, 
+  description: personDescription
+});
 
 
 
