@@ -34,7 +34,6 @@ const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/cards/',
   headers: {
     authorization: '036c4f02-47a4-4c62-a975-bbce507f165f',
-    "content-type": "aplication/json",
   }
 });
 
@@ -60,14 +59,14 @@ api
 
 
 //Получение данных о пользователе
-const userApi = new Api({
+const getUserApi = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/users/me',
   headers: {
     authorization: '036c4f02-47a4-4c62-a975-bbce507f165f'
   }
 })
 
-userApi.getUserInfo()
+getUserApi.getUserInfo()
   .then(res => {
     console.log(res);
     return res;
@@ -80,10 +79,51 @@ userApi.getUserInfo()
   })
   .catch(err => console.log(err));
 
-const user = new UserInfo({ 
-  name: personName, 
-  description: personDescription
+  const user = new UserInfo({ 
+    name: personName, 
+    description: personDescription
+  });
+
+
+const editUserApi = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-20/users/me',
+  headers: {
+    "authorization": "036c4f02-47a4-4c62-a975-bbce507f165f",
+    "Content-Type": "application/json"
+  }
 });
+
+const popupEditProfileForm = new PopupWithForm({
+  popupSelector: popupProfile,
+  handleFormSubmit: (formData) => {
+    editUserApi.editUserInfo({
+      name: formData.popup_name,
+      about: formData.popup_description
+    })
+    .then(data => {
+      user.setUserInfo(data.name, data.about);
+    })
+    .catch(err => console.log(err));
+
+    popupEditProfileForm.close();
+  }
+});
+
+
+
+
+
+editProfileButton.addEventListener('click', () => {
+
+  const userData = user.getUserInfo();
+  popupEditProfileForm.open();
+
+  popupPersonName.value = userData.name;
+  popupPersonDescription.value = userData.description;
+  editProfileValidation.resetValidation();
+});
+
+
 
 
 
@@ -104,13 +144,6 @@ const popupAddNewCard = new PopupWithForm({
   }
 });
 
-const popupEditProfileForm = new PopupWithForm({
-  popupSelector: popupProfile,
-  handleFormSubmit: (formData) => {
-    user.setUserInfo(formData.popup_name, formData.popup_description);
-    popupEditProfileForm.close();
-  }
-});
 
 function createNewCard(cardItem) {
   const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open);
@@ -124,13 +157,7 @@ popupWithImage.setEventListener();
 popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
 
-editProfileButton.addEventListener('click', () => {
-  const userData = user.getUserInfo();
-  popupEditProfileForm.open();
-  popupPersonName.value = userData.name;
-  popupPersonDescription.value = userData.description;
-  editProfileValidation.resetValidation();
-});
+
 
 addNewCardButtonPopup.addEventListener('click', () => {
   popupAddNewCard.open();
