@@ -1,5 +1,5 @@
 export class Card {
-  constructor( {name, link, _id, likes}, templateSelector, openFullScreenImage) {
+  constructor( {name, link, _id, likes}, templateSelector, openFullScreenImage, popupDeleteCard) {
     this._name = name;
     this._image = link;
     this._id = _id;
@@ -10,6 +10,7 @@ export class Card {
     this._likeButton = this._element.querySelector('.galery__heart');
     this._deleteButton = this._element.querySelector('.galery__delete-card-button');
     this._showPopupImage = () => openFullScreenImage(this._name, this._image);
+    this._popupDeleteCard = popupDeleteCard;
   }
 
   generateCard() {
@@ -38,6 +39,8 @@ export class Card {
       this._showPopupImage();
     });
     this._deleteButton.addEventListener('click', () => {
+      this._popupDeleteCard.open();
+      this._popupDeleteCard.setEventListener();
       this._deleteCard();
     });
   }

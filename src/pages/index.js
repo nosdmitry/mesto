@@ -4,12 +4,13 @@ import { Section }            from '../scripts/components/Section.js';
 import { Card }               from '../scripts/components/Card.js';
 import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
+import { PopupDeleteCard }    from '../scripts/components/PopupDeleteCard.js';
 import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
-  popupFullSizeCard, config } from '../scripts/utils/constants.js';
+  popupFullSizeCard, popupDeleteCard, config } from '../scripts/utils/constants.js';
 
 
 
@@ -26,6 +27,7 @@ const popupPersonDescription = document.querySelector('.popup__input_type_descri
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
+const popupWithDeleteCard = new PopupDeleteCard(popupDeleteCard);
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
@@ -115,7 +117,7 @@ const popupAddNewCard = new PopupWithForm({
 
 
 function createNewCard(cardItem) {
-  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open);
+  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
