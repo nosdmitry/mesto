@@ -35,6 +35,7 @@
 @import url(../blocks/profile/__add-card-button/profile__add-card-button.css);
 @import url(../blocks/profile/__edit/profile__edit.css);
 @import url(../blocks/profile/__title-wrap/profile__title-wrap.css);
+@import url(../blocks/profile/__change-avatar/profile__change-avatar.css);
 
 @import url(../blocks/galery/_margins/galery_margins.css);
 @import url(../blocks/galery/__text/galery__text.css);

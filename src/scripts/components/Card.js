@@ -65,7 +65,6 @@ export class Card {
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
-      //this._checkMyLike();
     });
     this._cardImage.addEventListener('click', () => {
       this._showPopupImage();
@@ -76,24 +75,25 @@ export class Card {
     });
   }
 
+  _toggleLikeButton(data) {
+    this._likeButton.classList.toggle('galery__heart_active');
+    this._likesCounter.textContent = data.likes.length;  
+  }
 
   _handleLikeButton() {
     if(this._likeButton.classList.contains('galery__heart_active')) {
       this.api.removeLike(this._cardId)
         .then(res => {
-          this._likeButton.classList.toggle('galery__heart_active');
-          this._likesCounter.textContent = res.likes.length;  
+          this._toggleLikeButton(res);
         })
         .catch(err => console.log(err));
     } else {
       this.api.addLike(this._cardId)
         .then(res => {
           console.log(res);
-          this._likeButton.classList.toggle('galery__heart_active');
-          this._likesCounter.textContent = res.likes.length;
+          this._toggleLikeButton(res);
         })
         .catch(err => console.log(err));
-  //    this._likeButton.classList.toggle('galery__heart_active');
     }
  }
 

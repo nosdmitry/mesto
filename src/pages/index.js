@@ -54,8 +54,9 @@ api.getUserInfo()
   .then(userData => {
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;
-    personAvatar.src = userData.avatar;
-    //return { name: userData.name, description: userData.about, id: userData._id }
+    // personAvatar.src = userData.avatar;
+    personAvatar.style.backgroundImage = `url(${userData.avatar})`;
+    console.log(userData.avatar);
   })
   .catch(err => console.log(err));
 
