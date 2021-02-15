@@ -57,7 +57,7 @@ api.getUserInfo()
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;
     personAvatar.src = userData.avatar;
-    return { name: userData.name, description: userData.about }
+    return { name: userData.name, description: userData.about, id: userData._id }
   })
   .catch(err => console.log(err));
 
@@ -108,7 +108,8 @@ const popupAddNewCard = new PopupWithForm({
     .then(data => cardList.addItem(createNewCard({
       name: data.name,
       link: data.link,
-      likes: data.likes
+      likes: data.likes,
+      owner: data.owner
     })))
     .catch(err => console.log(err));
     popupAddNewCard.close();
@@ -117,7 +118,7 @@ const popupAddNewCard = new PopupWithForm({
 
 
 function createNewCard(cardItem) {
-  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard);
+  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard, api);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
