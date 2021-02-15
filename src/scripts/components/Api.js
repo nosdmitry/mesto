@@ -75,4 +75,31 @@ export class Api {
       return Promise.reject('Ошибка при удалении: ' + res.status);
     })
   }
+
+  addLike(cardId) {
+    return fetch(`${this._url}cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Поставить лайк не удалось: ' + res.status);
+    })
+
+  }
+
+  removeLike(cardId) {
+    return fetch(`${this._url}cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Убрать лайк не удалось: ' + res.status);
+    })
+  }
 }

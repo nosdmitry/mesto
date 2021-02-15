@@ -45,26 +45,24 @@ const cardList = new Section({
 
 api.getAllCards()
   .then(res => {
+    console.log(res);
     cardList.renderItems(res);
   })
   .catch(err => console.log(err))
-
-
-
 
 api.getUserInfo()
   .then(userData => {
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;
     personAvatar.src = userData.avatar;
-    return { name: userData.name, description: userData.about, id: userData._id }
+    //return { name: userData.name, description: userData.about, id: userData._id }
   })
   .catch(err => console.log(err));
 
-  const user = new UserInfo({ 
-    name: personName, 
-    description: personDescription
-  });
+const user = new UserInfo({ 
+  name: personName, 
+  description: personDescription
+});
 
 
 const popupEditProfileForm = new PopupWithForm({
