@@ -12,18 +12,19 @@ export class Card {
     this._deleteButton = this._element.querySelector('.galery__delete-card-button');
     this._showPopupImage = () => openFullScreenImage(this._name, this._image);
     this._popupDeleteCard = popupDeleteCard;
-    this._userData = api;
+    this.api = api;
   }
 
   generateCard() {
     this._cardImage.src = this._image;
     this._cardImage.alt = this._name;
-    this._userData.getUserInfo()
+    this.api.getUserInfo()
       .then(user => {
         if(user._id == this._cardOwnerId) {
           this._deleteButton.classList.remove('galery__delete-card-button_visible_hidden');
         }
       })
+      .catch(err => console.log(err));
     this._element.querySelector('.galery__text').textContent = this._name;
     this._element.querySelector('.galery__likes-counter').textContent = this._likes.length;
     this._setEventListeners();
@@ -40,7 +41,7 @@ export class Card {
   }
 
   _findCardOwner() {
-    this._userData.getUserInfo()
+    this.api.getUserInfo()
       .then(user => console.log(user._id == this._cardOwnerId))
       .catch(err => console.log(err));
   }
@@ -54,11 +55,9 @@ export class Card {
     });
     this._deleteButton.addEventListener('click', () => {
       console.log(this._cardOwnerId);
-      this._findCardOwner();
-      // console.log(this._userId);
-      // this._popupDeleteCard.open();
-      // this._popupDeleteCard.setEventListener();
-      this._deleteCard();
+      this._popupDeleteCard.open();
+      this._popupDeleteCard.deleteCard(this._cardId);
+      this._popupDeleteCard.setEventListener(this.deleteCard);
     });
   }
 
@@ -67,8 +66,13 @@ export class Card {
     this._likeButton.classList.toggle('galery__heart_active');
   }
 
-  _deleteCard() {
-    this._element.remove();
-    this._element = null;
+  deleteCard = () => {
+    this.api.deleteCard(this._cardId)
+      .then(() => {
+        this._element.remove();
+        this._element = null;
+        console.log('deleted!');
+      })
+      .then(err => console.log(err));
   }
 }

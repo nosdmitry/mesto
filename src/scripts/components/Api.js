@@ -47,7 +47,6 @@ export class Api {
   }
 
   addNewCard(data) {
-    console.log(this._headers.authorization);
     return fetch(`${this._url}cards/`, {
       method: 'POST',
       headers: {
@@ -61,6 +60,19 @@ export class Api {
         return res.json();
       }
       return Promise.reject('Ошибка при добавлении новой карточки: ' + res.status);
+    })
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this._url}cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Ошибка при удалении: ' + res.status);
     })
   }
 }
