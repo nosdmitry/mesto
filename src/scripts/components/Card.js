@@ -15,16 +15,20 @@ export class Card {
     this.api = api;
   }
 
-  generateCard() {
-    this._cardImage.src = this._image;
-    this._cardImage.alt = this._name;
+  _createDeleteButton() {
     this.api.getUserInfo()
       .then(user => {
-        if(user._id == this._cardOwnerId) {
+        if(user._id === this._cardOwnerId) {
           this._deleteButton.classList.remove('galery__delete-card-button_visible_hidden');
         }
       })
       .catch(err => console.log(err));
+  }
+
+  generateCard() {
+    this._cardImage.src = this._image;
+    this._cardImage.alt = this._name;
+    this._createDeleteButton();
     this._element.querySelector('.galery__text').textContent = this._name;
     this._element.querySelector('.galery__likes-counter').textContent = this._likes.length;
     this._setEventListeners();
@@ -40,12 +44,6 @@ export class Card {
     return cardElement;
   }
 
-  _findCardOwner() {
-    this.api.getUserInfo()
-      .then(user => console.log(user._id == this._cardOwnerId))
-      .catch(err => console.log(err));
-  }
-
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
@@ -54,9 +52,7 @@ export class Card {
       this._showPopupImage();
     });
     this._deleteButton.addEventListener('click', () => {
-      console.log(this._cardOwnerId);
       this._popupDeleteCard.open();
-      this._popupDeleteCard.deleteCard(this._cardId);
       this._popupDeleteCard.setEventListener(this.deleteCard);
     });
   }
