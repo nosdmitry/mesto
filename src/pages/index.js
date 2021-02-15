@@ -24,8 +24,13 @@ const personAvatar = document.querySelector('.profile__image');
 const popupPersonName = document.querySelector('.popup__input_type_name');
 const popupPersonDescription = document.querySelector('.popup__input_type_description');
 
+const personAvatarForm = document.querySelector('.popup__form_edit_avatar');
+const popupPersonAvatar = document.querySelector('.popup_change_avatar');
+
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
+const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
+
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const popupWithDeleteCard = new PopupDeleteCard(popupDeleteCard);
 
@@ -52,6 +57,7 @@ api.getAllCards()
 
 api.getUserInfo()
   .then(userData => {
+    console.log(userData);
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;
     // personAvatar.src = userData.avatar;
@@ -59,6 +65,40 @@ api.getUserInfo()
     console.log(userData.avatar);
   })
   .catch(err => console.log(err));
+
+
+
+
+
+
+
+
+
+const popupChangeUserAvatar = new PopupWithForm({
+  popupSelector: popupPersonAvatar,
+  handleFormSubmit: (formData) => {
+    api.changeAvatar({
+      avatar: formData.popup_description
+    })
+    .then(newLink => personAvatar.style.backgroundImage = `url(${newLink.avatar})`)
+    .catch(err => console.log(err));
+  }
+})  
+
+
+
+personAvatar.addEventListener('click', () => {
+  popupChangeUserAvatar.open();
+  //changeUserAvatarValidation.enableValidation();
+  popupChangeUserAvatar.setEventListener();
+})
+
+
+
+
+
+
+
 
 const user = new UserInfo({ 
   name: personName, 

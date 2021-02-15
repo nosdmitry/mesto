@@ -102,4 +102,21 @@ export class Api {
       return Promise.reject('Убрать лайк не удалось: ' + res.status);
     })
   }
+
+  changeAvatar(data) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._headers.authorization,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Ошибка при обновлении аватарки: ' + res.status);
+    })
+  }
 }
