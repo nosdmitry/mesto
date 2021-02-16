@@ -90,7 +90,6 @@ export class Card {
     } else {
       this.api.addLike(this._cardId)
         .then(res => {
-          console.log(res);
           this._toggleLikeButton(res);
         })
         .catch(err => console.log(err));
@@ -101,9 +100,8 @@ export class Card {
     this.api.deleteCard(this._cardId)
       .then(() => {
         this._element.remove();
-        this._element = null;
         console.log('deleted!');
       })
-      .then(err => console.log(err));
+      .catch(err => console.log(err));
   }
 }
