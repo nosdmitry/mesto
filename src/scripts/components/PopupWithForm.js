@@ -18,11 +18,13 @@ export class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
+    setTimeout((() => this._submitButton.textContent = 'Сохранить'), 500);
   }
 
   setEventListener() {
     super.setEventListener();
     this._form.addEventListener('submit', () => {
+      this._submitButton.textContent = 'Сохранение...';
       this._handleFormSubmit(this._getInputValues());
     });
   } 

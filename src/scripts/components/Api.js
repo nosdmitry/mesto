@@ -5,16 +5,18 @@ export class Api {
     this._body = options.body;
   }
 
+  _onError(res, message) {
+    if(res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`${message}: ` + res.status);
+  }
+
   getUserInfo() {
     return fetch(`${this._url}users/me`, {
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при обработке данный пользователя: ' + res.status);
-    });
+    .then(res => this._onError(res, 'Ошибка при обращении к серверу'))
   }
 
   editUserInfo(data) {
@@ -26,24 +28,14 @@ export class Api {
       },
       body: JSON.stringify(data)
       })
-      .then(res => {
-        if(res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Ошибка при редактировании профиля: ' + res.status);
-      })
+      .then(res => this._onError(res, 'Ошибка при редактировании данных пользователя'))
   }
 
   getAllCards() {
     return fetch(`${this._url}cards/`, {
         headers: this._headers
       })
-      .then(res => {
-        if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при загрузке файлов с сервера: ' + res.status);
-    })
+      .then(res => this._onError(res, 'Ошибка при получении данных карточек'))
   }
 
   addNewCard(data) {
@@ -55,12 +47,7 @@ export class Api {
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при добавлении новой карточки: ' + res.status);
-    })
+    .then(res => this._onError(res, 'Ошибка при добавлении новой карточки'))
   }
 
   deleteCard(cardId) {
@@ -68,12 +55,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при удалении: ' + res.status);
-    })
+    .then(res => this._onError(res, 'Ошибка при удалении картчоки'))
   }
 
   addLike(cardId) {
@@ -81,13 +63,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Поставить лайк не удалось: ' + res.status);
-    })
-
+    .then(res => this._onError(res, 'Ошибка при обработке лайка'))
   }
 
   removeLike(cardId) {
@@ -95,11 +71,18 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Убрать лайк не удалось: ' + res.status);
+    .then(res => this._onError(res, 'Ошибка при обработке лайка'))
+  }
+
+  changeAvatar(data) {
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me/avatar', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._headers.authorization,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
     })
+    .then(res => this._onError(res, 'Не удалось изменить аватарку'))
   }
 }

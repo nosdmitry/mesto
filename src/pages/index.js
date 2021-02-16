@@ -4,30 +4,22 @@ import { Section }            from '../scripts/components/Section.js';
 import { Card }               from '../scripts/components/Card.js';
 import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
-import { PopupDeleteCard }    from '../scripts/components/PopupDeleteCard.js';
+import { PopupWithSubmit }    from '../scripts/components/PopupWithSubmit.js';
 import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api';
 
-import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
-  popupFullSizeCard, popupDeleteCard, config } from '../scripts/utils/constants.js';
+import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
+  addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
+  personName, personDescription, popupPersonDescription, 
+  config }                    from '../scripts/utils/constants.js';
 
-
-
-
-
-
-
-const personName = document.querySelector('.profile__title');
-const personDescription = document.querySelector('.profile__subtitle');
-const personAvatar = document.querySelector('.profile__image');
-const popupPersonName = document.querySelector('.popup__input_type_name');
-const popupPersonDescription = document.querySelector('.popup__input_type_description');
 
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
+const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
-const popupWithDeleteCard = new PopupDeleteCard(popupDeleteCard);
+const popupWithDeleteButton = new PopupWithSubmit(popupDeleteCard);
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
@@ -36,36 +28,39 @@ const api = new Api({
   }
 });
 
-
+// Рендер каждой карточки
 const cardList = new Section({
-  renderer: (cardItem) => {
-    cardList.addItem(createNewCard(cardItem));
+  renderer: (cardData, userData) => {
+    cardList.addItem(createNewCard(cardData, userData));
   }
 }, cardListSelector);
 
-api.getAllCards()
-  .then(res => {
-    console.log(res);
-    cardList.renderItems(res);
-  })
-  .catch(err => console.log(err))
-
-api.getUserInfo()
-  .then(userData => {
-    personName.textContent = userData.name;
-    personDescription.textContent = userData.about;
-    // personAvatar.src = userData.avatar;
-    personAvatar.style.backgroundImage = `url(${userData.avatar})`;
-    console.log(userData.avatar);
-  })
-  .catch(err => console.log(err));
-
 const user = new UserInfo({ 
   name: personName, 
-  description: personDescription
+  description: personDescription,
+  avatar: personAvatar
 });
 
+// Форма изменения аватара
+// Отправляет данные из сервера и записывает их в DOM 
+const popupChangeUserAvatar = new PopupWithForm({
+  popupSelector: popupPersonAvatar,
+  handleFormSubmit: (formData) => {
+    api.changeAvatar({
+      avatar: formData.popup_description
+    })
+    .then(newLink => {
+      user.setUserAvatar({ avatar: `url(${newLink.avatar}`});
+    })
+    .then(() => {
+      popupChangeUserAvatar.close();
+    })
+    .catch(err => console.log(err));
+  }
+})  
 
+// Форма данных пользователя. 
+// Загружает данные на сервер и обновляет в DOM
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
@@ -74,29 +69,20 @@ const popupEditProfileForm = new PopupWithForm({
       about: formData.popup_description
     })
     .then(data => {
-      user.setUserInfo(data.name, data.about);
+      console.log(data)
+      user.setUserInfo({
+        inputName: data.name, 
+        inputDescription: data.about
+      });
     })
+    .then(() => popupEditProfileForm.close())
     .catch(err => console.log(err));
-
-    popupEditProfileForm.close();
   }
 });
 
-
-
-
-
-editProfileButton.addEventListener('click', () => {
-
-  const userData = user.getUserInfo();
-  popupEditProfileForm.open();
-
-  popupPersonName.value = userData.name;
-  popupPersonDescription.value = userData.description;
-  editProfileValidation.resetValidation();
-});
-
-
+// Форма сознания новой карточки
+// Создает экземпляр и записывает данные на сервер
+// В качестве рендера использует метод класса Section
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
@@ -104,30 +90,67 @@ const popupAddNewCard = new PopupWithForm({
       name: formData.popup_name,
       link: formData.popup_description
     })
-    .then(data => cardList.addItem(createNewCard({
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      owner: data.owner
-    })))
+    .then(data => { 
+      console.log(data);
+      cardList.addItem(createNewCard(data, data.owner))
+    })
+    .then(() => popupAddNewCard.close())
     .catch(err => console.log(err));
-    popupAddNewCard.close();
   }
 });
 
-
-function createNewCard(cardItem) {
-  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard, api);
+// Создает экземпляр карточки
+// Используется при рендере всек начальных карт и 
+// при создании новой карточки через форму
+function createNewCard(cardData, userData) {
+  const card = new Card(cardData, userData, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteButton, api);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
+
+// Загружает и рендерит все элементы карточек с сервера
+Promise.all([
+  api.getUserInfo(),
+  api.getAllCards()
+])
+  .then(res => {
+    cardList.renderItems(res[1], res[0]);
+  })
+  .catch(err => console.log(err))
+
+// Загружает данные пользователя с сервера и подставляет значения в DOM
+api.getUserInfo()
+  .then(userData => {
+    user.setUserInfo({
+      inputName: userData.name,
+      inputDescription: userData.about
+    });
+    user.setUserAvatar({
+      avatar: `url(${userData.avatar})`
+    });
+  })
+  .catch(err => console.log(err));
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
 popupWithImage.setEventListener();
 popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
+popupWithDeleteButton.setEventListener();
 
+editProfileButton.addEventListener('click', () => {
+  const userData = user.getUserInfo();
+  popupEditProfileForm.open();
+  popupPersonName.value = userData.name;
+  popupPersonDescription.value = userData.description;
+  editProfileValidation.resetValidation();
+});
+
+personAvatar.addEventListener('click', () => {
+  popupChangeUserAvatar.open();
+  changeUserAvatarValidation.enableValidation();
+  popupChangeUserAvatar.setEventListener();
+});
 
 addNewCardButtonPopup.addEventListener('click', () => {
   popupAddNewCard.open();

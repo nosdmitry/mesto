@@ -1,17 +1,23 @@
 export class UserInfo {
-  constructor({ name, description }) {
+  constructor({ name, description, avatar }) {
     this._nameSelector = name;
     this._descriptionSelector = description;
+    this._avatarSelector = avatar;
   }
 
   getUserInfo() {
     const userInfo = {};
     userInfo.name = this._nameSelector.textContent;
     userInfo.description = this._descriptionSelector.textContent;
+    userInfo.avatar = this._avatarSelector.style.backgroundImage;
     return userInfo;
   }
+
+  setUserAvatar({ avatar }) {
+    this._avatarSelector.style.backgroundImage = avatar;
+  }
   
-  setUserInfo(inputName, inputDescription) {
+  setUserInfo({inputName, inputDescription}) {
     this._nameSelector.textContent = inputName;
     this._descriptionSelector.textContent = inputDescription;
   }
