@@ -10,28 +10,14 @@ import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
-  addNewCardButtonPopup, popupFullSizeCard, popupSubmitButton,
+  addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
+  personName, personDescription, popupPersonDescription, 
   config }                    from '../scripts/utils/constants.js';
 
-
-
-
-
-
-
-const personName = document.querySelector('.profile__title');
-const personDescription = document.querySelector('.profile__subtitle');
-const personAvatar = document.querySelector('.profile__image');
-const popupPersonName = document.querySelector('.popup__input_type_name');
-const popupPersonDescription = document.querySelector('.popup__input_type_description');
-
-const personAvatarForm = document.querySelector('.popup__form_edit_avatar');
-const popupPersonAvatar = document.querySelector('.popup_change_avatar');
 
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
-
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const popupWithDeleteCard = new PopupDeleteCard(popupDeleteCard);
 
@@ -42,37 +28,15 @@ const api = new Api({
   }
 });
 
-
+// Рендер каждой карточки
 const cardList = new Section({
   renderer: (cardItem) => {
     cardList.addItem(createNewCard(cardItem));
   }
 }, cardListSelector);
 
-api.getAllCards()
-  .then(res => {
-    cardList.renderItems(res);
-  })
-  .catch(err => console.log(err))
-
-api.getUserInfo()
-  .then(userData => {
-    console.log(userData);
-    personName.textContent = userData.name;
-    personDescription.textContent = userData.about;
-    personAvatar.style.backgroundImage = `url(${userData.avatar})`;
-    console.log(userData.avatar);
-  })
-  .catch(err => console.log(err));
-
-
-
-
-
-
-
-
-
+// Форма изменения аватара
+// Отправляет данные из сервера и записывает их в DOM 
 const popupChangeUserAvatar = new PopupWithForm({
   popupSelector: popupPersonAvatar,
   handleFormSubmit: (formData) => {
@@ -89,25 +53,13 @@ const popupChangeUserAvatar = new PopupWithForm({
   }
 })  
 
-personAvatar.addEventListener('click', () => {
-  popupChangeUserAvatar.open();
-  changeUserAvatarValidation.enableValidation();
-  popupChangeUserAvatar.setEventListener();
-})
-
-
-
-
-
-
-
-
 const user = new UserInfo({ 
   name: personName, 
   description: personDescription
 });
 
-
+// Форма данных пользователя. 
+// Загрудает данные на сервер и обновляет в DOM
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
@@ -119,26 +71,13 @@ const popupEditProfileForm = new PopupWithForm({
       user.setUserInfo(data.name, data.about);
     })
     .catch(err => console.log(err));
-
     popupEditProfileForm.close();
   }
 });
 
-
-
-
-
-editProfileButton.addEventListener('click', () => {
-
-  const userData = user.getUserInfo();
-  popupEditProfileForm.open();
-
-  popupPersonName.value = userData.name;
-  popupPersonDescription.value = userData.description;
-  editProfileValidation.resetValidation();
-});
-
-
+// Форма сознания новой карточки
+// Создает экземпляр и записывает данные на сервер
+// В качестве рендера использует метод класса Section
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
@@ -157,12 +96,30 @@ const popupAddNewCard = new PopupWithForm({
   }
 });
 
-
+// Создает экземпляр карточки
+// Используется при рендере всек начальных карт и 
+// при создании новой карточки через форму
 function createNewCard(cardItem) {
   const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard, api);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
+
+// Загружает и рендерит все элементы карточек с сервера
+api.getAllCards()
+  .then(res => {
+    cardList.renderItems(res);
+  })
+  .catch(err => console.log(err))
+
+// Загружает данные пользователя с сервера и подставляет значения в DOM
+api.getUserInfo()
+  .then(userData => {
+    personName.textContent = userData.name;
+    personDescription.textContent = userData.about;
+    personAvatar.style.backgroundImage = `url(${userData.avatar})`;
+  })
+  .catch(err => console.log(err));
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
@@ -170,6 +127,19 @@ popupWithImage.setEventListener();
 popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
 
+editProfileButton.addEventListener('click', () => {
+  const userData = user.getUserInfo();
+  popupEditProfileForm.open();
+  popupPersonName.value = userData.name;
+  popupPersonDescription.value = userData.description;
+  editProfileValidation.resetValidation();
+});
+
+personAvatar.addEventListener('click', () => {
+  popupChangeUserAvatar.open();
+  changeUserAvatarValidation.enableValidation();
+  popupChangeUserAvatar.setEventListener();
+});
 
 addNewCardButtonPopup.addEventListener('click', () => {
   popupAddNewCard.open();

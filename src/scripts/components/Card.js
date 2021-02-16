@@ -16,6 +16,7 @@ export class Card {
     this.api = api;
   }
 
+  // Проверяет, поставил ли пользователь лайки
   _checkMyLike() {
     this.api.getUserInfo()
       .then(user => {
@@ -32,6 +33,7 @@ export class Card {
       .catch(err => console.log(err));
   }
 
+  // Создает кнопку удаления карточки только на своих карточках
   _createDeleteButton() {
     this.api.getUserInfo()
       .then(user => {
@@ -71,7 +73,8 @@ export class Card {
     });
     this._deleteButton.addEventListener('click', () => {
       this._popupDeleteCard.open();
-      this._popupDeleteCard.setEventListener(this.deleteCard);
+      // отправляет функцию удаления карточки в обработчик класса PopupDeleteCard
+      this._popupDeleteCard.setEventListener(this.deleteCard); 
     });
   }
 
@@ -80,6 +83,8 @@ export class Card {
     this._likesCounter.textContent = data.likes.length;  
   }
 
+  // добавляет и удаляет лайки.
+  // Значения берутся с сервера
   _handleLikeButton() {
     if(this._likeButton.classList.contains('galery__heart_active')) {
       this.api.removeLike(this._cardId)
@@ -96,12 +101,13 @@ export class Card {
     }
  }
 
+  // удаление карточки
   deleteCard = () => {
     this.api.deleteCard(this._cardId)
-      .then(() => {
-        this._element.remove();
-        console.log('deleted!');
-      })
-      .catch(err => console.log(err));
+    .then(() => {
+      this._element.remove();
+      console.log('deleted!');
+    })
+    .catch(err => console.log(err));
   }
 }

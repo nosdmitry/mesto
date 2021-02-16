@@ -9,6 +9,15 @@ const popupDeleteCard = document.querySelector('.popup_card_delete');
 
 const popupSubmitButton = document.querySelector('.popup__submit-button');
 
+const personAvatarForm = document.querySelector('.popup__form_edit_avatar');
+const popupPersonAvatar = document.querySelector('.popup_change_avatar');
+
+const personName = document.querySelector('.profile__title');
+const personDescription = document.querySelector('.profile__subtitle');
+const personAvatar = document.querySelector('.profile__image');
+const popupPersonName = document.querySelector('.popup__input_type_name');
+const popupPersonDescription = document.querySelector('.popup__input_type_description');
+
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -19,4 +28,6 @@ const config = {
 };
 
 export { cardListSelector, popupProfile, editProfileButton, popupAddCard, 
-  addNewCardButtonPopup, popupFullSizeCard, popupDeleteCard, popupSubmitButton, config };
+  addNewCardButtonPopup, popupFullSizeCard, popupDeleteCard, popupSubmitButton, config, 
+  personAvatarForm, personAvatar, popupPersonAvatar, popupPersonName, personName, 
+  personDescription, popupPersonDescription };
