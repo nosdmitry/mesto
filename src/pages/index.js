@@ -11,7 +11,7 @@ import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
   addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
-  personName, personDescription, popupPersonDescription, 
+  personName, personDescription, popupPersonDescription, profileImage, 
   config }                    from '../scripts/utils/constants.js';
 
 
@@ -35,6 +35,12 @@ const cardList = new Section({
   }
 }, cardListSelector);
 
+const user = new UserInfo({ 
+  name: personName, 
+  description: personDescription,
+  avatar: personAvatar
+});
+
 // Форма изменения аватара
 // Отправляет данные из сервера и записывает их в DOM 
 const popupChangeUserAvatar = new PopupWithForm({
@@ -44,7 +50,8 @@ const popupChangeUserAvatar = new PopupWithForm({
       avatar: formData.popup_description
     })
     .then(newLink => {
-      personAvatar.style.backgroundImage = `url(${newLink.avatar})`;
+      //personAvatar.style.backgroundImage = `url(${newLink.avatar})`;
+      user.setUserAvatar({ avatar: `url(${newLink.avatar}`});
     })
     .then(() => {
       popupChangeUserAvatar.close();
@@ -53,13 +60,11 @@ const popupChangeUserAvatar = new PopupWithForm({
   }
 })  
 
-const user = new UserInfo({ 
-  name: personName, 
-  description: personDescription
-});
 
+
+console.log(user);
 // Форма данных пользователя. 
-// Загрудает данные на сервер и обновляет в DOM
+// Загружает данные на сервер и обновляет в DOM
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
@@ -68,7 +73,11 @@ const popupEditProfileForm = new PopupWithForm({
       about: formData.popup_description
     })
     .then(data => {
-      user.setUserInfo(data.name, data.about);
+      console.log(data)
+      user.setUserInfo({
+        inputName: data.name, 
+        inputDescription: data.about
+      });
     })
     .then(() => popupEditProfileForm.close())
     .catch(err => console.log(err));
@@ -106,18 +115,31 @@ function createNewCard(cardItem) {
 }
 
 // Загружает и рендерит все элементы карточек с сервера
-api.getAllCards()
+
+Promise.all([
+  api.getUserInfo(),
+  api.getAllCards()
+])
   .then(res => {
-    cardList.renderItems(res);
+    console.log(res);
+    user.getUserInfo({
+
+    })
+    cardList.renderItems(res[1]);
   })
   .catch(err => console.log(err))
 
 // Загружает данные пользователя с сервера и подставляет значения в DOM
 api.getUserInfo()
   .then(userData => {
-    personName.textContent = userData.name;
-    personDescription.textContent = userData.about;
-    personAvatar.style.backgroundImage = `url(${userData.avatar})`;
+    console.log(userData);
+    user.setUserInfo({
+      inputName: userData.name,
+      inputDescription: userData.about
+    });
+    user.setUserAvatar({
+      avatar: `url(${userData.avatar})`
+    });
   })
   .catch(err => console.log(err));
 
