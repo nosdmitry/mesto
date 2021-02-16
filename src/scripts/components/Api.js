@@ -5,17 +5,18 @@ export class Api {
     this._body = options.body;
   }
 
-  _onError = (res) => {
+  _onError(res, message) {
     if(res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка при обращении к серверу: ` + res.status);
+    return Promise.reject(`${message}: ` + res.status);
   }
+
   getUserInfo() {
     return fetch(`${this._url}users/me`, {
       headers: this._headers
     })
-    .then(this._onError)
+    .then(res => this._onError(res, 'Ошибка при обращении к серверу'))
   }
 
   editUserInfo(data) {
@@ -27,14 +28,14 @@ export class Api {
       },
       body: JSON.stringify(data)
       })
-      .then(this._onError);
+      .then(res => this._onError(res, 'Ошибка при редактировании данных пользователя'))
   }
 
   getAllCards() {
     return fetch(`${this._url}cards/`, {
         headers: this._headers
       })
-      .then(this._onError);
+      .then(res => this._onError(res, 'Ошибка при получении данных карточек'))
   }
 
   addNewCard(data) {
@@ -46,7 +47,7 @@ export class Api {
       },
       body: JSON.stringify(data)
     })
-    .then(this._onError)
+    .then(res => this._onError(res, 'Ошибка при добавлении новой карточки'))
   }
 
   deleteCard(cardId) {
@@ -54,7 +55,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(this._onError)
+    .then(res => this._onError(res, 'Ошибка при удалении картчоки'))
   }
 
   addLike(cardId) {
@@ -62,7 +63,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     })
-    .then(this._onError)
+    .then(res => this._onError(res, 'Ошибка при обработке лайка'))
   }
 
   removeLike(cardId) {
@@ -70,7 +71,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(this._onError)
+    .then(res => this._onError(res, 'Ошибка при обработке лайка'))
   }
 
   changeAvatar(data) {
@@ -82,6 +83,6 @@ export class Api {
       },
       body: JSON.stringify(data)
     })
-    .then(this._onError)
+    .then(res => this._onError(res, 'Не удалось изменить аватарку'))
   }
 }

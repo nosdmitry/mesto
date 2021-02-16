@@ -70,8 +70,8 @@ const popupEditProfileForm = new PopupWithForm({
     .then(data => {
       user.setUserInfo(data.name, data.about);
     })
+    .then(() => popupEditProfileForm.close())
     .catch(err => console.log(err));
-    popupEditProfileForm.close();
   }
 });
 
