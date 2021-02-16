@@ -5,16 +5,17 @@ export class Api {
     this._body = options.body;
   }
 
+  _onError = (res) => {
+    if(res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка при обращении к серверу: ` + res.status);
+  }
   getUserInfo() {
     return fetch(`${this._url}users/me`, {
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при обработке данный пользователя: ' + res.status);
-    });
+    .then(this._onError)
   }
 
   editUserInfo(data) {
@@ -26,24 +27,14 @@ export class Api {
       },
       body: JSON.stringify(data)
       })
-      .then(res => {
-        if(res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Ошибка при редактировании профиля: ' + res.status);
-      })
+      .then(this._onError);
   }
 
   getAllCards() {
     return fetch(`${this._url}cards/`, {
         headers: this._headers
       })
-      .then(res => {
-        if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при загрузке файлов с сервера: ' + res.status);
-    })
+      .then(this._onError);
   }
 
   addNewCard(data) {
@@ -55,12 +46,7 @@ export class Api {
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при добавлении новой карточки: ' + res.status);
-    })
+    .then(this._onError)
   }
 
   deleteCard(cardId) {
@@ -68,12 +54,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при удалении: ' + res.status);
-    })
+    .then(this._onError)
   }
 
   addLike(cardId) {
@@ -81,13 +62,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Поставить лайк не удалось: ' + res.status);
-    })
-
+    .then(this._onError)
   }
 
   removeLike(cardId) {
@@ -95,12 +70,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Убрать лайк не удалось: ' + res.status);
-    })
+    .then(this._onError)
   }
 
   changeAvatar(data) {
@@ -112,11 +82,6 @@ export class Api {
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Ошибка при обновлении аватарки: ' + res.status);
-    })
+    .then(this._onError)
   }
 }
