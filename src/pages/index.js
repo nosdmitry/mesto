@@ -4,7 +4,7 @@ import { Section }            from '../scripts/components/Section.js';
 import { Card }               from '../scripts/components/Card.js';
 import { PopupWithImage }     from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm }      from '../scripts/components/PopupWithForm.js';
-import { PopupDeleteCard }    from '../scripts/components/PopupDeleteCard.js';
+import { PopupWithSubmit }    from '../scripts/components/PopupWithSubmit.js';
 import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api';
@@ -19,7 +19,8 @@ const editProfileValidation = new FormValidator(config, '.popup_profile_edit-for
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
-const popupWithDeleteCard = new PopupDeleteCard(popupDeleteCard);
+const popupWithDeleteButton = new PopupWithSubmit(popupDeleteCard);
+popupWithDeleteButton.setEventListener();
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
@@ -59,9 +60,6 @@ const popupChangeUserAvatar = new PopupWithForm({
   }
 })  
 
-
-
-console.log(user);
 // Форма данных пользователя. 
 // Загружает данные на сервер и обновляет в DOM
 const popupEditProfileForm = new PopupWithForm({
@@ -106,7 +104,7 @@ const popupAddNewCard = new PopupWithForm({
 // Используется при рендере всек начальных карт и 
 // при создании новой карточки через форму
 function createNewCard(cardData, userData) {
-  const card = new Card(cardData, userData, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard, api);
+  const card = new Card(cardData, userData, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteButton, api);
   const cardElement = card.generateCard(card);
   return cardElement;
 }

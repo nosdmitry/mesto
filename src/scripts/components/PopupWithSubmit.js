@@ -1,19 +1,23 @@
 import { Popup } from "./Popup";
 
-export class PopupDeleteCard extends Popup {
+export class PopupWithSubmit extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._deleteCardForm = document.querySelector('.popup__form_delete_new-card');
     this._deleteCardConfirmButton = document.querySelector('.popup__submit-button_delete-confirm');
+    this._deleteMethod;
   }
 
-  setEventListener(deleteCard) {
+  open = (deleteMethod) => {
+    super.open();
+    this._deleteMethod = deleteMethod;
+  }
+
+  setEventListener() {
     super.setEventListener();
     this._deleteCardForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      deleteCard();
+      this._deleteMethod();
     });
   }
-
-
 }

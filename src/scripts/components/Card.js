@@ -63,9 +63,7 @@ export class Card {
       this._showPopupImage();
     });
     this._deleteButton.addEventListener('click', () => {
-      this._popupDeleteCard.open();
-      // отправляет функцию удаления карточки в обработчик класса PopupDeleteCard
-      this._popupDeleteCard.setEventListener(this.deleteCard); 
+      this._popupDeleteCard.open(this.deleteCard);
     });
   }
 
