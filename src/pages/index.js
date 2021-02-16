@@ -108,8 +108,8 @@ const popupAddNewCard = new PopupWithForm({
 // Создает экземпляр карточки
 // Используется при рендере всек начальных карт и 
 // при создании новой карточки через форму
-function createNewCard(cardItem) {
-  const card = new Card(cardItem, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard, api);
+function createNewCard(cardData, userData) {
+  const card = new Card(cardData, userData, '.galery_card-tamplate', popupWithImage.open, popupWithDeleteCard, api);
   const cardElement = card.generateCard(card);
   return cardElement;
 }
@@ -121,11 +121,9 @@ Promise.all([
   api.getAllCards()
 ])
   .then(res => {
-    console.log(res);
-    user.getUserInfo({
-
-    })
-    cardList.renderItems(res[1]);
+    console.log(res[0]);
+    console.log(res[1]);
+    cardList.renderItems(res[1], res[0]);
   })
   .catch(err => console.log(err))
 

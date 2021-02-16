@@ -1,10 +1,16 @@
 export class Card {
-  constructor( {name, link, _id, likes, owner}, templateSelector, openFullScreenImage, popupDeleteCard, api) {
-    this._name = name;
-    this._image = link;
-    this._cardId = _id;
-    this._likes = likes;
-    this._cardOwnerId = owner._id;
+  constructor( 
+    // { name, link, _id, likes, owner }, 
+    cardData,
+    userData, 
+    templateSelector, openFullScreenImage, popupDeleteCard, api
+    ) {
+    this._userData = userData;
+    this._name = cardData.name;
+    this._image = cardData.link;
+    this._cardId = cardData._id;
+    this._likes = cardData.likes;
+    //this._cardOwnerId = owner._id;
     this._templateSelector = templateSelector;
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.galery__img');
