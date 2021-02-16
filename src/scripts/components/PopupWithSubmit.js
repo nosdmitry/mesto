@@ -13,6 +13,15 @@ export class PopupWithSubmit extends Popup {
     this._deleteMethod = deleteMethod;
   }
 
+  changeButtonContent() {
+    this._deleteCardConfirmButton.textContent = 'Удаление...';
+  }
+
+  close() {
+    super.close();
+    setTimeout((() => this._deleteCardConfirmButton.textContent = 'Да'), 500);
+  }
+
   setEventListener() {
     super.setEventListener();
     this._deleteCardForm.addEventListener('submit', (evt) => {

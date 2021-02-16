@@ -92,10 +92,10 @@ export class Card {
 
   // удаление карточки
   deleteCard = () => {
+    this._popupDeleteCard.changeButtonContent();
     this.api.deleteCard(this._cardId)
     .then(() => {
       this._element.remove();
-      console.log('deleted!');
     })
     .then(() => this._popupDeleteCard.close())
     .catch(err => console.log(err));
