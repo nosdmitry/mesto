@@ -27,7 +27,6 @@ export class Card {
     }
   }
 
-
   // Создает кнопку удаления карточки только на своих карточках
   _createDeleteButton() {
     if(this._userId == this._cardOwnerId) {

@@ -11,7 +11,7 @@ import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
   addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
-  personName, personDescription, popupPersonDescription, profileImage, 
+  personName, personDescription, popupPersonDescription, 
   config }                    from '../scripts/utils/constants.js';
 
 
@@ -20,7 +20,6 @@ const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const popupWithDeleteButton = new PopupWithSubmit(popupDeleteCard);
-popupWithDeleteButton.setEventListener();
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
@@ -137,6 +136,7 @@ addNewCardValidation.enableValidation();
 popupWithImage.setEventListener();
 popupAddNewCard.setEventListener();
 popupEditProfileForm.setEventListener();
+popupWithDeleteButton.setEventListener();
 
 editProfileButton.addEventListener('click', () => {
   const userData = user.getUserInfo();
