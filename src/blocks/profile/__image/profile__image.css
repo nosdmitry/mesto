@@ -1,4 +1,33 @@
 .profile__image {
-  width: 120px;
+  position: relative;
+  min-width: 120px;
+  min-height: 120px;
+  border: none;
+  outline: none;
+  background-position: center;
+  background-size: cover;
   border-radius: 50%;
 }
+
+.profile__image::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0;
+  transition: opacity .2s linear;
+}
+
+.profile__image:hover::after {
+  background-image: url(../../../images/edit_avatar.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .8;
+  cursor: pointer;
+}
+
+

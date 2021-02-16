@@ -5,6 +5,7 @@ const editProfileButton = document.querySelector('.profile__edit');
 const popupAddCard = document.querySelector('.popup_cards_add-form');
 const addNewCardButtonPopup = document.querySelector('.profile__add-card-button');
 const popupFullSizeCard = document.querySelector('.galery_popup');
+const popupDeleteCard = document.querySelector('.popup_card_delete');
 
 const config = {
   formSelector: '.popup__form',
@@ -16,4 +17,4 @@ const config = {
 };
 
 export { cardListSelector, popupProfile, editProfileButton, popupAddCard, 
-  addNewCardButtonPopup, popupFullSizeCard, config };
+  addNewCardButtonPopup, popupFullSizeCard, popupDeleteCard, config };
