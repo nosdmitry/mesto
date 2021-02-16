@@ -30,8 +30,8 @@ const api = new Api({
 
 // Рендер каждой карточки
 const cardList = new Section({
-  renderer: (cardItem) => {
-    cardList.addItem(createNewCard(cardItem));
+  renderer: (cardData, userData) => {
+    cardList.addItem(createNewCard(cardData, userData));
   }
 }, cardListSelector);
 
@@ -50,7 +50,6 @@ const popupChangeUserAvatar = new PopupWithForm({
       avatar: formData.popup_description
     })
     .then(newLink => {
-      //personAvatar.style.backgroundImage = `url(${newLink.avatar})`;
       user.setUserAvatar({ avatar: `url(${newLink.avatar}`});
     })
     .then(() => {
@@ -94,14 +93,12 @@ const popupAddNewCard = new PopupWithForm({
       name: formData.popup_name,
       link: formData.popup_description
     })
-    .then(data => cardList.addItem(createNewCard({
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      owner: data.owner
-    })))
+    .then(data => { 
+      console.log(data);
+      cardList.addItem(createNewCard(data, data.owner))
+    })
+    .then(() => popupAddNewCard.close())
     .catch(err => console.log(err));
-    popupAddNewCard.close();
   }
 });
 
@@ -115,14 +112,11 @@ function createNewCard(cardData, userData) {
 }
 
 // Загружает и рендерит все элементы карточек с сервера
-
 Promise.all([
   api.getUserInfo(),
   api.getAllCards()
 ])
   .then(res => {
-    console.log(res[0]);
-    console.log(res[1]);
     cardList.renderItems(res[1], res[0]);
   })
   .catch(err => console.log(err))
@@ -130,7 +124,6 @@ Promise.all([
 // Загружает данные пользователя с сервера и подставляет значения в DOM
 api.getUserInfo()
   .then(userData => {
-    console.log(userData);
     user.setUserInfo({
       inputName: userData.name,
       inputDescription: userData.about

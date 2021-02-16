@@ -1,16 +1,16 @@
 export class Card {
   constructor( 
-    // { name, link, _id, likes, owner }, 
     cardData,
     userData, 
     templateSelector, openFullScreenImage, popupDeleteCard, api
     ) {
-    this._userData = userData;
     this._name = cardData.name;
     this._image = cardData.link;
     this._cardId = cardData._id;
+    this._cardOwnerId = cardData.owner._id;
     this._likes = cardData.likes;
     //this._cardOwnerId = owner._id;
+    this._userId = userData._id;
     this._templateSelector = templateSelector;
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.galery__img');
@@ -23,31 +23,46 @@ export class Card {
   }
 
   // Проверяет, поставил ли пользователь лайки
+  // _checkMyLike() {
+  //   console.log(this._userId);
+  //   this.api.getUserInfo()
+  //     .then(user => {
+  //       const myLike = Object.keys(this._likes).some(like => {
+  //         return user._id == this._likes[like]._id;
+  //       })
+  //       return myLike;
+  //     })
+  //     .then((myLike) => {
+  //       if(myLike) {
+  //         this._likeButton.classList.add('galery__heart_active');
+  //       }
+  //     })
+  //     .catch(err => console.log(err));
+  // }
   _checkMyLike() {
-    this.api.getUserInfo()
-      .then(user => {
-        const myLike = Object.keys(this._likes).some(like => {
-          return user._id == this._likes[like]._id;
-        })
-        return myLike;
-      })
-      .then((myLike) => {
-        if(myLike) {
-          this._likeButton.classList.add('galery__heart_active');
-        }
-      })
-      .catch(err => console.log(err));
+    const myLike = Object.keys(this._likes).some(like => {
+      return this._likes[like]._id == this._userId;
+    });
+    if(myLike) {
+      this._likeButton.classList.add('galery__heart_active');
+    }
   }
 
+
   // Создает кнопку удаления карточки только на своих карточках
+  // _createDeleteButton() {
+  //   this.api.getUserInfo()
+  //     .then(user => {
+  //       if(user._id === this._cardOwnerId) {
+  //         this._deleteButton.classList.remove('galery__delete-card-button_visible_hidden');
+  //       }
+  //     })
+  //     .catch(err => console.log(err));
+  // }
   _createDeleteButton() {
-    this.api.getUserInfo()
-      .then(user => {
-        if(user._id === this._cardOwnerId) {
-          this._deleteButton.classList.remove('galery__delete-card-button_visible_hidden');
-        }
-      })
-      .catch(err => console.log(err));
+    if(this._userId == this._cardOwnerId) {
+      this._deleteButton.classList.remove('galery__delete-card-button_visible_hidden');
+    }
   }
 
   generateCard() {
