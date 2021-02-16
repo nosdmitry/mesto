@@ -18,10 +18,7 @@
 
     <main>
       <section class="profile">
-      <!-- <a href="#" class="profile__change-avatar"> -->
-        <!-- <img src="#" alt="Фотография профиля" class="profile__image"> -->
         <button class="profile__image" aria-label="Аватар"></button>
-        <!-- </a> -->
         <div class="profile__text-wrap">
           <div class="profile__title-wrap">
             <h1 class="profile__title">#</h1>
@@ -75,9 +72,9 @@
       <h3 class="popup__form-title">Изменить картинку</h3>
       <form name="popup_form" class="popup__form popup__form_edit_avatar" novalidate>
         <label class="popup__form-field">
-          <input id="avatar-url" type="url" name="popup_description" placeholder="Ссылка на картинку"
+          <input id="user-avatar" type="url" name="popup_description" placeholder="Ссылка на картинку"
             class="popup__input popup__input_type_image-link" required>
-          <span class="place-url-error popup__error"></span>
+          <span class="user-avatar-error popup__error"></span>
         </label>
         <button type="submit" name="submit-edit-avatar" class="popup__submit-button">Изменить</button>
       </form>

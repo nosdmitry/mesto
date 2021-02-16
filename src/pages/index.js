@@ -50,7 +50,6 @@ const cardList = new Section({
 
 api.getAllCards()
   .then(res => {
-    console.log(res);
     cardList.renderItems(res);
   })
   .catch(err => console.log(err))
@@ -60,7 +59,6 @@ api.getUserInfo()
     console.log(userData);
     personName.textContent = userData.name;
     personDescription.textContent = userData.about;
-    // personAvatar.src = userData.avatar;
     personAvatar.style.backgroundImage = `url(${userData.avatar})`;
     console.log(userData.avatar);
   })
@@ -81,15 +79,14 @@ const popupChangeUserAvatar = new PopupWithForm({
       avatar: formData.popup_description
     })
     .then(newLink => personAvatar.style.backgroundImage = `url(${newLink.avatar})`)
+    .then(() => popupChangeUserAvatar.close())
     .catch(err => console.log(err));
   }
 })  
 
-
-
 personAvatar.addEventListener('click', () => {
   popupChangeUserAvatar.open();
-  //changeUserAvatarValidation.enableValidation();
+  changeUserAvatarValidation.enableValidation();
   popupChangeUserAvatar.setEventListener();
 })
 
