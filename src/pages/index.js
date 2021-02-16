@@ -9,8 +9,9 @@ import { UserInfo }           from '../scripts/components/UserInfo.js';
 import { FormValidator }      from '../scripts/components/Formvalidator.js';
 import { Api }                from '../scripts/components/Api';
 
-import { cardListSelector, popupProfile, editProfileButton, popupAddCard, addNewCardButtonPopup,
-  popupFullSizeCard, popupDeleteCard, config } from '../scripts/utils/constants.js';
+import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
+  addNewCardButtonPopup, popupFullSizeCard, popupSubmitButton,
+  config }                    from '../scripts/utils/constants.js';
 
 
 
@@ -78,8 +79,12 @@ const popupChangeUserAvatar = new PopupWithForm({
     api.changeAvatar({
       avatar: formData.popup_description
     })
-    .then(newLink => personAvatar.style.backgroundImage = `url(${newLink.avatar})`)
-    .then(() => popupChangeUserAvatar.close())
+    .then(newLink => {
+      personAvatar.style.backgroundImage = `url(${newLink.avatar})`;
+    })
+    .then(() => {
+      popupChangeUserAvatar.close();
+    })
     .catch(err => console.log(err));
   }
 })  
