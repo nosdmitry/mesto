@@ -37,6 +37,8 @@
 @import url(../blocks/profile/__edit/profile__edit.css);
 @import url(../blocks/profile/__title-wrap/profile__title-wrap.css);
 @import url(../blocks/profile/__change-avatar/profile__change-avatar.css);
+@import url(../blocks/profile/__image/_visible/profile__image_visible_hidden.css);
+@import url(../blocks/profile/__image/_loading/profile__image_loading.css);
 
 @import url(../blocks/galery/_margins/galery_margins.css);
 @import url(../blocks/galery/__text/galery__text.css);

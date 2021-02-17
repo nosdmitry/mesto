@@ -18,13 +18,14 @@
 
     <main>
       <section class="profile">
-        <button class="profile__image" aria-label="Аватар"></button>
+        <button class="profile__image profile__image_visible_hidden" aria-label="Аватар"></button>
+        <div class="profile__image profile__image_loading"></div>
         <div class="profile__text-wrap">
           <div class="profile__title-wrap">
-            <h1 class="profile__title">#</h1>
+            <h1 class="profile__title" aria-label="Имя"></h1>
             <button type="button" aria-label="Edit_profile" class="profile__edit"></button>
           </div>
-          <p class="profile__subtitle">#</p>
+          <p class="profile__subtitle" aria-label="Описание"></p>
         </div>
         <button type="button" aria-label="Add_img" class="profile__add-card-button"></button>
       </section>
