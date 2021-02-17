@@ -24,6 +24,11 @@ const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const popupWithDeleteButton = new PopupWithSubmit(popupDeleteCard);
+const user = new UserInfo({ 
+  name: personName, 
+  description: personDescription,
+  avatar: personAvatar
+});
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
@@ -38,12 +43,6 @@ const cardList = new Section({
     cardList.addItem(createNewCard(cardData, userData));
   }
 }, cardListSelector);
-
-const user = new UserInfo({ 
-  name: personName, 
-  description: personDescription,
-  avatar: personAvatar
-});
 
 // Форма изменения аватара
 // Отправляет данные из сервера и записывает их в DOM 
@@ -97,7 +96,6 @@ const popupAddNewCard = new PopupWithForm({
       link: formData.popup_description
     })
     .then(data => { 
-      console.log(data);
       cardList.addItem(createNewCard(data, data.owner));
       popupAddNewCard.close();
     })
@@ -131,7 +129,7 @@ Promise.all([
     user.setUserAvatar({
       avatar: `url(${userData.avatar})`
     });
-    cardList.renderItems(cardData.reverse(), cardData);
+    cardList.renderItems(cardData.reverse(), userData);
   })
   .catch(err => console.log(err))
   .finally(() => {
