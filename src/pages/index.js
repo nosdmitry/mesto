@@ -11,8 +11,10 @@ import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
   addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
-  personName, personDescription, popupPersonDescription, galeryLoading,
-  config }                    from '../scripts/utils/constants.js';
+  personName, personDescription, popupPersonDescription, galeryLoading, popupAddNewCardButtonSubmit,
+  popupEditProfileButtonSubmit, popupAvatarChangeButtonSubmit,
+  config }                    
+                              from '../scripts/utils/constants.js';
 
 import { loadingAvatar }      from '../scripts/utils/functions.js';
 
@@ -22,6 +24,11 @@ const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
 const changeUserAvatarValidation = new FormValidator(config, '.popup__form_edit_avatar');
 const popupWithImage = new PopupWithImage(popupFullSizeCard);
 const popupWithDeleteButton = new PopupWithSubmit(popupDeleteCard);
+const user = new UserInfo({ 
+  name: personName, 
+  description: personDescription,
+  avatar: personAvatar
+});
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
@@ -37,27 +44,21 @@ const cardList = new Section({
   }
 }, cardListSelector);
 
-const user = new UserInfo({ 
-  name: personName, 
-  description: personDescription,
-  avatar: personAvatar
-});
-
 // Форма изменения аватара
 // Отправляет данные из сервера и записывает их в DOM 
 const popupChangeUserAvatar = new PopupWithForm({
   popupSelector: popupPersonAvatar,
   handleFormSubmit: (formData) => {
+    popupAvatarChangeButtonSubmit.textContent = 'Сохранение...';
     api.changeAvatar({
       avatar: formData.popup_description
     })
     .then(newLink => {
       user.setUserAvatar({ avatar: `url(${newLink.avatar}`});
-    })
-    .then(() => {
       popupChangeUserAvatar.close();
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => popupAvatarChangeButtonSubmit.textContent = 'Сохранить');
   }
 })  
 
@@ -66,19 +67,20 @@ const popupChangeUserAvatar = new PopupWithForm({
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
+    popupEditProfileButtonSubmit.textContent = 'Сохранение...';
     api.editUserInfo({
       name: formData.popup_name,
       about: formData.popup_description
     })
     .then(data => {
-      console.log(data)
       user.setUserInfo({
         inputName: data.name, 
         inputDescription: data.about
       });
+      popupEditProfileForm.close();
     })
-    .then(() => popupEditProfileForm.close())
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => popupEditProfileButtonSubmit.textContent = 'Сохранить');
   }
 });
 
@@ -88,16 +90,17 @@ const popupEditProfileForm = new PopupWithForm({
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
+    popupAddNewCardButtonSubmit.textContent = 'Сохранение...';
     api.addNewCard({
       name: formData.popup_name,
       link: formData.popup_description
     })
     .then(data => { 
-      console.log(data);
-      cardList.addItem(createNewCard(data, data.owner))
+      cardList.addItem(createNewCard(data, data.owner));
+      popupAddNewCard.close();
     })
-    .then(() => popupAddNewCard.close())
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => popupAddNewCardButtonSubmit.textContent = 'Создать');
   }
 });
 
@@ -110,21 +113,15 @@ function createNewCard(cardData, userData) {
   return cardElement;
 }
 
-// Загружает и рендерит все элементы карточек с сервера
+// Загружает и рендерит все элементы карточек с сервера,
+// добавляет в класс Card данные пользователя и 
+// добавляет данные пользователя в DOM
+loadingAvatar(true);
 Promise.all([
   api.getUserInfo(),
   api.getAllCards()
 ])
-  .then(res => {
-    cardList.renderItems(res[1], res[0]);
-  })
-  .then(() => galeryLoading.classList.add('galery__card_loading_hidden'))
-  .catch(err => console.log(err))
-
-// Загружает данные пользователя с сервера и подставляет значения в DOM
-loadingAvatar(true);
-api.getUserInfo()
-  .then(userData => {
+  .then(([userData, cardData]) => {
     user.setUserInfo({
       inputName: userData.name,
       inputDescription: userData.about
@@ -132,9 +129,13 @@ api.getUserInfo()
     user.setUserAvatar({
       avatar: `url(${userData.avatar})`
     });
-    loadingAvatar(false);
+    cardList.renderItems(cardData.reverse(), userData);
   })
-  .catch(err => console.log(err));
+  .catch(err => console.log(err))
+  .finally(() => {
+    loadingAvatar(false);
+    galeryLoading.classList.add('galery__card_loading_hidden');
+  });
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();

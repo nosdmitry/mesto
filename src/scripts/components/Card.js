@@ -90,16 +90,16 @@ export class Card {
       this.api.removeLike(this._cardId)
         .then(res => {
           this._toggleLikeButton(res);
-          this._loadingLikeButton(false);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+        .finally(() => this._loadingLikeButton(false));
     } else {
       this.api.addLike(this._cardId)
         .then(res => {
           this._toggleLikeButton(res);
-          this._loadingLikeButton(false);
         })
         .catch(err => console.log(err))
+        .finally(() => this._loadingLikeButton(false));
     }
  }
 
