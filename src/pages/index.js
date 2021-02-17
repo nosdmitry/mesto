@@ -11,7 +11,7 @@ import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
   addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
-  personName, personDescription, popupPersonDescription, 
+  personName, personDescription, popupPersonDescription, galeryLoading,
   config }                    from '../scripts/utils/constants.js';
 
 import { loadingAvatar }      from '../scripts/utils/functions.js';
@@ -118,6 +118,7 @@ Promise.all([
   .then(res => {
     cardList.renderItems(res[1], res[0]);
   })
+  .then(() => galeryLoading.classList.add('galery__card_loading_hidden'))
   .catch(err => console.log(err))
 
 // Загружает данные пользователя с сервера и подставляет значения в DOM

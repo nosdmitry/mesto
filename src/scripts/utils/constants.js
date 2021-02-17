@@ -1,6 +1,7 @@
 const cardListSelector = document.querySelector('.galery__cards');
 const popupProfile = document.querySelector('.popup_profile_edit-form');
 const editProfileButton = document.querySelector('.profile__edit');
+const galeryLoading = document.querySelector('.galery__card_loading');
 
 const popupAddCard = document.querySelector('.popup_cards_add-form');
 const addNewCardButtonPopup = document.querySelector('.profile__add-card-button');
@@ -31,4 +32,4 @@ const config = {
 export { cardListSelector, popupProfile, editProfileButton, popupAddCard, 
   addNewCardButtonPopup, popupFullSizeCard, popupDeleteCard, popupSubmitButton, config, 
   personAvatarForm, personAvatar, popupPersonAvatar, popupPersonName, personName, 
-  personDescription, popupPersonDescription, personAvatarLoading };
+  personDescription, popupPersonDescription, personAvatarLoading, galeryLoading };
