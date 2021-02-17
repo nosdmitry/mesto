@@ -74,7 +74,6 @@ const popupEditProfileForm = new PopupWithForm({
       about: formData.popup_description
     })
     .then(data => {
-      console.log(data)
       user.setUserInfo({
         inputName: data.name, 
         inputDescription: data.about
@@ -116,32 +115,29 @@ function createNewCard(cardData, userData) {
   return cardElement;
 }
 
-// Загружает и рендерит все элементы карточек с сервера
+// Загружает и рендерит все элементы карточек с сервера,
+// добавляет в класс Card данные пользователя и 
+// добавляет данные пользователя в DOM
 loadingAvatar(true);
 Promise.all([
   api.getUserInfo(),
   api.getAllCards()
 ])
-  .then(res => {
-     console.log(res);
-    
+  .then(([userData, cardData]) => {
     user.setUserInfo({
-      inputName: res[0].name,
-      inputDescription: res[0].about
+      inputName: userData.name,
+      inputDescription: userData.about
     });
     user.setUserAvatar({
-      avatar: `url(${res[0].avatar})`
+      avatar: `url(${userData.avatar})`
     });
-
-    cardList.renderItems(res[1].reverse(), res[0]);
+    cardList.renderItems(cardData.reverse(), cardData);
   })
   .catch(err => console.log(err))
   .finally(() => {
     loadingAvatar(false);
     galeryLoading.classList.add('galery__card_loading_hidden');
   });
-
-// Загружает данные пользователя с сервера и подставляет значения в DOM
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
