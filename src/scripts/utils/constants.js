@@ -19,8 +19,9 @@ const personAvatar = document.querySelector('.profile__image');
 const personAvatarLoading = document.querySelector('.profile__image_loading');
 const popupPersonName = document.querySelector('.popup__input_type_name');
 const popupPersonDescription = document.querySelector('.popup__input_type_description');
-const popupAddNewCardButtonSubmit = popupAddCard.querySelector('.popup__submit-button_add-card');
+const popupAddNewCardButtonSubmit = popupAddCard.querySelector('.popup__submit-button');
 const popupEditProfileButtonSubmit = popupProfile.querySelector('.popup__submit-button');
+const popupAvatarChangeButtonSubmit = popupPersonAvatar.querySelector('.popup__submit-button');
 
 const config = {
   formSelector: '.popup__form',
@@ -35,4 +36,4 @@ export { cardListSelector, popupProfile, editProfileButton, popupAddCard,
   addNewCardButtonPopup, popupFullSizeCard, popupDeleteCard, popupSubmitButton, config, 
   personAvatarForm, personAvatar, popupPersonAvatar, popupPersonName, personName, 
   personDescription, popupPersonDescription, personAvatarLoading, galeryLoading, 
-  popupAddNewCardButtonSubmit, popupEditProfileButtonSubmit };
+  popupAddNewCardButtonSubmit, popupEditProfileButtonSubmit, popupAvatarChangeButtonSubmit };

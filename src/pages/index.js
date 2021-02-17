@@ -12,7 +12,9 @@ import { Api }                from '../scripts/components/Api';
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
   addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
   personName, personDescription, popupPersonDescription, galeryLoading, popupAddNewCardButtonSubmit,
-  popupEditProfileButtonSubmit, config }                    from '../scripts/utils/constants.js';
+  popupEditProfileButtonSubmit, popupAvatarChangeButtonSubmit,
+  config }                    
+                              from '../scripts/utils/constants.js';
 
 import { loadingAvatar }      from '../scripts/utils/functions.js';
 
@@ -48,16 +50,16 @@ const user = new UserInfo({
 const popupChangeUserAvatar = new PopupWithForm({
   popupSelector: popupPersonAvatar,
   handleFormSubmit: (formData) => {
+    popupAvatarChangeButtonSubmit.textContent = 'Сохранение...';
     api.changeAvatar({
       avatar: formData.popup_description
     })
     .then(newLink => {
       user.setUserAvatar({ avatar: `url(${newLink.avatar}`});
-    })
-    .then(() => {
       popupChangeUserAvatar.close();
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => popupAvatarChangeButtonSubmit.textContent = 'Сохранить');
   }
 })  
 
@@ -136,9 +138,9 @@ api.getUserInfo()
     user.setUserAvatar({
       avatar: `url(${userData.avatar})`
     });
-    loadingAvatar(false);
   })
-  .catch(err => console.log(err));
+  .catch(err => console.log(err))
+  .finally(() => loadingAvatar(false));
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();
