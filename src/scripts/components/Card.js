@@ -10,6 +10,7 @@ export class Card {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.galery__img');
     this._likeButton = this._element.querySelector('.galery__heart');
+    this._likeButtonLoading = this._element.querySelector('.galery__heart_loading');
     this._likesCounter = this._element.querySelector('.galery__likes-counter');
     this._deleteButton = this._element.querySelector('.galery__delete-card-button');
     this._showPopupImage = () => openFullScreenImage(this._name, this._image);
@@ -71,21 +72,34 @@ export class Card {
     this._likesCounter.textContent = data.likes.length;  
   }
 
+  _loadingLikeButton(loading) {
+    if(loading == true) {
+      this._likeButton.classList.add('galery__heart_visible_hidden');
+      this._likeButtonLoading.classList.remove('galery__heart_visible_hidden');
+    } else {
+      this._likeButton.classList.remove('galery__heart_visible_hidden');
+      this._likeButtonLoading.classList.add('galery__heart_visible_hidden');
+    }
+  }
+
   // добавляет и удаляет лайки.
   // Значения берутся с сервера
   _handleLikeButton() {
+    this._loadingLikeButton(true);
     if(this._likeButton.classList.contains('galery__heart_active')) {
       this.api.removeLike(this._cardId)
         .then(res => {
           this._toggleLikeButton(res);
+          this._loadingLikeButton(false);
         })
         .catch(err => console.log(err));
     } else {
       this.api.addLike(this._cardId)
         .then(res => {
           this._toggleLikeButton(res);
+          this._loadingLikeButton(false);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
  }
 
