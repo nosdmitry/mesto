@@ -11,8 +11,8 @@ import { Api }                from '../scripts/components/Api';
 
 import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupDeleteCard,
   addNewCardButtonPopup, popupFullSizeCard, personAvatar, popupPersonAvatar, popupPersonName, 
-  personName, personDescription, popupPersonDescription, galeryLoading,
-  config }                    from '../scripts/utils/constants.js';
+  personName, personDescription, popupPersonDescription, galeryLoading, popupAddNewCardButtonSubmit,
+  popupEditProfileButtonSubmit, config }                    from '../scripts/utils/constants.js';
 
 import { loadingAvatar }      from '../scripts/utils/functions.js';
 
@@ -66,6 +66,7 @@ const popupChangeUserAvatar = new PopupWithForm({
 const popupEditProfileForm = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (formData) => {
+    popupEditProfileButtonSubmit.textContent = 'Сохранение...';
     api.editUserInfo({
       name: formData.popup_name,
       about: formData.popup_description
@@ -76,9 +77,10 @@ const popupEditProfileForm = new PopupWithForm({
         inputName: data.name, 
         inputDescription: data.about
       });
+      popupEditProfileForm.close();
     })
-    .then(() => popupEditProfileForm.close())
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => popupEditProfileButtonSubmit.textContent = 'Сохранить');
   }
 });
 
@@ -88,16 +90,18 @@ const popupEditProfileForm = new PopupWithForm({
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
+    popupAddNewCardButtonSubmit.textContent = 'Сохранение...';
     api.addNewCard({
       name: formData.popup_name,
       link: formData.popup_description
     })
     .then(data => { 
       console.log(data);
-      cardList.addItem(createNewCard(data, data.owner))
+      cardList.addItem(createNewCard(data, data.owner));
+      popupAddNewCard.close();
     })
-    .then(() => popupAddNewCard.close())
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => popupAddNewCardButtonSubmit.textContent = 'Создать');
   }
 });
 
@@ -118,8 +122,8 @@ Promise.all([
   .then(res => {
     cardList.renderItems(res[1], res[0]);
   })
-  .then(() => galeryLoading.classList.add('galery__card_loading_hidden'))
   .catch(err => console.log(err))
+  .finally(() => galeryLoading.classList.add('galery__card_loading_hidden'));
 
 // Загружает данные пользователя с сервера и подставляет значения в DOM
 loadingAvatar(true);
