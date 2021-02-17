@@ -117,30 +117,31 @@ function createNewCard(cardData, userData) {
 }
 
 // Загружает и рендерит все элементы карточек с сервера
+loadingAvatar(true);
 Promise.all([
   api.getUserInfo(),
   api.getAllCards()
 ])
   .then(res => {
-    cardList.renderItems(res[1], res[0]);
-  })
-  .catch(err => console.log(err))
-  .finally(() => galeryLoading.classList.add('galery__card_loading_hidden'));
-
-// Загружает данные пользователя с сервера и подставляет значения в DOM
-loadingAvatar(true);
-api.getUserInfo()
-  .then(userData => {
+     console.log(res);
+    
     user.setUserInfo({
-      inputName: userData.name,
-      inputDescription: userData.about
+      inputName: res[0].name,
+      inputDescription: res[0].about
     });
     user.setUserAvatar({
-      avatar: `url(${userData.avatar})`
+      avatar: `url(${res[0].avatar})`
     });
+
+    cardList.renderItems(res[1].reverse(), res[0]);
   })
   .catch(err => console.log(err))
-  .finally(() => loadingAvatar(false));
+  .finally(() => {
+    loadingAvatar(false);
+    galeryLoading.classList.add('galery__card_loading_hidden');
+  });
+
+// Загружает данные пользователя с сервера и подставляет значения в DOM
 
 editProfileValidation.enableValidation();
 addNewCardValidation.enableValidation();

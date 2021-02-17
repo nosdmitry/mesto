@@ -3,6 +3,15 @@ export class UserInfo {
     this._nameSelector = name;
     this._descriptionSelector = description;
     this._avatarSelector = avatar;
+    this.userData;
+  }
+
+  getAllUserData(userData) {
+    this.userData = userData;
+  }
+
+  setAllUserData() {
+    return this.userData;
   }
 
   getUserInfo() {
