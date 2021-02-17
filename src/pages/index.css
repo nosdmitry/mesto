@@ -53,6 +53,8 @@
 @import url(../blocks/galery/__likes-counter/galery__likes-counter.css);
 @import url(../blocks/galery/__heart/_loading/galery__heart_loading.css);
 @import url(../blocks/galery/__heart/_visible/galery__heart_visible_hidden.css);
+@import url(../blocks/galery/__card/_loading/galery__card_loading.css);
+@import url(../blocks/galery/__card/_loading_hidden/galery__card_loading_hidden.css);
 
 
 @import url(../blocks/galery/_popup/galery_popup.css);

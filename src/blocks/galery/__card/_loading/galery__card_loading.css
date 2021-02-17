@@ -1,0 +1,6 @@
+.galery__card_loading {
+  background-image: url(../../../../images/avatar-loader.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: black;
+}
