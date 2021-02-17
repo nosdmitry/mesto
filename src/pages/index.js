@@ -14,6 +14,8 @@ import { cardListSelector, popupProfile, editProfileButton, popupAddCard, popupD
   personName, personDescription, popupPersonDescription, 
   config }                    from '../scripts/utils/constants.js';
 
+import { loadingAvatar }      from '../scripts/utils/functions.js';
+
 
 const editProfileValidation = new FormValidator(config, '.popup_profile_edit-form');
 const addNewCardValidation = new FormValidator(config, '.popup_cards_add-form');
@@ -119,6 +121,7 @@ Promise.all([
   .catch(err => console.log(err))
 
 // Загружает данные пользователя с сервера и подставляет значения в DOM
+loadingAvatar(true);
 api.getUserInfo()
   .then(userData => {
     user.setUserInfo({
@@ -128,6 +131,7 @@ api.getUserInfo()
     user.setUserAvatar({
       avatar: `url(${userData.avatar})`
     });
+    loadingAvatar(false);
   })
   .catch(err => console.log(err));
 
