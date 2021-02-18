@@ -108,6 +108,7 @@ export class Card {
     this.api.deleteCard(this._cardId)
     .then(() => {
       this._element.remove();
+      this._element = null;
     })
     .then(() => this._popupDeleteCard.close())
     .catch(err => console.log(err));
