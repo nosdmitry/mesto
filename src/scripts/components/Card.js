@@ -82,24 +82,23 @@ export class Card {
     }
   }
 
+  _changeLikeStatus(apiRequest) {
+    apiRequest
+    .then(res => {
+      this._toggleLikeButton(res);
+    })
+    .catch(err => console.log(err))
+    .finally(() => this._loadingLikeButton(false));
+  }
+
   // добавляет и удаляет лайки.
   // Значения берутся с сервера
   _handleLikeButton() {
     this._loadingLikeButton(true);
     if(this._likeButton.classList.contains('galery__heart_active')) {
-      this.api.removeLike(this._cardId)
-        .then(res => {
-          this._toggleLikeButton(res);
-        })
-        .catch(err => console.log(err))
-        .finally(() => this._loadingLikeButton(false));
+      this._changeLikeStatus(this.api.removeLike(this._cardId));
     } else {
-      this.api.addLike(this._cardId)
-        .then(res => {
-          this._toggleLikeButton(res);
-        })
-        .catch(err => console.log(err))
-        .finally(() => this._loadingLikeButton(false));
+      this._changeLikeStatus(this.api.addLike(this._cardId));
     }
  }
 
