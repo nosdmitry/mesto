@@ -90,10 +90,11 @@ const popupEditProfileForm = new PopupWithForm({
 const popupAddNewCard = new PopupWithForm({
   popupSelector: popupAddCard,
   handleFormSubmit: (formData) => {
+    console.log(formData);
     popupAddNewCardButtonSubmit.textContent = 'Сохранение...';
     api.addNewCard({
+      link: formData.popup_description,
       name: formData.popup_name,
-      link: formData.popup_description
     })
     .then(data => { 
       cardList.addItem(createNewCard(data, data.owner));
